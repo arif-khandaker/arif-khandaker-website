@@ -3,20 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>আরিফ খন্দকার | লেখক</title>
-  <meta name="description" content="লেখক আরিফ খন্দকারের অফিসিয়াল ওয়েবসাইট — বই, গল্প, কবিতা, ব্লগ ও যোগাযোগ।">
-  <meta name="theme-color" content="#0b0b0b">
+  <title>আরিফ খন্দকার | বাংলাদেশী কথাসাহিত্যিক</title>
+  <meta name="description" content="বাংলাদেশী কথাসাহিত্যিক আরিফ খন্দকারের অফিসিয়াল ওয়েবসাইট — লেখক পরিচিতি, জীবনী, প্রকাশিত বই, নির্বাচিত লেখা, ছবি ও যোগাযোগ।">
+  <meta name="author" content="আরিফ খন্দকার">
+  <meta name="theme-color" content="#0e0d0b">
+  <link rel="canonical" href="https://authorarifkhandaker.com/">
 
   <!-- সোশ্যাল মিডিয়ায় শেয়ার করলে যে তথ্য দেখাবে -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="আরিফ খন্দকার | লেখক">
-  <meta property="og:description" content="বই, গল্প, কবিতা ও লেখালেখি।">
+  <meta property="og:url" content="https://authorarifkhandaker.com/">
+  <meta property="og:title" content="আরিফ খন্দকার | বাংলাদেশী কথাসাহিত্যিক">
+  <meta property="og:description" content="লেখক পরিচিতি, প্রকাশিত বই ও নির্বাচিত লেখা।">
+  <!-- শেয়ারের ছবি চাইলে: share.jpg আপলোড করে নিচের লাইনের শুরু ও শেষের দাগ মুছে দিন -->
+  <!-- <meta property="og:image" content="https://authorarifkhandaker.com/share.jpg"> -->
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230b0b0b'/%3E%3Ctext x='50' y='70' font-size='62' text-anchor='middle' fill='%23ffffff' font-family='serif'%3E%E0%A6%86%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230e0d0b'/%3E%3Crect x='8' y='8' width='84' height='84' fill='none' stroke='%23c9a45c' stroke-width='3'/%3E%3Ctext x='50' y='70' font-size='56' text-anchor='middle' fill='%23c9a45c' font-family='serif'%3E%E0%A6%86%3C/text%3E%3C/svg%3E">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600&family=Noto+Serif+Bengali:wght@400;500;600&family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Hind+Siliguri:wght@300;400;500;600&family=Noto+Serif+Bengali:wght@400;500&family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -24,28 +29,31 @@
 
   <a class="skip-link" href="#main">মূল লেখায় যান</a>
 
-  <!-- ================= হেডার ও মেনু ================= -->
+  <!-- ================= হেডার ================= -->
   <header class="site-header" id="site-header">
     <div class="container header-inner">
-      <a href="#home" class="logo" aria-label="হোম">
-        <span class="logo-mark">আ</span>
-        <span class="logo-text">আরিফ খন্দকার</span>
+      <a href="#home" class="brand" aria-label="হোম">
+        <span class="brand-mark">আ</span>
+        <span class="brand-text">
+          <span class="brand-bn">আরিফ খন্দকার</span>
+          <span class="brand-en">Arif Khandaker</span>
+        </span>
       </a>
 
       <button class="menu-toggle" id="menu-toggle" aria-label="মেনু খুলুন" aria-expanded="false" aria-controls="site-nav">
-        <span></span><span></span><span></span>
+        <span></span><span></span>
       </button>
 
       <nav class="site-nav" id="site-nav" aria-label="প্রধান মেনু">
         <ul>
-          <li><a href="#home">হোম</a></li>
-          <li><a href="#about">লেখক পরিচিতি</a></li>
+          <li><a href="#intro">পরিচিতি</a></li>
+          <li><a href="#biography">জীবনী</a></li>
           <li><a href="#books">বই</a></li>
-          <li><a href="#stories">গল্প</a></li>
-          <li><a href="#poems">কবিতা</a></li>
-          <li><a href="#blog">ব্লগ</a></li>
+          <li><a href="#writings">লেখা</a></li>
+          <li><a href="#gallery">ছবি</a></li>
           <li><a href="#contact">যোগাযোগ</a></li>
         </ul>
+        <p class="nav-foot">authorarifkhandaker.com</p>
       </nav>
     </div>
   </header>
@@ -54,170 +62,197 @@
 
     <!-- ================= হোম ================= -->
     <section id="home" class="hero">
-      <span class="hero-letter" aria-hidden="true">আ</span>
+      <div class="hero-frame" aria-hidden="true"></div>
+      <span class="hero-glyph" aria-hidden="true">আ</span>
+
       <div class="container hero-inner">
-        <p class="eyebrow">লেখক</p>
-        <h1 class="hero-name">আরিফ<br>খন্দকার</h1>
-        <p class="hero-tagline">[এখানে এক লাইনের পরিচিতি লিখুন — আপনার লেখালেখির মূল সুর বা বিষয়]</p>
+        <p class="hero-eyebrow"><span class="ornament">◆</span> বাংলাদেশী কথাসাহিত্যিক</p>
+        <h1 class="hero-name">আরিফ <em>খন্দকার</em></h1>
+        <p class="hero-en">Arif Khandaker &nbsp;·&nbsp; Author</p>
+
+        <div class="hero-rule" aria-hidden="true"></div>
+
+        <p class="hero-tagline">[এখানে এক বা দুই লাইনে আপনার লেখালেখির পরিচয় লিখুন।]</p>
+
         <blockquote class="hero-quote">
-          “[আপনার কোনো লেখা থেকে প্রিয় একটি লাইন এখানে দিন]”
+          <p>“[আপনার কোনো লেখা থেকে প্রিয় একটি লাইন]”</p>
+          <cite>— [বইয়ের বা লেখার নাম]</cite>
         </blockquote>
+
         <div class="hero-actions">
-          <a class="btn btn-light" href="#books">বইগুলো দেখুন</a>
-          <a class="btn btn-ghost-light" href="#contact">যোগাযোগ করুন</a>
+          <a class="btn btn-gold" href="#books">প্রকাশিত বই</a>
+          <a class="btn btn-ghost" href="#contact">যোগাযোগ করুন</a>
         </div>
       </div>
-      <a href="#about" class="scroll-cue" aria-label="নিচে যান"><span></span></a>
+
+      <a href="#intro" class="scroll-cue" aria-label="নিচে যান">
+        <span>স্ক্রল</span>
+        <i aria-hidden="true"></i>
+      </a>
     </section>
 
     <!-- ================= লেখক পরিচিতি ================= -->
-    <section id="about" class="section">
-      <div class="container">
-        <header class="section-head reveal">
-          <span class="section-num">০১</span>
-          <h2>লেখক পরিচিতি</h2>
-        </header>
-
-        <div class="about-grid">
-          <figure class="portrait reveal">
-            <!-- ছবি যোগ করতে: author.jpg নামে ছবি GitHub-এ আপলোড করুন,
-                 তারপর নিচের <div class="portrait-placeholder">...</div> অংশটি মুছে লিখুন:
-                 <img src="author.jpg" alt="আরিফ খন্দকার"> -->
+    <section id="intro" class="section">
+      <div class="container intro-grid">
+        <figure class="portrait reveal">
+          <!-- লেখকের ছবি script.js ফাইলের SITE অংশে (portrait) যোগ করুন -->
+          <div class="portrait-frame" data-portrait>
             <div class="portrait-placeholder">
               <span>আ</span>
               <small>লেখকের ছবি</small>
             </div>
-          </figure>
-
-          <div class="about-text reveal">
-            <p class="lead">[লেখকের পরিচিতির প্রথম অনুচ্ছেদ — আপনি কে, কী নিয়ে লেখেন, পাঠক আপনাকে কীভাবে চেনেন।]</p>
-            <p>[দ্বিতীয় অনুচ্ছেদ — লেখালেখির শুরু, অনুপ্রেরণা ও পথচলার গল্প।]</p>
-            <p>[তৃতীয় অনুচ্ছেদ — বর্তমান কাজ, ভবিষ্যৎ পরিকল্পনা বা পাঠকের প্রতি কোনো কথা।]</p>
-
-            <dl class="facts">
-              <div><dt>জন্ম</dt><dd>[জন্মস্থান ও সাল]</dd></div>
-              <div><dt>শিক্ষা</dt><dd>[শিক্ষাগত তথ্য]</dd></div>
-              <div><dt>প্রথম বই</dt><dd>[প্রথম প্রকাশিত বইয়ের নাম ও সাল]</dd></div>
-              <div><dt>সম্মাননা</dt><dd>[পুরস্কার বা স্বীকৃতি — না থাকলে এই লাইনটি মুছে দিন]</dd></div>
-            </dl>
-
-            <div class="social" data-social aria-label="সোশ্যাল মিডিয়া"></div>
           </div>
+          <figcaption>আরিফ খন্দকার</figcaption>
+        </figure>
+
+        <div class="intro-text">
+          <header class="section-head reveal">
+            <p class="section-eyebrow">০১ — লেখক পরিচিতি</p>
+            <h2>লেখকের কথা</h2>
+          </header>
+
+          <p class="lead reveal">[লেখক পরিচিতির প্রথম অনুচ্ছেদ — আপনি কী নিয়ে লেখেন এবং পাঠক আপনাকে কীভাবে চেনেন।]</p>
+          <p class="reveal">[দ্বিতীয় অনুচ্ছেদ — আপনার লেখার বিষয়, ভাবনা বা পাঠকের প্রতি কোনো কথা।]</p>
+
+          <dl class="facts reveal">
+            <div><dt>পরিচয়</dt><dd>বাংলাদেশী কথাসাহিত্যিক</dd></div>
+            <div><dt>জন্মস্থান</dt><dd>[জন্মস্থান]</dd></div>
+            <div><dt>বর্তমান বাস</dt><dd>[শহর / দেশ]</dd></div>
+            <div><dt>লেখার ধরন</dt><dd>[যেমন উপন্যাস, ছোটগল্প — আপনার নিজের লেখার ধরন লিখুন]</dd></div>
+          </dl>
+
+          <div class="social reveal" data-social aria-label="সোশ্যাল মিডিয়া"></div>
         </div>
       </div>
     </section>
 
-    <!-- ================= বই ================= -->
-    <section id="books" class="section section-alt">
+    <!-- ================= জীবনী ================= -->
+    <section id="biography" class="section section-tint">
+      <div class="container">
+        <header class="section-head section-head-center reveal">
+          <p class="section-eyebrow">০২ — জীবনী</p>
+          <h2>জীবন ও সাহিত্যযাত্রা</h2>
+        </header>
+
+        <div class="bio-grid">
+          <div class="bio-text reveal">
+            <p class="dropcap">[জীবনীর প্রথম অনুচ্ছেদ — জন্ম, শৈশব ও বেড়ে ওঠা।]</p>
+            <p>[দ্বিতীয় অনুচ্ছেদ — শিক্ষা ও পেশাজীবন।]</p>
+            <p>[তৃতীয় অনুচ্ছেদ — লেখালেখির শুরু ও সাহিত্যযাত্রা।]</p>
+            <p>[চতুর্থ অনুচ্ছেদ — বর্তমান কাজ ও ভবিষ্যৎ পরিকল্পনা।]</p>
+          </div>
+
+          <!-- সময়রেখার তথ্য script.js ফাইলের TIMELINE অংশে সম্পাদনা করুন -->
+          <ol class="timeline reveal" id="timeline" aria-label="সময়রেখা"></ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= প্রকাশিত বই ================= -->
+    <section id="books" class="section section-dark">
       <div class="container">
         <header class="section-head reveal">
-          <span class="section-num">০২</span>
+          <p class="section-eyebrow">০৩ — প্রকাশিত বই</p>
           <h2>বইসমূহ</h2>
-          <p class="section-sub">যেকোনো বই অর্ডার করতে বইয়ের নিচের <strong>WhatsApp-এ অর্ডার</strong> বোতামে চাপুন।</p>
+          <p class="section-sub">বই অর্ডার করতে <strong>WhatsApp-এ অর্ডার</strong> বোতামে চাপুন।</p>
         </header>
-        <!-- বইয়ের তথ্য script.js ফাইলের BOOKS অংশে সম্পাদনা করুন -->
+
+        <!-- বইয়ের তথ্য ও প্রচ্ছদ script.js ফাইলের BOOKS অংশে সম্পাদনা করুন -->
+        <div class="featured-book" id="featured-book"></div>
         <div class="book-grid" id="book-grid"></div>
       </div>
     </section>
 
-    <!-- ================= গল্প ================= -->
-    <section id="stories" class="section">
+    <!-- ================= নির্বাচিত লেখা ================= -->
+    <section id="writings" class="section">
       <div class="container">
         <header class="section-head reveal">
-          <span class="section-num">০৩</span>
-          <h2>গল্প</h2>
+          <p class="section-eyebrow">০৪ — নির্বাচিত লেখা</p>
+          <h2>পড়ুন</h2>
         </header>
-        <!-- গল্প script.js ফাইলের STORIES অংশে সম্পাদনা করুন -->
-        <div class="story-grid" id="story-grid"></div>
+
+        <div class="filters reveal" id="filters" role="group" aria-label="লেখার ধরন বাছুন"></div>
+
+        <!-- লেখাগুলো script.js ফাইলের WRITINGS অংশে সম্পাদনা করুন -->
+        <div class="writing-grid" id="writing-grid"></div>
       </div>
     </section>
 
-    <!-- ================= কবিতা ================= -->
-    <section id="poems" class="section section-dark">
+    <!-- ================= ছবি ================= -->
+    <section id="gallery" class="section section-tint">
       <div class="container">
-        <header class="section-head reveal">
-          <span class="section-num">০৪</span>
-          <h2>কবিতা</h2>
+        <header class="section-head section-head-center reveal">
+          <p class="section-eyebrow">০৫ — ছবি</p>
+          <h2>আলোকচিত্র</h2>
         </header>
-        <!-- কবিতা script.js ফাইলের POEMS অংশে সম্পাদনা করুন -->
-        <div class="poem-grid" id="poem-grid"></div>
-      </div>
-    </section>
 
-    <!-- ================= ব্লগ ================= -->
-    <section id="blog" class="section">
-      <div class="container">
-        <header class="section-head reveal">
-          <span class="section-num">০৫</span>
-          <h2>ব্লগ</h2>
-        </header>
-        <!-- ব্লগ পোস্ট script.js ফাইলের BLOG অংশে সম্পাদনা করুন -->
-        <div class="blog-list" id="blog-list"></div>
+        <!-- ছবিগুলো script.js ফাইলের GALLERY অংশে যোগ করুন -->
+        <div class="gallery-grid" id="gallery-grid"></div>
       </div>
     </section>
 
     <!-- ================= যোগাযোগ ================= -->
-    <section id="contact" class="section section-alt">
-      <div class="container">
-        <header class="section-head reveal">
-          <span class="section-num">০৬</span>
-          <h2>যোগাযোগ</h2>
-        </header>
+    <section id="contact" class="section">
+      <div class="container contact-grid">
+        <div class="contact-info">
+          <header class="section-head reveal">
+            <p class="section-eyebrow">০৬ — যোগাযোগ</p>
+            <h2>কথা হোক</h2>
+          </header>
 
-        <div class="contact-grid">
-          <div class="contact-info reveal">
-            <p class="lead">বই অর্ডার, অনুষ্ঠান, সাক্ষাৎকার বা যেকোনো প্রয়োজনে যোগাযোগ করুন।</p>
+          <p class="lead reveal">বই অর্ডার, অনুষ্ঠান, সাক্ষাৎকার বা যেকোনো প্রয়োজনে যোগাযোগ করুন।</p>
 
-            <ul class="contact-list">
-              <li>
-                <span class="contact-label">ইমেইল</span>
-                <!-- নিচের দুই জায়গায় your-email@example.com বদলে আপনার ইমেইল দিন -->
-                <a href="mailto:your-email@example.com">your-email@example.com</a>
-              </li>
-              <li>
-                <span class="contact-label">WhatsApp</span>
-                <a href="#" data-wa="general">WhatsApp-এ মেসেজ দিন</a>
-              </li>
-              <li>
-                <span class="contact-label">ঠিকানা</span>
-                <span>[শহর / ঠিকানা — না দিতে চাইলে এই অংশটি মুছে দিন]</span>
-              </li>
-            </ul>
+          <ul class="contact-list reveal">
+            <li>
+              <span class="contact-label">WhatsApp</span>
+              <a href="#" data-wa="general">WhatsApp-এ মেসেজ দিন →</a>
+            </li>
+            <li>
+              <span class="contact-label">ইমেইল</span>
+              <a href="#" data-email>[ইমেইল — script.js ফাইলে যোগ করুন]</a>
+            </li>
+            <li>
+              <span class="contact-label">ওয়েবসাইট</span>
+              <span>authorarifkhandaker.com</span>
+            </li>
+          </ul>
 
-            <div class="social" data-social aria-label="সোশ্যাল মিডিয়া"></div>
-          </div>
-
-          <!-- Netlify এই ফর্মটি নিজে থেকেই চিনে নেবে; বার্তাগুলো Netlify ড্যাশবোর্ডের Forms অংশে জমা হবে -->
-          <form class="contact-form reveal" id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-            <input type="hidden" name="form-name" value="contact">
-            <p class="hidden-field"><label>এটি পূরণ করবেন না: <input name="bot-field"></label></p>
-
-            <label class="field">
-              <span>আপনার নাম</span>
-              <input type="text" name="name" required autocomplete="name">
-            </label>
-            <label class="field">
-              <span>ইমেইল বা ফোন নম্বর</span>
-              <input type="text" name="contact" required autocomplete="email">
-            </label>
-            <label class="field">
-              <span>বিষয়</span>
-              <select name="subject">
-                <option>বই অর্ডার</option>
-                <option>সাধারণ জিজ্ঞাসা</option>
-                <option>অনুষ্ঠান / আমন্ত্রণ</option>
-                <option>সাক্ষাৎকার / গণমাধ্যম</option>
-                <option>অন্যান্য</option>
-              </select>
-            </label>
-            <label class="field">
-              <span>বার্তা</span>
-              <textarea name="message" rows="5" required></textarea>
-            </label>
-            <button type="submit" class="btn btn-dark btn-block">বার্তা পাঠান</button>
-            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
-          </form>
+          <div class="social reveal" data-social aria-label="সোশ্যাল মিডিয়া"></div>
         </div>
+
+        <!-- এই ফর্মে লেখা বার্তা WhatsApp বা ইমেইল অ্যাপে খুলে যাবে; GitHub Pages-এ কোনো সার্ভার লাগে না -->
+        <form class="contact-form reveal" id="contact-form" novalidate>
+          <p class="form-title">বার্তা লিখুন</p>
+
+          <label class="field">
+            <span>আপনার নাম</span>
+            <input type="text" name="name" required autocomplete="name">
+          </label>
+          <label class="field">
+            <span>ফোন বা ইমেইল</span>
+            <input type="text" name="reply" autocomplete="email">
+          </label>
+          <label class="field">
+            <span>বিষয়</span>
+            <select name="subject">
+              <option>বই অর্ডার</option>
+              <option>সাধারণ জিজ্ঞাসা</option>
+              <option>অনুষ্ঠান / আমন্ত্রণ</option>
+              <option>সাক্ষাৎকার / গণমাধ্যম</option>
+              <option>অন্যান্য</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>বার্তা</span>
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-gold" data-send="whatsapp">WhatsApp-এ পাঠান</button>
+            <button type="submit" class="btn btn-outline" data-send="email">ইমেইলে পাঠান</button>
+          </div>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </section>
 
@@ -225,26 +260,27 @@
 
   <!-- ================= ফুটার ================= -->
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <div>
+    <div class="container">
+      <div class="footer-top">
+        <span class="footer-mark" aria-hidden="true">আ</span>
         <p class="footer-name">আরিফ খন্দকার</p>
-        <p class="footer-note">[ফুটারের জন্য ছোট একটি লাইন — যেমন আপনার লেখালেখি নিয়ে একটি বাক্য]</p>
+        <p class="footer-en">Arif Khandaker · Author</p>
+        <div class="social social-dark" data-social aria-label="সোশ্যাল মিডিয়া"></div>
       </div>
-      <div class="social social-light" data-social aria-label="সোশ্যাল মিডিয়া"></div>
-    </div>
-    <div class="container footer-bottom">
-      <p>© <span id="year">২০২৬</span> আরিফ খন্দকার। সর্বস্বত্ব সংরক্ষিত।</p>
-      <a href="#home" class="to-top">উপরে যান ↑</a>
+      <div class="footer-bottom">
+        <p>© <span id="year">২০২৬</span> আরিফ খন্দকার। সর্বস্বত্ব সংরক্ষিত।</p>
+        <a href="#home" class="to-top">উপরে যান ↑</a>
+      </div>
     </div>
   </footer>
 
   <!-- ভাসমান WhatsApp বোতাম -->
-  <a href="#" class="wa-float" data-wa="general" aria-label="WhatsApp-এ বই অর্ডার করুন">
+  <a href="#" class="wa-float" data-wa="general" aria-label="WhatsApp-এ যোগাযোগ করুন">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.8l5.1-1.3A9.7 9.7 0 1 0 12 2.2zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.6 2.6 0 0 0-.8 1.9 4.5 4.5 0 0 0 1 2.4 10.2 10.2 0 0 0 3.9 3.4c1.4.6 2 .7 2.7.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.1-.1z"/></svg>
-    <span>বই অর্ডার</span>
+    <span>WhatsApp</span>
   </a>
 
-  <!-- পড়ার জন্য পপআপ (মডাল) -->
+  <!-- পড়ার ও ছবি দেখার পপআপ -->
   <div class="modal" id="modal" hidden>
     <div class="modal-backdrop" data-close></div>
     <article class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
