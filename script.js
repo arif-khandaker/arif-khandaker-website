@@ -11,17 +11,17 @@
 const SITE = {
   authorName: "আরিফ খন্দকার",
 
-  // WhatsApp নম্বর — দেশের কোডসহ, +, স্পেস বা ড্যাশ ছাড়া (বাংলাদেশ: 880 দিয়ে শুরু)
-  whatsappNumber: "8801XXXXXXXXX",
+  // WhatsApp নম্বর — দেশের কোডসহ, +, স্পেস বা ড্যাশ ছাড়া
+  whatsappNumber: "8801823818887",
 
   // ইমেইল ঠিকানা
-  email: "",
+  email: "arifkhandaker896@gmail.com",
 
-  // লেখকের ছবি — ছবিটি GitHub-এ আপলোড করে তার নাম দিন, যেমন "author.jpg"
-  portrait: "",
+  // লেখকের ছবি — ছবির পুরো লিংক, অথবা GitHub-এ আপলোড করা ফাইলের নাম (যেমন "author.jpg")
+  portrait: "https://authorarifkhandaker.com/wp-content/uploads/2026/04/5283-2.png?w=800",
 
   // WhatsApp বোতামে চাপলে যে বার্তা লেখা থাকবে
-  generalMessage: "শুভেচ্ছা! আমি আপনার সঙ্গে যোগাযোগ করতে চাই।",
+  generalMessage: "শুভেচ্ছা! আমি আপনার বই অর্ডার করতে / যোগাযোগ করতে চাই।",
 };
 
 
@@ -37,57 +37,162 @@ const SOCIAL = [
 
 
 /* ---------- ৩. জীবনীর সময়রেখা ----------
-   প্রয়োজনমতো লাইন যোগ বা মুছুন। */
+   প্রয়োজনমতো লাইন যোগ বা মুছুন। আগের বছরগুলোর তথ্য ওপরে যোগ করুন। */
 const TIMELINE = [
-  { year: "[সাল]", text: "[জীবনের গুরুত্বপূর্ণ ঘটনা]" },
-  { year: "[সাল]", text: "[জীবনের গুরুত্বপূর্ণ ঘটনা]" },
-  { year: "[সাল]", text: "[জীবনের গুরুত্বপূর্ণ ঘটনা]" },
-  { year: "[সাল]", text: "[জীবনের গুরুত্বপূর্ণ ঘটনা]" },
+  { year: "[সাল]", text: "[প্রথম বই প্রকাশ — বইয়ের নাম]" },
+  { year: "২০২৫", text: "বইমেলায় পাঁচটি বই: রজনীগন্ধা রিসোর্ট, আসমান জমিনের উপাখ্যান, আজমেরী, চন্দ্রমল্লিকা ও বেদনা রঙের বাড়ি।" },
+  { year: "২০২৬", text: "বইমেলায় তিনটি বই: অকূলপাথার, এখানে তাবিজ বিক্রি হয় ও বড়ো ভাই।" },
 ];
 
 
-/* ---------- ৪. প্রকাশিত বই ----------
+/* ---------- ৪. প্রকাশিত বই (প্রচ্ছদসহ) ----------
    প্রথম বইটি বড় করে আলাদাভাবে দেখাবে।
-   cover: প্রচ্ছদের ছবি GitHub-এ আপলোড করে নাম দিন, যেমন "book-1.jpg"।
-          খালি "" রাখলে কালো-সোনালি নকশার প্রচ্ছদ দেখাবে।
-   নতুন বই যোগ করতে একটি পুরো { ... }, ব্লক কপি করে নিচে বসান। */
+   cover: প্রচ্ছদের ছবির লিংক, অথবা GitHub-এ আপলোড করা ফাইলের নাম। খালি "" রাখলে নকশা করা প্রচ্ছদ দেখাবে।
+   summary: বইয়ের পরিচিতি নিজে লিখুন। */
 const BOOKS = [
   {
-    title: "[বইয়ের নাম ১]",
-    genre: "[ধরন]",
-    year: "[প্রকাশকাল]",
-    publisher: "[প্রকাশনী]",
-    price: "[মূল্য]",
+    title: "অকূলপাথার",
+    genre: "থ্রিলার উপন্যাস",
+    year: "বইমেলা ২০২৬",
+    publisher: "অনিন্দ্য প্রকাশ",
+    price: "১৪০০ টাকা",
+    pages: "৬৭৪",
     summary: "[বইটির সংক্ষিপ্ত পরিচিতি — ২ থেকে ৪ লাইন।]",
-    cover: "",
+    cover: "https://authorarifkhandaker.com/wp-content/uploads/2026/04/3797-4.jpg?w=600",
   },
   {
-    title: "[বইয়ের নাম ২]",
-    genre: "[ধরন]",
-    year: "[প্রকাশকাল]",
-    publisher: "[প্রকাশনী]",
-    price: "[মূল্য]",
-    summary: "[বইটির সংক্ষিপ্ত পরিচিতি।]",
-    cover: "",
+    title: "এখানে তাবিজ বিক্রি হয়",
+    genre: "থ্রিলার উপন্যাস",
+    year: "বইমেলা ২০২৬",
+    publisher: "অনিন্দ্য প্রকাশ",
+    price: "১৪০০ টাকা",
+    pages: "৬১২",
+    summary: "[বইটির সংক্ষিপ্ত পরিচিতি — ২ থেকে ৪ লাইন।]",
+    cover: "https://authorarifkhandaker.com/wp-content/uploads/2026/05/8448.jpg?w=600",
   },
   {
-    title: "[বইয়ের নাম ৩]",
-    genre: "[ধরন]",
-    year: "[প্রকাশকাল]",
-    publisher: "[প্রকাশনী]",
-    price: "[মূল্য]",
-    summary: "[বইটির সংক্ষিপ্ত পরিচিতি।]",
-    cover: "",
+    title: "বড়ো ভাই",
+    genre: "উপন্যাস",
+    year: "বইমেলা ২০২৬",
+    publisher: "ছায়া প্রকাশন",
+    price: "১২০০ টাকা",
+    pages: "৬৫৬",
+    summary: "[বইটির সংক্ষিপ্ত পরিচিতি — ২ থেকে ৪ লাইন।]",
+    cover: "https://authorarifkhandaker.com/wp-content/uploads/2026/05/3818.jpg?w=600",
   },
   {
-    title: "[বইয়ের নাম ৪]",
-    genre: "[ধরন]",
-    year: "[প্রকাশকাল]",
-    publisher: "[প্রকাশনী]",
-    price: "[মূল্য]",
-    summary: "[বইটির সংক্ষিপ্ত পরিচিতি।]",
-    cover: "",
+    title: "রজনীগন্ধা রিসোর্ট",
+    genre: "থ্রিলার উপন্যাস",
+    year: "বইমেলা ২০২৫",
+    publisher: "বইবাজার প্রকাশনী",
+    price: "১২০০ টাকা",
+    pages: "৭০৪",
+    summary: "[বইটির সংক্ষিপ্ত পরিচিতি — ২ থেকে ৪ লাইন।]",
+    cover: "https://authorarifkhandaker.com/wp-content/uploads/2026/05/3997.jpg?w=600",
   },
+  {
+    title: "আসমান জমিনের উপাখ্যান",
+    genre: "থ্রিলার উপন্যাস",
+    year: "বইমেলা ২০২৫",
+    publisher: "মনন প্রকাশ",
+    price: "১২০০ টাকা",
+    pages: "৭২০",
+    summary: "[বইটির সংক্ষিপ্ত পরিচিতি — ২ থেকে ৪ লাইন।]",
+    cover: "https://authorarifkhandaker.com/wp-content/uploads/2026/05/3662.jpg?w=600",
+  },
+  {
+    title: "আজমেরী",
+    genre: "থ্রিলার উপন্যাস",
+    year: "বইমেলা ২০২৫",
+    publisher: "মনন প্রকাশ",
+    price: "৯০০ টাকা",
+    pages: "৫০০",
+    summary: "[বইটির সংক্ষিপ্ত পরিচিতি — ২ থেকে ৪ লাইন।]",
+    cover: "https://authorarifkhandaker.com/wp-content/uploads/2026/05/3953.jpg?w=600",
+  },
+  {
+    title: "চন্দ্রমল্লিকা",
+    genre: "থ্রিলার উপন্যাস",
+    year: "বইমেলা ২০২৫",
+    publisher: "বর্ষাদুপুর প্রকাশনী",
+    price: "১০০০ টাকা",
+    pages: "৬৮২",
+    summary: "[বইটির সংক্ষিপ্ত পরিচিতি — ২ থেকে ৪ লাইন।]",
+    cover: "https://authorarifkhandaker.com/wp-content/uploads/2026/05/3843.jpg?w=600",
+  },
+  {
+    title: "বেদনা রঙের বাড়ি",
+    genre: "থ্রিলার উপন্যাস",
+    year: "বইমেলা ২০২৫",
+    publisher: "অনিন্দ্য প্রকাশ",
+    price: "৯০০ টাকা",
+    pages: "৪৮২",
+    summary: "[বইটির সংক্ষিপ্ত পরিচিতি — ২ থেকে ৪ লাইন।]",
+    cover: "https://authorarifkhandaker.com/wp-content/uploads/2026/05/3712.jpg?w=600",
+  },
+];
+
+
+/* ---------- ৪ক. সম্পূর্ণ গ্রন্থতালিকা ----------
+   ebook: true লিখলে বইটি "ইবুক" হিসেবে দেখাবে।
+   নতুন বই যোগ করতে একটি লাইন কপি করে নাম ও ধরন বদলান। */
+const BOOK_LIST = [
+  { title: "মেঘমালা", genre: "কাব্যগ্রন্থ", ebook: false },
+  { title: "সন্ধ্যাবেলায় বৃষ্টি", genre: "কাব্যগ্রন্থ", ebook: false },
+  { title: "চাঁদমুখী", genre: "উপন্যাস", ebook: false },
+  { title: "যে শহরে তুমি নেই", genre: "উপন্যাস", ebook: false },
+  { title: "হাজার বসন্ত তোমার অপেক্ষায়", genre: "উপন্যাস", ebook: false },
+  { title: "অর্ধেক প্রেম অর্ধেক বিরহ", genre: "উপন্যাস", ebook: false },
+  { title: "পৃথিবীর জন্য ভালোবাসা", genre: "সায়েন্স ফিকশন", ebook: false },
+  { title: "বালুচরের বালিকা", genre: "উপন্যাস", ebook: false },
+  { title: "কাজলবউ", genre: "উপন্যাস", ebook: false },
+  { title: "রোকসানা", genre: "উপন্যাস", ebook: false },
+  { title: "জনমভর", genre: "উপন্যাস", ebook: false },
+  { title: "আকাশ দেখার নিমন্ত্রণে", genre: "উপন্যাস", ebook: false },
+  { title: "রাজেশ্বরী", genre: "উপন্যাস", ebook: false },
+  { title: "চামেলী কটেজ", genre: "উপন্যাস", ebook: false },
+  { title: "বনলতা এক্সপ্রেস", genre: "উপন্যাস", ebook: false },
+  { title: "ষোলো আনা", genre: "উপন্যাস", ebook: false },
+  { title: "কৃষ্ণচূড়া তোমাকে দিলাম", genre: "উপন্যাস", ebook: false },
+  { title: "তুমি এসেছিলে পূর্ণিমা সন্ধ্যায়", genre: "উপন্যাস", ebook: false },
+  { title: "একদিন", genre: "উপন্যাস", ebook: false },
+  { title: "অরু এখন কারাগারে", genre: "উপন্যাস", ebook: false },
+  { title: "নীল মানুষ", genre: "উপন্যাস", ebook: false },
+  { title: "অশ্বারোহী", genre: "উপন্যাস", ebook: false },
+  { title: "নাগরদোলা", genre: "উপন্যাস", ebook: false },
+  { title: "নগরে নরক", genre: "উপন্যাস", ebook: false },
+  { title: "রাজপাট", genre: "উপন্যাস", ebook: false },
+  { title: "রাজধানী", genre: "উপন্যাস", ebook: false },
+  { title: "গঙ্গাযমুনা", genre: "উপন্যাস", ebook: false },
+  { title: "ও মন তোমাকে দেখাবো আমার চোখের শ্রাবণ", genre: "কাব্যগ্রন্থ", ebook: false },
+  { title: "তিলোত্তমা", genre: "উপন্যাস", ebook: false },
+  { title: "আজমেরী", genre: "থ্রিলার উপন্যাস", ebook: false },
+  { title: "আসমান জমিনের উপাখ্যান", genre: "থ্রিলার উপন্যাস", ebook: false },
+  { title: "রজনীগন্ধা রিসোর্ট", genre: "থ্রিলার উপন্যাস", ebook: false },
+  { title: "চন্দ্রমল্লিকা", genre: "থ্রিলার উপন্যাস", ebook: false },
+  { title: "অজাত", genre: "থ্রিলার উপন্যাস", ebook: false },
+  { title: "নীরা", genre: "উপন্যাস", ebook: false },
+  { title: "গুলশান", genre: "থ্রিলার উপন্যাস", ebook: false },
+  { title: "ঊনমানুষ", genre: "থ্রিলার উপন্যাস", ebook: false },
+  { title: "বেদনা রঙের বাড়ি", genre: "থ্রিলার উপন্যাস", ebook: false },
+  { title: "ডুববো বলে ডুবছি জলে", genre: "কাব্যগ্রন্থ", ebook: false },
+  { title: "দাফন", genre: "হরর থ্রিলার উপন্যাস", ebook: false },
+  { title: "মুখ কিংবা মুখোশ", genre: "থ্রিলার উপন্যাস", ebook: false },
+  { title: "বনলতা সেন এখানে আছেন", genre: "উপন্যাস", ebook: false },
+  { title: "ফাল্গুনী লেন", genre: "থ্রিলার উপন্যাস", ebook: false },
+  { title: "চৌকাঠ", genre: "উপন্যাস", ebook: false },
+  { title: "বড়ো ভাই", genre: "উপন্যাস", ebook: false },
+  { title: "অকূলপাথার", genre: "থ্রিলার উপন্যাস", ebook: false },
+  { title: "এখানে তাবিজ বিক্রি হয়", genre: "থ্রিলার উপন্যাস", ebook: false },
+  { title: "এই শহরে শিউলি ফোটে", genre: "উপন্যাস", ebook: true },
+  { title: "সেদিন বৃষ্টি হলো", genre: "উপন্যাস", ebook: true },
+  { title: "তপন বাগচীর একদিন", genre: "গল্পগ্রন্থ", ebook: true },
+  { title: "লাবনী", genre: "উপন্যাস", ebook: true },
+  { title: "হলুদ ফুলের খোঁপা", genre: "উপন্যাস", ebook: true },
+  { title: "এক দুপুরের নির্জনতায়", genre: "উপন্যাস", ebook: true },
+  { title: "বৃষ্টি তোমাকে দিলাম", genre: "উপন্যাস", ebook: true },
+  { title: "সেদিন চৈত্রমাস", genre: "উপন্যাস", ebook: true },
+  { title: "যে নদী ফেরে না", genre: "গল্পগ্রন্থ", ebook: true },
 ];
 
 
@@ -174,6 +279,7 @@ const esc = (str = "") =>
   String(str).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 const isPoem = (w) => POEM_TYPES.includes(w.type);
+const isFilled = (t) => Boolean(t) && !/^\[.*\]$/.test(String(t).trim());
 
 /* ---------- WhatsApp ও ইমেইল ---------- */
 const waNumber = String(SITE.whatsappNumber).replace(/\D/g, "");
@@ -280,11 +386,12 @@ function renderBooks() {
       <span class="featured-label">নির্বাচিত বই</span>
       <h3>${esc(b.title)}</h3>
       <p class="featured-genre">${esc(b.genre)}</p>
-      <p class="featured-summary">${esc(b.summary)}</p>
+      ${isFilled(b.summary) ? `<p class="featured-summary">${esc(b.summary)}</p>` : ""}
       <dl class="book-details">
         <div><dt>প্রকাশনী</dt><dd>${esc(b.publisher)}</dd></div>
         <div><dt>প্রকাশকাল</dt><dd>${esc(b.year)}</dd></div>
         <div><dt>মূল্য</dt><dd>${esc(b.price)}</dd></div>
+        ${b.pages ? `<div><dt>পৃষ্ঠা</dt><dd>${esc(b.pages)}</dd></div>` : ""}
       </dl>
       <div class="book-actions">
         ${orderButton(0)}
@@ -353,6 +460,39 @@ function applyFilter(type) {
   });
 }
 
+/* ---------- রেন্ডার: সম্পূর্ণ গ্রন্থতালিকা ---------- */
+function renderCatalog() {
+  const box = $("#catalog");
+  $$("[data-book-count]").forEach((el) => (el.textContent = toBn(BOOK_LIST.length)));
+  if (!box || !BOOK_LIST.length) return;
+
+  const groups = {};
+  BOOK_LIST.forEach((b) => {
+    const key = b.ebook ? "ইবুক" : b.genre;
+    (groups[key] = groups[key] || []).push(b);
+  });
+  const order = Object.keys(groups).sort((a, b) => (a === "ইবুক") - (b === "ইবুক"));
+
+  box.innerHTML = `
+    <div class="catalog-head">
+      <h3>সম্পূর্ণ গ্রন্থতালিকা</h3>
+      <p>মোট ${toBn(BOOK_LIST.length)}টি বই · যেকোনো বইয়ের পাশের <em>অর্ডার</em> লেখায় চাপুন</p>
+    </div>
+    <div class="catalog-groups">
+      ${order.map((g) => `
+        <section class="catalog-group">
+          <h4>${esc(g)} <span>${toBn(groups[g].length)}</span></h4>
+          <ol>
+            ${groups[g].map((b) => `
+              <li>
+                <span class="catalog-title">${esc(b.title)}${b.ebook ? ` <small>${esc(b.genre)}</small>` : ""}</span>
+                <a href="#" class="catalog-order" data-wa="title" data-title="${esc(b.title)}">অর্ডার</a>
+              </li>`).join("")}
+          </ol>
+        </section>`).join("")}
+    </div>`;
+}
+
 /* ---------- রেন্ডার: ছবি ---------- */
 function renderGallery() {
   const grid = $("#gallery-grid");
@@ -410,8 +550,8 @@ function openItem(type, index) {
     openModal({
       kicker: b.genre,
       title: b.title,
-      meta: `${b.publisher} · ${b.year} · ${b.price}`,
-      bodyHtml: `<p>${esc(b.summary)}</p>`,
+      meta: [b.publisher, b.year, b.pages && `${b.pages} পৃষ্ঠা`, b.price].filter(Boolean).join(" · "),
+      bodyHtml: isFilled(b.summary) ? `<p>${esc(b.summary)}</p>` : "",
       actionsHtml: orderButton(index, "WhatsApp-এ অর্ডার করুন"),
     });
   } else if (type === "writing") {
@@ -456,7 +596,9 @@ document.addEventListener("click", (e) => {
   const wa = e.target.closest("[data-wa]");
   if (wa) {
     e.preventDefault();
-    const msg = wa.dataset.wa === "book" ? bookOrderMessage(BOOKS[+wa.dataset.index]) : SITE.generalMessage;
+    let msg = SITE.generalMessage;
+    if (wa.dataset.wa === "book") msg = bookOrderMessage(BOOKS[+wa.dataset.index]);
+    if (wa.dataset.wa === "title") msg = bookOrderMessage({ title: wa.dataset.title });
     openWhatsApp(msg);
     return;
   }
@@ -591,11 +733,31 @@ function setupForm() {
   });
 }
 
+/* ---------- ছবি না এলে বিকল্প নকশা ---------- */
+document.addEventListener("error", (e) => {
+  const img = e.target;
+  if (!(img instanceof HTMLImageElement)) return;
+  const cover = img.closest(".book-cover");
+  if (cover) {
+    const title = img.getAttribute("alt").replace(" — প্রচ্ছদ", "");
+    cover.innerHTML = coverMarkup({ title, cover: "" });
+    return;
+  }
+  const portrait = img.closest("[data-portrait]");
+  if (portrait) {
+    portrait.innerHTML = '<div class="portrait-placeholder"><span>আ</span><small>লেখকের ছবি</small></div>';
+    return;
+  }
+  const tile = img.closest(".gallery-item");
+  if (tile) tile.innerHTML = `<span class="gallery-empty">${ICONS.photo}</span>`;
+}, true);
+
 /* ---------- চালু ---------- */
 renderPortrait();
 renderContact();
 renderTimeline();
 renderBooks();
+renderCatalog();
 renderWritings();
 renderGallery();
 revealOnScroll();

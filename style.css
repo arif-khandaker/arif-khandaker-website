@@ -675,7 +675,7 @@ p { margin: 0 0 1.1em; overflow-wrap: anywhere; }
 
 .book-details {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
   margin: 28px 0 32px;
   border-top: 1px solid var(--line-dark);
@@ -1144,6 +1144,66 @@ p { margin: 0 0 1.1em; overflow-wrap: anywhere; }
   .js .reveal { opacity: 1; transform: none; }
 }
 
+
+/* ---------- সম্পূর্ণ গ্রন্থতালিকা ---------- */
+.catalog {
+  margin-top: 96px;
+  padding-top: 64px;
+  border-top: 1px solid var(--line-dark);
+}
+.catalog:empty { display: none; }
+.catalog-head { text-align: center; margin-bottom: 48px; }
+.catalog-head h3 { font-size: clamp(30px, 4.4vw, 44px); margin-bottom: 8px; }
+.catalog-head p { color: var(--muted-dark); margin: 0; }
+.catalog-head em { font-style: normal; color: var(--gold); }
+
+.catalog-groups {
+  column-count: 3;
+  column-gap: 48px;
+}
+.catalog-group {
+  break-inside: avoid;
+  margin-bottom: 40px;
+}
+.catalog-group h4 {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 22px;
+  color: var(--gold-soft);
+  padding-bottom: 10px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--gold);
+}
+.catalog-group h4 span { font-size: 15px; color: var(--muted-dark); }
+.catalog-group ol { list-style: none; margin: 0; padding: 0; }
+.catalog-group li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 14px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(201,164,92,.12);
+}
+.catalog-title { color: var(--ivory); font-family: var(--font-display); font-size: 18px; line-height: 1.5; }
+.catalog-title small { font-family: var(--font-body); font-size: 13px; color: var(--muted-dark); margin-left: 4px; }
+.catalog-order {
+  flex-shrink: 0;
+  font-size: 13px;
+  color: var(--gold);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s var(--ease);
+}
+.catalog-order:hover { border-color: var(--gold); }
+
+@media (max-width: 1024px) { .catalog-groups { column-count: 2; } }
+@media (max-width: 640px) {
+  .catalog { margin-top: 64px; padding-top: 48px; }
+  .catalog-groups { column-count: 1; }
+  .book-details { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 /* =========================================================
    ট্যাবলেট
    ========================================================= */
@@ -1249,10 +1309,10 @@ p { margin: 0 0 1.1em; overflow-wrap: anywhere; }
 
   .bio-text { font-size: 17px; }
 
-  .book-details { grid-template-columns: 1fr; }
+  .book-details { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .book-details div,
-  .book-details div + div { padding: 12px 0; border-left: 0; }
-  .book-details div + div { border-top: 1px solid var(--line-dark); }
+  .book-details div + div { padding: 12px 12px 12px 0; border-left: 0; }
+  .book-details div:nth-child(n + 3) { border-top: 1px solid var(--line-dark); }
   .featured-book .book-actions .btn { flex: 1 1 100%; }
 
   .book-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 16px; }
