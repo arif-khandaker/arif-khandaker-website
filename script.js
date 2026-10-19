@@ -1,8 +1,8 @@
 /* =========================================================
    আরিফ খন্দকার — লেখক পোর্টফোলিও
    ---------------------------------------------------------
-   ✏️  সম্পাদনার জায়গা: নিচের ১ থেকে ৭ নম্বর অংশ।
-       [বন্ধনীর ভেতরের লেখা] আপনার আসল তথ্য দিয়ে বদলান।
+   ✏️  সম্পাদনার জায়গা: নিচের ১ থেকে ৭ নম্বর অংশ।
+       [বন্ধনীর ভেতরের লেখা] আপনার আসল তথ্য দিয়ে বদলান।
        উদ্ধৃতি চিহ্ন " " এবং লাইনের শেষের কমা , মুছবেন না।
    ========================================================= */
 
@@ -11,21 +11,21 @@
 const SITE = {
   authorName: "আরিফ খন্দকার",
 
-  // WhatsApp নম্বর — দেশের কোডসহ, +, স্পেস বা ড্যাশ ছাড়া
+  // WhatsApp নম্বর — দেশের কোডসহ, +, স্পেস বা ড্যাশ ছাড়া
   whatsappNumber: "8801823818887",
 
   // ইমেইল ঠিকানা
   email: "arifkhandaker896@gmail.com",
 
-  // লেখকের ছবি — ছবির পুরো লিংক, অথবা GitHub-এ আপলোড করা ফাইলের নাম (যেমন "author.jpg")
-  portrait: "https://authorarifkhandaker.com/wp-content/uploads/2026/04/5283-2.png?w=800",
+  // লেখকের ছবি — GitHub-এ আপলোড করা ছবির ফাইলের নাম
+  portrait: "5283-2.png",
 
   // WhatsApp বোতামে চাপলে যে বার্তা লেখা থাকবে
   generalMessage: "শুভেচ্ছা! আমি আপনার বই অর্ডার করতে / যোগাযোগ করতে চাই।",
 };
 
 
-/* ---------- ২. সোশ্যাল মিডিয়া ----------
+/* ---------- ২. সোশ্যাল মিডিয়া ----------
    "" এর ভেতরে প্রোফাইলের পুরো লিংক দিন (https:// সহ)।
    লিংক খালি থাকলে আইকনটি দেখাবে না। */
 const SOCIAL = [
@@ -36,19 +36,19 @@ const SOCIAL = [
 ];
 
 
-/* ---------- ৩. জীবনীর সময়রেখা ----------
-   প্রয়োজনমতো লাইন যোগ বা মুছুন। আগের বছরগুলোর তথ্য ওপরে যোগ করুন। */
+/* ---------- ৩. জীবনীর সময়রেখা ----------
+   প্রয়োজনমতো লাইন যোগ বা মুছুন। আগের বছরগুলোর তথ্য ওপরে যোগ করুন। */
 const TIMELINE = [
-  { year: "[সাল]", text: "[প্রথম বই প্রকাশ — বইয়ের নাম]" },
-  { year: "২০২৫", text: "বইমেলায় পাঁচটি বই: রজনীগন্ধা রিসোর্ট, আসমান জমিনের উপাখ্যান, আজমেরী, চন্দ্রমল্লিকা ও বেদনা রঙের বাড়ি।" },
-  { year: "২০২৬", text: "বইমেলায় তিনটি বই: অকূলপাথার, এখানে তাবিজ বিক্রি হয় ও বড়ো ভাই।" },
+  { year: "[সাল]", text: "[প্রথম বই প্রকাশ — বইয়ের নাম]" },
+  { year: "২০২৫", text: "বইমেলায় পাঁচটি বই: রজনীগন্ধা রিসোর্ট, আসমান জমিনের উপাখ্যান, আজমেরী, চন্দ্রমল্লিকা ও বেদনা রঙের বাড়ি।" },
+  { year: "২০২৬", text: "বইমেলায় তিনটি বই: অকূলপাথার, এখানে তাবিজ বিক্রি হয় ও বড়ো ভাই।" },
 ];
 
 
 /* ---------- ৪. প্রকাশিত বই (প্রচ্ছদসহ) ----------
-   প্রথম বইটি বড় করে আলাদাভাবে দেখাবে।
+   প্রথম বইটি বড় করে আলাদাভাবে দেখাবে।
    cover: প্রচ্ছদের ছবির লিংক, অথবা GitHub-এ আপলোড করা ফাইলের নাম। খালি "" রাখলে নকশা করা প্রচ্ছদ দেখাবে।
-   summary: বইয়ের পরিচিতি নিজে লিখুন। */
+   summary: বইয়ের পরিচিতি নিজে লিখুন। */
 const BOOKS = [
   {
     title: "অকূলপাথার",
@@ -58,27 +58,27 @@ const BOOKS = [
     price: "১৪০০ টাকা",
     pages: "৬৭৪",
     summary: "[বইটির সংক্ষিপ্ত পরিচিতি — ২ থেকে ৪ লাইন।]",
-    cover: "https://authorarifkhandaker.com/wp-content/uploads/2026/04/3797-4.jpg?w=600",
+    cover: "3797-4.jpg",
   },
   {
-    title: "এখানে তাবিজ বিক্রি হয়",
+    title: "এখানে তাবিজ বিক্রি হয়",
     genre: "থ্রিলার উপন্যাস",
     year: "বইমেলা ২০২৬",
     publisher: "অনিন্দ্য প্রকাশ",
     price: "১৪০০ টাকা",
     pages: "৬১২",
     summary: "[বইটির সংক্ষিপ্ত পরিচিতি — ২ থেকে ৪ লাইন।]",
-    cover: "https://authorarifkhandaker.com/wp-content/uploads/2026/05/8448.jpg?w=600",
+    cover: "8448.jpg",
   },
   {
-    title: "বড়ো ভাই",
+    title: "বড়ো ভাই",
     genre: "উপন্যাস",
     year: "বইমেলা ২০২৬",
-    publisher: "ছায়া প্রকাশন",
+    publisher: "ছায়া প্রকাশন",
     price: "১২০০ টাকা",
     pages: "৬৫৬",
     summary: "[বইটির সংক্ষিপ্ত পরিচিতি — ২ থেকে ৪ লাইন।]",
-    cover: "https://authorarifkhandaker.com/wp-content/uploads/2026/05/3818.jpg?w=600",
+    cover: "3818.jpg",
   },
   {
     title: "রজনীগন্ধা রিসোর্ট",
@@ -88,7 +88,7 @@ const BOOKS = [
     price: "১২০০ টাকা",
     pages: "৭০৪",
     summary: "[বইটির সংক্ষিপ্ত পরিচিতি — ২ থেকে ৪ লাইন।]",
-    cover: "https://authorarifkhandaker.com/wp-content/uploads/2026/05/3997.jpg?w=600",
+    cover: "3997.jpg",
   },
   {
     title: "আসমান জমিনের উপাখ্যান",
@@ -98,7 +98,7 @@ const BOOKS = [
     price: "১২০০ টাকা",
     pages: "৭২০",
     summary: "[বইটির সংক্ষিপ্ত পরিচিতি — ২ থেকে ৪ লাইন।]",
-    cover: "https://authorarifkhandaker.com/wp-content/uploads/2026/05/3662.jpg?w=600",
+    cover: "3662.jpg",
   },
   {
     title: "আজমেরী",
@@ -108,7 +108,7 @@ const BOOKS = [
     price: "৯০০ টাকা",
     pages: "৫০০",
     summary: "[বইটির সংক্ষিপ্ত পরিচিতি — ২ থেকে ৪ লাইন।]",
-    cover: "https://authorarifkhandaker.com/wp-content/uploads/2026/05/3953.jpg?w=600",
+    cover: "3953.jpg",
   },
   {
     title: "চন্দ্রমল্লিকা",
@@ -118,17 +118,17 @@ const BOOKS = [
     price: "১০০০ টাকা",
     pages: "৬৮২",
     summary: "[বইটির সংক্ষিপ্ত পরিচিতি — ২ থেকে ৪ লাইন।]",
-    cover: "https://authorarifkhandaker.com/wp-content/uploads/2026/05/3843.jpg?w=600",
+    cover: "3843.jpg",
   },
   {
-    title: "বেদনা রঙের বাড়ি",
+    title: "বেদনা রঙের বাড়ি",
     genre: "থ্রিলার উপন্যাস",
     year: "বইমেলা ২০২৫",
     publisher: "অনিন্দ্য প্রকাশ",
     price: "৯০০ টাকা",
     pages: "৪৮২",
     summary: "[বইটির সংক্ষিপ্ত পরিচিতি — ২ থেকে ৪ লাইন।]",
-    cover: "https://authorarifkhandaker.com/wp-content/uploads/2026/05/3712.jpg?w=600",
+    cover: "3712.jpg",
   },
 ];
 
@@ -138,12 +138,12 @@ const BOOKS = [
    নতুন বই যোগ করতে একটি লাইন কপি করে নাম ও ধরন বদলান। */
 const BOOK_LIST = [
   { title: "মেঘমালা", genre: "কাব্যগ্রন্থ", ebook: false },
-  { title: "সন্ধ্যাবেলায় বৃষ্টি", genre: "কাব্যগ্রন্থ", ebook: false },
+  { title: "সন্ধ্যাবেলায় বৃষ্টি", genre: "কাব্যগ্রন্থ", ebook: false },
   { title: "চাঁদমুখী", genre: "উপন্যাস", ebook: false },
   { title: "যে শহরে তুমি নেই", genre: "উপন্যাস", ebook: false },
-  { title: "হাজার বসন্ত তোমার অপেক্ষায়", genre: "উপন্যাস", ebook: false },
+  { title: "হাজার বসন্ত তোমার অপেক্ষায়", genre: "উপন্যাস", ebook: false },
   { title: "অর্ধেক প্রেম অর্ধেক বিরহ", genre: "উপন্যাস", ebook: false },
-  { title: "পৃথিবীর জন্য ভালোবাসা", genre: "সায়েন্স ফিকশন", ebook: false },
+  { title: "পৃথিবীর জন্য ভালোবাসা", genre: "সায়েন্স ফিকশন", ebook: false },
   { title: "বালুচরের বালিকা", genre: "উপন্যাস", ebook: false },
   { title: "কাজলবউ", genre: "উপন্যাস", ebook: false },
   { title: "রোকসানা", genre: "উপন্যাস", ebook: false },
@@ -153,8 +153,8 @@ const BOOK_LIST = [
   { title: "চামেলী কটেজ", genre: "উপন্যাস", ebook: false },
   { title: "বনলতা এক্সপ্রেস", genre: "উপন্যাস", ebook: false },
   { title: "ষোলো আনা", genre: "উপন্যাস", ebook: false },
-  { title: "কৃষ্ণচূড়া তোমাকে দিলাম", genre: "উপন্যাস", ebook: false },
-  { title: "তুমি এসেছিলে পূর্ণিমা সন্ধ্যায়", genre: "উপন্যাস", ebook: false },
+  { title: "কৃষ্ণচূড়া তোমাকে দিলাম", genre: "উপন্যাস", ebook: false },
+  { title: "তুমি এসেছিলে পূর্ণিমা সন্ধ্যায়", genre: "উপন্যাস", ebook: false },
   { title: "একদিন", genre: "উপন্যাস", ebook: false },
   { title: "অরু এখন কারাগারে", genre: "উপন্যাস", ebook: false },
   { title: "নীল মানুষ", genre: "উপন্যাস", ebook: false },
@@ -174,22 +174,22 @@ const BOOK_LIST = [
   { title: "নীরা", genre: "উপন্যাস", ebook: false },
   { title: "গুলশান", genre: "থ্রিলার উপন্যাস", ebook: false },
   { title: "ঊনমানুষ", genre: "থ্রিলার উপন্যাস", ebook: false },
-  { title: "বেদনা রঙের বাড়ি", genre: "থ্রিলার উপন্যাস", ebook: false },
+  { title: "বেদনা রঙের বাড়ি", genre: "থ্রিলার উপন্যাস", ebook: false },
   { title: "ডুববো বলে ডুবছি জলে", genre: "কাব্যগ্রন্থ", ebook: false },
   { title: "দাফন", genre: "হরর থ্রিলার উপন্যাস", ebook: false },
   { title: "মুখ কিংবা মুখোশ", genre: "থ্রিলার উপন্যাস", ebook: false },
   { title: "বনলতা সেন এখানে আছেন", genre: "উপন্যাস", ebook: false },
   { title: "ফাল্গুনী লেন", genre: "থ্রিলার উপন্যাস", ebook: false },
   { title: "চৌকাঠ", genre: "উপন্যাস", ebook: false },
-  { title: "বড়ো ভাই", genre: "উপন্যাস", ebook: false },
+  { title: "বড়ো ভাই", genre: "উপন্যাস", ebook: false },
   { title: "অকূলপাথার", genre: "থ্রিলার উপন্যাস", ebook: false },
-  { title: "এখানে তাবিজ বিক্রি হয়", genre: "থ্রিলার উপন্যাস", ebook: false },
+  { title: "এখানে তাবিজ বিক্রি হয়", genre: "থ্রিলার উপন্যাস", ebook: false },
   { title: "এই শহরে শিউলি ফোটে", genre: "উপন্যাস", ebook: true },
   { title: "সেদিন বৃষ্টি হলো", genre: "উপন্যাস", ebook: true },
   { title: "তপন বাগচীর একদিন", genre: "গল্পগ্রন্থ", ebook: true },
   { title: "লাবনী", genre: "উপন্যাস", ebook: true },
   { title: "হলুদ ফুলের খোঁপা", genre: "উপন্যাস", ebook: true },
-  { title: "এক দুপুরের নির্জনতায়", genre: "উপন্যাস", ebook: true },
+  { title: "এক দুপুরের নির্জনতায়", genre: "উপন্যাস", ebook: true },
   { title: "বৃষ্টি তোমাকে দিলাম", genre: "উপন্যাস", ebook: true },
   { title: "সেদিন চৈত্রমাস", genre: "উপন্যাস", ebook: true },
   { title: "যে নদী ফেরে না", genre: "গল্পগ্রন্থ", ebook: true },
@@ -197,7 +197,7 @@ const BOOK_LIST = [
 
 
 /* ---------- ৫. নির্বাচিত লেখা ----------
-   type: লেখার ধরন — যেমন "গল্প", "কবিতা", "প্রবন্ধ"। এই নাম দিয়েই উপরে বাছাইয়ের বোতাম তৈরি হবে।
+   type: লেখার ধরন — যেমন "গল্প", "কবিতা", "প্রবন্ধ"। এই নাম দিয়েই উপরে বাছাইয়ের বোতাম তৈরি হবে।
    body: প্রতিটি অনুচ্ছেদ আলাদা " " এর ভেতরে।
    কবিতার ক্ষেত্রে প্রতিটি পঙ্‌ক্তি আলাদা " " এ দিন; স্তবকের মাঝে ফাঁকা লাইনের জন্য "" দিন। */
 const WRITINGS = [
@@ -205,17 +205,17 @@ const WRITINGS = [
     type: "গল্প",
     title: "[লেখার শিরোনাম]",
     date: "[প্রকাশের তারিখ বা স্থান]",
-    excerpt: "[লেখার প্রথম কয়েকটি লাইন বা সংক্ষিপ্ত ভূমিকা।]",
+    excerpt: "[লেখার প্রথম কয়েকটি লাইন বা সংক্ষিপ্ত ভূমিকা।]",
     body: [
       "[প্রথম অনুচ্ছেদ।]",
-      "[দ্বিতীয় অনুচ্ছেদ।]",
+      "[দ্বিতীয় অনুচ্ছেদ।]",
     ],
   },
   {
     type: "গল্প",
     title: "[লেখার শিরোনাম]",
     date: "[প্রকাশের তারিখ বা স্থান]",
-    excerpt: "[লেখার প্রথম কয়েকটি লাইন বা সংক্ষিপ্ত ভূমিকা।]",
+    excerpt: "[লেখার প্রথম কয়েকটি লাইন বা সংক্ষিপ্ত ভূমিকা।]",
     body: [
       "[প্রথম অনুচ্ছেদ।]",
     ],
@@ -227,10 +227,10 @@ const WRITINGS = [
     excerpt: "",
     body: [
       "[প্রথম পঙ্‌ক্তি]",
-      "[দ্বিতীয় পঙ্‌ক্তি]",
-      "[তৃতীয় পঙ্‌ক্তি]",
+      "[দ্বিতীয় পঙ্‌ক্তি]",
+      "[তৃতীয় পঙ্‌ক্তি]",
       "",
-      "[দ্বিতীয় স্তবকের প্রথম পঙ্‌ক্তি]",
+      "[দ্বিতীয় স্তবকের প্রথম পঙ্‌ক্তি]",
     ],
   },
   {
@@ -264,7 +264,7 @@ const POEM_TYPES = ["কবিতা"];
 
 
 /* =========================================================
-   ⚙️  নিচের কোড পরিবর্তনের প্রয়োজন নেই
+   ⚙️  নিচের কোড পরিবর্তনের প্রয়োজন নেই
    ========================================================= */
 
 document.documentElement.classList.add("js");
@@ -297,7 +297,7 @@ function bookOrderMessage(book) {
 
 function openWhatsApp(message) {
   if (!waReady) {
-    toast("WhatsApp নম্বর এখনো যোগ করা হয়নি");
+    toast("WhatsApp নম্বর এখনো যোগ করা হয়নি");
     return false;
   }
   window.open(waLink(message), "_blank", "noopener");
@@ -343,7 +343,7 @@ function renderContact() {
   $$("[data-social]").forEach((el) => (el.innerHTML = icons.join("")));
 }
 
-/* ---------- রেন্ডার: সময়রেখা ---------- */
+/* ---------- রেন্ডার: সময়রেখা ---------- */
 function renderTimeline() {
   const list = $("#timeline");
   if (!list) return;
@@ -437,7 +437,7 @@ function renderWritings() {
         <p class="writing-excerpt${isPoem(w) ? " is-poem" : ""}">${writingPreview(w)}</p>
         <div class="writing-foot">
           <span>${esc(w.date)}</span>
-          <button class="text-link" data-open="writing" data-index="${i}">পড়ুন →</button>
+          <button class="text-link" data-open="writing" data-index="${i}">পড়ুন →</button>
         </div>
       </article>`).join("")
     : `<p class="empty-note">শিগগিরই লেখা যোগ করা হবে।</p>`;
@@ -476,7 +476,7 @@ function renderCatalog() {
   box.innerHTML = `
     <div class="catalog-head">
       <h3>সম্পূর্ণ গ্রন্থতালিকা</h3>
-      <p>মোট ${toBn(BOOK_LIST.length)}টি বই · যেকোনো বইয়ের পাশের <em>অর্ডার</em> লেখায় চাপুন</p>
+      <p>মোট ${toBn(BOOK_LIST.length)}টি বই · যেকোনো বইয়ের পাশের <em>অর্ডার</em> লেখায় চাপুন</p>
     </div>
     <div class="catalog-groups">
       ${order.map((g) => `
@@ -571,7 +571,7 @@ function openPhoto(index) {
   const g = GALLERY[index];
   if (!g) return;
   if (!g.src) {
-    toast("এই ছবিটি এখনো যোগ করা হয়নি");
+    toast("এই ছবিটি এখনো যোগ করা হয়নি");
     return;
   }
   openModal({
@@ -591,7 +591,7 @@ function toast(message) {
   toastTimer = setTimeout(() => el.classList.remove("show"), 3200);
 }
 
-/* ---------- সব ক্লিক এক জায়গা থেকে ---------- */
+/* ---------- সব ক্লিক এক জায়গা থেকে ---------- */
 document.addEventListener("click", (e) => {
   const wa = e.target.closest("[data-wa]");
   if (wa) {
@@ -606,7 +606,7 @@ document.addEventListener("click", (e) => {
   const emailLink = e.target.closest("[data-email]");
   if (emailLink && !emailReady) {
     e.preventDefault();
-    toast("ইমেইল ঠিকানা এখনো যোগ করা হয়নি");
+    toast("ইমেইল ঠিকানা এখনো যোগ করা হয়নি");
     return;
   }
 
@@ -686,7 +686,7 @@ function revealOnScroll() {
   items.forEach((el) => io.observe(el));
 }
 
-/* ---------- যোগাযোগ ফর্ম (WhatsApp বা ইমেইলে পাঠায়) ---------- */
+/* ---------- যোগাযোগ ফর্ম (WhatsApp বা ইমেইলে পাঠায়) ---------- */
 function setupForm() {
   const form = $("#contact-form");
   if (!form) return;
@@ -713,14 +713,14 @@ function setupForm() {
     }
 
     const text =
-      `বিষয়: ${subject}\n` +
+      `বিষয়: ${subject}\n` +
       `নাম: ${name}\n` +
       (reply ? `যোগাযোগ: ${reply}\n` : "") +
       `\n${message}`;
 
     if (mode === "email") {
       if (!emailReady) {
-        status.textContent = "ইমেইল ঠিকানা এখনো যোগ করা হয়নি — WhatsApp ব্যবহার করুন।";
+        status.textContent = "ইমেইল ঠিকানা এখনো যোগ করা হয়নি — WhatsApp ব্যবহার করুন।";
         return;
       }
       window.location.href =
@@ -728,7 +728,7 @@ function setupForm() {
       status.textContent = "আপনার ইমেইল অ্যাপ খুলছে…";
     } else {
       if (openWhatsApp(text)) status.textContent = "WhatsApp খুলছে — সেখানে পাঠান বোতামে চাপুন।";
-      else status.textContent = "WhatsApp নম্বর এখনো যোগ করা হয়নি।";
+      else status.textContent = "WhatsApp নম্বর এখনো যোগ করা হয়নি।";
     }
   });
 }

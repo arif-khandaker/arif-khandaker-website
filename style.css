@@ -1,6 +1,6 @@
 /* =========================================================
    আরিফ খন্দকার — লেখক পোর্টফোলিও
-   রঙ: কালো · অফ-হোয়াইট · সোনালি
+   রঙ: কালো · অফ-হোয়াইট · সোনালি
    ========================================================= */
 
 :root {
@@ -13,7 +13,7 @@
   --white: #fffdf8;
   --gold: #c9a45c;          /* কালো পটভূমিতে */
   --gold-soft: #e2c98f;
-  --gold-deep: #8c6a2c;     /* অফ-হোয়াইট পটভূমিতে লেখা */
+  --gold-deep: #8c6a2c;     /* অফ-হোয়াইট পটভূমিতে লেখা */
   --text: #24211c;
   --muted: #6f685c;
   --muted-dark: #a59c8b;
@@ -603,7 +603,7 @@ p { margin: 0 0 1.1em; overflow-wrap: anywhere; }
 }
 .book-cover img { width: 100%; height: 100%; object-fit: cover; }
 
-/* বইয়ের বাঁধাইয়ের ছায়া */
+/* বইয়ের বাঁধাইয়ের ছায়া */
 .book-cover::after {
   content: "";
   position: absolute;
@@ -688,7 +688,7 @@ p { margin: 0 0 1.1em; overflow-wrap: anywhere; }
 
 .book-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
-/* বাকি বইয়ের তালিকা */
+/* বাকি বইয়ের তালিকা */
 .book-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -932,7 +932,7 @@ p { margin: 0 0 1.1em; overflow-wrap: anywhere; }
 .field textarea {
   width: 100%;
   font: inherit;
-  font-size: 16px; /* মোবাইলে অটো-জুম ঠেকায় */
+  font-size: 16px; /* মোবাইলে অটো-জুম ঠেকায় */
   color: var(--ivory);
   background: rgba(255,255,255,.03);
   border: 1px solid rgba(201,164,92,.28);
@@ -1106,7 +1106,7 @@ p { margin: 0 0 1.1em; overflow-wrap: anywhere; }
 .modal-actions .btn-gold { background: var(--ink); color: var(--gold-soft); border-color: var(--ink); }
 .modal-actions .btn-gold:hover { background: var(--gold); color: var(--ink); border-color: var(--gold); }
 
-/* ছবি দেখার সময় পপআপ */
+/* ছবি দেখার সময় পপআপ */
 .modal.is-image .modal-panel { max-width: 960px; background: var(--ink); color: var(--ivory); padding: 54px 20px 22px; }
 .modal.is-image .modal-close { color: var(--ivory); }
 .modal.is-image .modal-title { font-size: 18px; font-family: var(--font-body); color: var(--muted-dark); margin-top: 14px; text-align: center; }
