@@ -18,7 +18,7 @@ const SITE = {
   email: "arifkhandaker896@gmail.com",
 
   // লেখকের ছবি — GitHub-এ আপলোড করা ছবির ফাইলের নাম
-  portrait: "5283-2.png",
+  portrait: "author.jpg",
 
   // WhatsApp বোতামে চাপলে যে বার্তা লেখা থাকবে
   generalMessage: "শুভেচ্ছা! আমি আপনার বই অর্ডার করতে / যোগাযোগ করতে চাই।",
@@ -476,7 +476,7 @@ function renderCatalog() {
   box.innerHTML = `
     <div class="catalog-head">
       <h3>সম্পূর্ণ গ্রন্থতালিকা</h3>
-      <p>মোট ${toBn(BOOK_LIST.length)}টি বই · যেকোনো বইয়ের পাশের <em>অর্ডার</em> লেখায় চাপুন</p>
+      <p>এখানে তালিকাভুক্ত ${toBn(BOOK_LIST.length)}টি বই · যেকোনো বইয়ের পাশের <em>অর্ডার</em> লেখায় চাপুন</p>
     </div>
     <div class="catalog-groups">
       ${order.map((g) => `
