@@ -1,6 +1,6 @@
 /* =========================================================
    আরিফ খন্দকার — লেখক পোর্টফোলিও
-   রঙ: কালো · অফ-হোয়াইট · সোনালি
+   রঙ: কালো · অফ-হোয়াইট · সোনালি
    ========================================================= */
 
 :root {
@@ -13,7 +13,7 @@
   --white: #fffdf8;
   --gold: #c9a45c;          /* কালো পটভূমিতে */
   --gold-soft: #e2c98f;
-  --gold-deep: #8c6a2c;     /* অফ-হোয়াইট পটভূমিতে লেখা */
+  --gold-deep: #8c6a2c;     /* অফ-হোয়াইট পটভূমিতে লেখা */
   --text: #24211c;
   --muted: #6f685c;
   --muted-dark: #a59c8b;
@@ -603,7 +603,7 @@ p { margin: 0 0 1.1em; overflow-wrap: anywhere; }
 }
 .book-cover img { width: 100%; height: 100%; object-fit: cover; }
 
-/* বইয়ের বাঁধাইয়ের ছায়া */
+/* বইয়ের বাঁধাইয়ের ছায়া */
 .book-cover::after {
   content: "";
   position: absolute;
@@ -688,7 +688,7 @@ p { margin: 0 0 1.1em; overflow-wrap: anywhere; }
 
 .book-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
-/* বাকি বইয়ের তালিকা */
+/* বাকি বইয়ের তালিকা */
 .book-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -932,7 +932,7 @@ p { margin: 0 0 1.1em; overflow-wrap: anywhere; }
 .field textarea {
   width: 100%;
   font: inherit;
-  font-size: 16px; /* মোবাইলে অটো-জুম ঠেকায় */
+  font-size: 16px; /* মোবাইলে অটো-জুম ঠেকায় */
   color: var(--ivory);
   background: rgba(255,255,255,.03);
   border: 1px solid rgba(201,164,92,.28);
@@ -1106,7 +1106,7 @@ p { margin: 0 0 1.1em; overflow-wrap: anywhere; }
 .modal-actions .btn-gold { background: var(--ink); color: var(--gold-soft); border-color: var(--ink); }
 .modal-actions .btn-gold:hover { background: var(--gold); color: var(--ink); border-color: var(--gold); }
 
-/* ছবি দেখার সময় পপআপ */
+/* ছবি দেখার সময় পপআপ */
 .modal.is-image .modal-panel { max-width: 960px; background: var(--ink); color: var(--ivory); padding: 54px 20px 22px; }
 .modal.is-image .modal-close { color: var(--ivory); }
 .modal.is-image .modal-title { font-size: 18px; font-family: var(--font-body); color: var(--muted-dark); margin-top: 14px; text-align: center; }
@@ -1346,4 +1346,175 @@ p { margin: 0 0 1.1em; overflow-wrap: anywhere; }
 @media (max-width: 360px) {
   .book-grid { grid-template-columns: 1fr; }
   .book .book-cover { max-width: 240px; margin-left: auto; margin-right: auto; }
+}
+
+/* =========================================================
+   প্রিমিয়াম স্তর — প্রবেশের পর্দা, চলন ও নতুন অংশ
+   ========================================================= */
+
+/* প্রবেশের পর্দা */
+.preloader {
+  position: fixed; inset: 0; z-index: 500;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at 50% 40%, #1d1912, var(--ink) 70%);
+  color: var(--ivory);
+  transition: opacity .8s var(--ease), visibility .8s;
+}
+.preloader.done { opacity: 0; visibility: hidden; }
+.pl-inner { position: relative; width: 120px; height: 120px; margin-bottom: 26px; }
+.pl-ring { position: absolute; inset: 0; transform: rotate(-90deg); }
+.pl-ring circle {
+  fill: none; stroke: var(--gold); stroke-width: 1.2;
+  stroke-dasharray: 340; stroke-dashoffset: 340;
+  animation: pl-draw 1.4s var(--ease) forwards;
+}
+.pl-mark {
+  position: absolute; inset: 0; display: grid; place-items: center; padding-top: 8px;
+  font-family: var(--font-display); font-size: 58px; color: var(--gold);
+  opacity: 0; animation: pl-fade .9s .35s var(--ease) forwards;
+}
+.pl-name, .pl-tag { margin: 0; opacity: 0; animation: pl-rise .9s var(--ease) forwards; }
+.pl-name { font-family: var(--font-display); font-size: 26px; animation-delay: .6s; }
+.pl-tag { font-size: 14px; color: var(--muted-dark); letter-spacing: .08em; margin-top: 6px; animation-delay: .8s; }
+@keyframes pl-draw { to { stroke-dashoffset: 0; } }
+@keyframes pl-fade { to { opacity: 1; } }
+@keyframes pl-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+/* ওপরের সোনালি অগ্রগতি রেখা */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; z-index: 120; height: 2px; width: 100%;
+  background: linear-gradient(90deg, var(--gold-deep), var(--gold-soft));
+  transform-origin: left; transform: scaleX(0);
+  box-shadow: 0 0 10px rgba(201,164,92,.6);
+}
+
+/* কম্পিউটারে মাউসের সঙ্গে সোনালি আভা */
+.cursor-glow {
+  position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none;
+  width: 420px; height: 420px; margin: -210px 0 0 -210px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,164,92,.10), transparent 65%);
+  opacity: 0; transition: opacity .5s;
+}
+body.has-cursor .cursor-glow { opacity: 1; }
+@media (hover: none), (max-width: 860px) { .cursor-glow { display: none; } }
+
+/* হিরোর সোনালি ধূলিকণা */
+.hero-dust { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+/* সংখ্যায় সাহিত্যযাত্রা */
+.stats {
+  background: var(--ink);
+  border-top: 1px solid var(--line-dark);
+  padding: 64px 0;
+}
+.stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; }
+.stat {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 10px 16px; border-left: 1px solid var(--line-dark);
+}
+.stat:first-child { border-left: 0; }
+.stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6vw, 72px); line-height: 1.1;
+  background: linear-gradient(180deg, var(--gold-soft), var(--gold) 55%, var(--gold-deep));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.stat-label { margin-top: 8px; font-size: 15px; color: var(--muted-dark); line-height: 1.5; }
+.stat-label small { color: var(--gold); font-size: 12px; letter-spacing: .1em; }
+
+/* বইয়ের নামের চলমান ফিতা */
+.marquee {
+  overflow: hidden; background: var(--gold); color: var(--ink);
+  padding: 14px 0; border-block: 1px solid var(--gold-deep);
+}
+.marquee-track { display: flex; width: max-content; animation: marquee 70s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-track span {
+  font-family: var(--font-display); font-size: 20px; white-space: nowrap; padding: 0 22px;
+}
+.marquee-track span::after { content: "◆"; font-size: 9px; margin-left: 44px; vertical-align: middle; opacity: .6; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* উক্তির বিরতি */
+.interlude {
+  position: relative; overflow: hidden; text-align: center;
+  padding: 130px 0 120px;
+  background:
+    radial-gradient(ellipse 60% 70% at 50% 50%, rgba(201,164,92,.14), transparent 70%),
+    var(--ink);
+  color: var(--ivory);
+}
+.interlude-mark {
+  position: absolute; left: 50%; top: 20px; transform: translateX(-50%);
+  font-family: var(--font-latin); font-size: 260px; line-height: 1; color: rgba(201,164,92,.16);
+  pointer-events: none;
+}
+.interlude-quote { position: relative; max-width: 860px; margin: 0 auto; }
+.interlude-quote p {
+  font-family: var(--font-display); font-style: italic;
+  font-size: clamp(26px, 4.2vw, 46px); line-height: 1.6; color: var(--ivory); margin: 0 0 24px;
+}
+.interlude-quote cite { font-style: normal; color: var(--gold); letter-spacing: .06em; }
+
+/* শিরোনামের নিচের রেখা ধীরে আঁকা হবে */
+.js .section-head h2::after { transform: scaleX(0); transform-origin: left; transition: transform 1.1s .3s var(--ease); }
+.js .section-head-center h2::after { transform-origin: center; }
+.js .section-head.is-visible h2::after { transform: scaleX(1); }
+
+/* ছবি পর্দা সরিয়ে প্রকাশ */
+.js .portrait.reveal .portrait-frame,
+.js .gallery-item.reveal > * { clip-path: inset(0 0 100% 0); transition: clip-path 1.2s var(--ease); }
+.js .portrait.reveal.is-visible .portrait-frame,
+.js .gallery-item.reveal.is-visible > * { clip-path: inset(0 0 0 0); }
+
+/* বইয়ের প্রচ্ছদে ত্রিমাত্রিক হেলানো ও ঝিলিক */
+.book-cover { transform-style: preserve-3d; will-change: transform; }
+.book-cover .shine {
+  position: absolute; inset: 0; pointer-events: none; z-index: 2;
+  background: radial-gradient(circle at var(--sx, 50%) var(--sy, 0%), rgba(255,240,200,.35), transparent 45%);
+  opacity: 0; transition: opacity .4s;
+}
+.book-cover:hover .shine { opacity: 1; }
+
+/* উপরে যাওয়ার গোল বোতাম */
+.to-top-btn {
+  position: fixed; left: 20px; bottom: 20px; z-index: 90;
+  width: 52px; height: 52px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(14,13,11,.88); color: var(--gold-soft); border: 0; cursor: pointer;
+  font-size: 18px; opacity: 0; transform: translateY(12px); pointer-events: none;
+  transition: opacity .4s var(--ease), transform .4s var(--ease);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+.to-top-btn.show { opacity: 1; transform: none; pointer-events: auto; }
+.to-top-btn svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+.to-top-btn circle { fill: none; stroke-width: 2; }
+.tt-track { stroke: rgba(201,164,92,.18); }
+.tt-bar { stroke: var(--gold); stroke-dasharray: 132; stroke-dashoffset: 132; transition: stroke-dashoffset .1s linear; }
+
+/* বোতামে সোনালি ঝিলিক */
+.btn-gold { position: relative; overflow: hidden; }
+.btn-gold::after {
+  content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.55), transparent);
+  transform: skewX(-20deg); transition: left .7s var(--ease);
+}
+.btn-gold:hover::after { left: 130%; }
+
+@media (max-width: 860px) {
+  .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 34px; }
+  .stat:nth-child(3) { border-left: 0; }
+  .interlude { padding: 100px 0 90px; }
+  .interlude-mark { font-size: 180px; }
+}
+@media (max-width: 540px) {
+  .stats { padding: 48px 0; }
+  .marquee-track span { font-size: 17px; padding: 0 16px; }
+  .marquee-track span::after { margin-left: 32px; }
+  .to-top-btn { left: 14px; bottom: 14px; width: 48px; height: 48px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .preloader { display: none; }
+  .marquee-track { animation: none; }
+  .js .portrait.reveal .portrait-frame, .js .gallery-item.reveal > * { clip-path: none; }
 }

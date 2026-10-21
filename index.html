@@ -66,6 +66,20 @@
 </head>
 <body>
 
+  <!-- প্রবেশের পর্দা -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="pl-inner">
+      <svg class="pl-ring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54"/></svg>
+      <span class="pl-mark">আ</span>
+    </div>
+    <p class="pl-name">আরিফ খন্দকার</p>
+    <p class="pl-tag">গল্প মানুষের কথা বলে</p>
+  </div>
+
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
+
     <!-- ঝরে পড়া বাহারি পাতা -->
   <div class="leaves" aria-hidden="true">
     <span class="leaf" style="--x:6%;--s:30px;--t:17s;--d:-3s;--w:3.6s"><i><svg viewBox="0 0 24 24"><path d="M12 1.5C5.5 6 3.6 12.4 6 18c1.6 3.3 4.4 4.5 6 4.5s4.4-1.2 6-4.5C20.4 12.4 18.5 6 12 1.5z" fill="#e0a33a"/><path d="M12 3.5v18M12 9l-3.2-2.4M12 12.5l-4-2.8M12 16l-3.4-2.3M12 9l3.2-2.4M12 12.5l4-2.8M12 16l3.4-2.3" stroke="#a8741f" stroke-width=".9" fill="none" stroke-linecap="round"/></svg></i></span>
@@ -138,7 +152,20 @@
         <span>স্ক্রল</span>
         <i aria-hidden="true"></i>
       </a>
+        </section>
+
+    <!-- সংখ্যায় সাহিত্যযাত্রা -->
+    <section class="stats" aria-label="সংখ্যায় সাহিত্যযাত্রা">
+      <div class="container stats-grid">
+        <div class="stat reveal"><span class="stat-num" data-count="61">০</span><span class="stat-label">প্রকাশিত বই</span></div>
+        <div class="stat reveal"><span class="stat-num" data-count="16">০</span><span class="stat-label">এক বইমেলায় বই<br><small>২০২৫</small></span></div>
+        <div class="stat reveal"><span class="stat-num" data-count="5">০</span><span class="stat-label">সাহিত্যধারা</span></div>
+        <div class="stat reveal"><span class="stat-num" data-count="2012" data-plain="1">০</span><span class="stat-label">প্রথম লেখা প্রকাশ</span></div>
+      </div>
     </section>
+
+    <!-- বইয়ের নামের চলমান ফিতা -->
+    <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee-track"></div></div>
 
     <!-- ================= লেখক পরিচিতি ================= -->
     <section id="intro" class="section">
@@ -252,6 +279,17 @@
     </section>
 
     <!-- ================= ছবি ================= -->
+    <!-- উক্তির বিরতি -->
+    <section class="interlude" aria-label="উক্তি">
+      <div class="container">
+        <span class="interlude-mark" aria-hidden="true">“</span>
+        <blockquote class="interlude-quote reveal">
+          <p>গল্প ফুরিয়ে গেলে মানুষও ফুরিয়ে যায়। কিন্তু মানুষ ফুরিয়ে গেলেও গল্প থেকে যায়।</p>
+          <cite>— আরিফ খন্দকার</cite>
+        </blockquote>
+      </div>
+    </section>
+
     <section id="gallery" class="section section-tint">
       <div class="container">
         <header class="section-head section-head-center reveal">
@@ -351,6 +389,11 @@
       </div>
     </div>
   </footer>
+
+  <button class="to-top-btn" id="to-top-btn" aria-label="উপরে যান">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><circle class="tt-track" cx="24" cy="24" r="21"/><circle class="tt-bar" id="tt-bar" cx="24" cy="24" r="21"/></svg>
+    <span aria-hidden="true">↑</span>
+  </button>
 
   <!-- ভাসমান WhatsApp বোতাম -->
   <a href="#" class="wa-float" data-wa="general" aria-label="WhatsApp-এ যোগাযোগ করুন">

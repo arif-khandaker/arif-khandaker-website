@@ -896,3 +896,143 @@ onScroll();
 
 const yearEl = $("#year");
 if (yearEl) yearEl.textContent = toBn(new Date().getFullYear());
+
+/* =========================================================
+   প্রিমিয়াম স্তর — চলন ও নতুন অংশ
+   ========================================================= */
+(function premium() {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  /* প্রবেশের পর্দা: একবার দেখানোর পর এই সেশনে আর দেখাবে না */
+  const pre = $("#preloader");
+  if (pre) {
+    let seen = false;
+    try { seen = sessionStorage.getItem("ak-intro") === "1"; } catch (e) {}
+    if (reduce || seen) pre.remove();
+    else {
+      document.body.classList.add("no-scroll");
+      const finish = () => {
+        pre.classList.add("done");
+        document.body.classList.remove("no-scroll");
+        try { sessionStorage.setItem("ak-intro", "1"); } catch (e) {}
+        setTimeout(() => pre.remove(), 900);
+      };
+      setTimeout(finish, 1900);
+      pre.addEventListener("click", finish);
+    }
+  }
+
+  /* বইয়ের নামের চলমান ফিতা */
+  const track = $("#marquee-track");
+  if (track && typeof BOOK_LIST !== "undefined") {
+    const names = BOOK_LIST.map((b) => `<span>${esc(b.title)}</span>`).join("");
+    track.innerHTML = names + names;
+  }
+
+  /* সংখ্যা গুনে ওঠা */
+  const counters = $$("[data-count]");
+  const runCount = (el) => {
+    const end = +el.dataset.count;
+    const plain = el.dataset.plain === "1";
+    const start = plain ? end - 30 : 0;
+    const dur = 1600, t0 = performance.now();
+    const step = (t) => {
+      const k = Math.min(1, (t - t0) / dur);
+      const v = Math.round(start + (end - start) * (1 - Math.pow(1 - k, 3)));
+      el.textContent = toBn(v);
+      if (k < 1) requestAnimationFrame(step);
+    };
+    if (reduce) { el.textContent = toBn(end); return; }
+    requestAnimationFrame(step);
+  };
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) { runCount(e.target); io.unobserve(e.target); }
+    }), { threshold: .6 });
+    counters.forEach((c) => io.observe(c));
+  } else counters.forEach(runCount);
+
+  /* অগ্রগতি রেখা ও উপরে যাওয়ার বোতাম */
+  const bar = $("#scroll-progress"), btn = $("#to-top-btn"), ring = $("#tt-bar");
+  const onProgress = () => {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    const k = h > 0 ? scrollY / h : 0;
+    if (bar) bar.style.transform = `scaleX(${k})`;
+    if (ring) ring.style.strokeDashoffset = String(132 * (1 - k));
+    if (btn) btn.classList.toggle("show", scrollY > innerHeight * .8);
+  };
+  addEventListener("scroll", onProgress, { passive: true });
+  onProgress();
+  if (btn) btn.addEventListener("click", () => scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }));
+
+  /* হিরোতে সোনালি ধূলিকণা */
+  const hero = $(".hero");
+  if (hero && !reduce) {
+    const c = document.createElement("canvas");
+    c.className = "hero-dust";
+    hero.insertBefore(c, hero.firstChild.nextSibling);
+    const ctx = c.getContext("2d");
+    let W, H, dots = [], running = true;
+    const size = () => {
+      const r = Math.min(devicePixelRatio || 1, 2);
+      W = hero.clientWidth; H = hero.clientHeight;
+      c.width = W * r; c.height = H * r; ctx.setTransform(r, 0, 0, r, 0, 0);
+      const n = Math.round(Math.min(70, W / 16));
+      dots = Array.from({ length: n }, () => ({
+        x: Math.random() * W, y: Math.random() * H,
+        r: Math.random() * 1.6 + .4, s: Math.random() * .25 + .05,
+        a: Math.random() * .5 + .15, p: Math.random() * Math.PI * 2,
+      }));
+    };
+    const draw = (t) => {
+      if (!running) return;
+      ctx.clearRect(0, 0, W, H);
+      for (const d of dots) {
+        d.y -= d.s; d.x += Math.sin(t / 2400 + d.p) * .15;
+        if (d.y < -4) { d.y = H + 4; d.x = Math.random() * W; }
+        ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(226,201,143,${d.a * (.65 + .35 * Math.sin(t / 900 + d.p))})`;
+        ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    };
+    size(); addEventListener("resize", size);
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(([e]) => {
+        const was = running; running = e.isIntersecting;
+        if (running && !was) requestAnimationFrame(draw);
+      }).observe(hero);
+    }
+    requestAnimationFrame(draw);
+
+    /* হিরোর বড় অক্ষর স্ক্রলে ধীরে সরে */
+    const glyph = $(".hero-glyph");
+    if (glyph) addEventListener("scroll", () => {
+      if (scrollY < innerHeight) glyph.style.transform = `translateY(${scrollY * .25}px)`;
+    }, { passive: true });
+  }
+
+  /* কম্পিউটারে মাউসের আভা ও বইয়ে ত্রিমাত্রিক হেলানো */
+  if (fine && !reduce) {
+    const glow = $("#cursor-glow");
+    addEventListener("mousemove", (e) => {
+      document.body.classList.add("has-cursor");
+      if (glow) glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    }, { passive: true });
+
+    $$(".book-cover").forEach((card) => {
+      const shine = document.createElement("span");
+      shine.className = "shine";
+      card.appendChild(shine);
+      card.addEventListener("mousemove", (e) => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        card.style.transform = `perspective(900px) rotateY(${(x - .5) * 14}deg) rotateX(${(.5 - y) * 12}deg) translateY(-6px)`;
+        card.style.setProperty("--sx", x * 100 + "%");
+        card.style.setProperty("--sy", y * 100 + "%");
+      });
+      card.addEventListener("mouseleave", () => { card.style.transform = ""; });
+    });
+  }
+})();
