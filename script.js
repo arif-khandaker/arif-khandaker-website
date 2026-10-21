@@ -29,11 +29,11 @@ const SITE = {
    "" এর ভেতরে প্রোফাইলের পুরো লিংক দিন (https:// সহ)।
    লিংক খালি থাকলে আইকনটি দেখাবে না। */
 const SOCIAL = [
-  { type: "facebook",  label: "Facebook",  url: "" },
-  { type: "instagram", label: "Instagram", url: "" },
-  { type: "youtube",   label: "YouTube",   url: "" },
-  { type: "goodreads", label: "Goodreads", url: "" },
-];
+  { type: "facebook",  label: "ফেসবুক পেইজ",     url: "https://www.facebook.com/share/1K8DX3NsqR/" },
+  { type: "facebook",  label: "ফেসবুক প্রোফাইল", url: "https://www.facebook.com/share/1DYMifbJHT/" },
+  { type: "youtube",   label: "ইউটিউব",          url: "https://www.youtube.com/@thoughtsofarif-w1c" },
+  { type: "instagram", label: "ইনস্টাগ্রাম",       url: "https://www.instagram.com/khandakerarif892/" },
+]
 
 
 /* ---------- ৩. জীবনীর সময়রেখা ----------
@@ -360,6 +360,18 @@ const LIGHTPLAY = '<div class="lightplay" aria-hidden="true"><span class="lp-lig
     ".modal.is-paper .modal-body p:first-child::first-letter{float:left;font-family:var(--font-display);font-size:3.6em;line-height:.9;padding:8px 10px 0 0;color:#0e0e0e}" +
     ".modal.is-paper .modal-body::after{content:\"◆  ◆  ◆\";display:block;text-align:center;margin-top:30px;color:#7a5410;font-size:10px;letter-spacing:.5em}" +
     "@media (max-width:540px){.writing-grid.single .writing{padding:40px 24px 30px}.modal.is-paper .modal-body{font-size:17.5px}}" +
+    ".social-box{margin-top:34px;padding:30px 28px 18px;background:var(--ink);border:1px solid var(--gold);color:var(--ivory)}" +
+    ".social-box-title{display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-size:24px;color:var(--gold-soft);margin:0 0 10px}" +
+    ".social-box-title svg{width:30px;height:30px;color:var(--gold)}" +
+    ".social-box ul{list-style:none;margin:0;padding:0}" +
+    ".social-box li a{display:flex;align-items:center;gap:16px;padding:16px 4px;border-bottom:1px solid var(--line-dark);text-decoration:none;color:#d9d2c4;transition:color .3s,padding .3s}" +
+    ".social-box li:last-child a{border-bottom:0}" +
+    ".social-box li a:hover{color:var(--gold-soft);padding-left:10px}" +
+    ".sb-icon{width:40px;height:40px;flex-shrink:0;display:grid;place-items:center;border:1px solid var(--line-dark);border-radius:50%;color:var(--gold)}" +
+    ".sb-icon svg{width:19px;height:19px}" +
+    ".sb-label{flex:1;font-size:17px}.sb-arrow{color:var(--gold);font-size:16px}" +
+    ".social-dark{justify-content:center}.social-dark a{border-radius:50%;width:48px;height:48px}" +
+    "@media (max-width:400px){.social-dark{gap:8px}.social-dark a{width:44px;height:44px}}" +
     "@media (hover:none){.gallery-caption{opacity:1;transform:none;font-size:12px;line-height:1.45;padding:28px 10px 8px}}";
   document.head.appendChild(st);
 })();
@@ -408,6 +420,7 @@ const ICONS = {
   link: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>',
   email: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg>',
   whatsapp: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.8l5.1-1.3A9.7 9.7 0 1 0 12 2.2zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.6 2.6 0 0 0-.8 1.9 4.5 4.5 0 0 0 1 2.4 10.2 10.2 0 0 0 3.9 3.4c1.4.6 2 .7 2.7.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.1-.1z"/></svg>',
+  globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>',
   photo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="9" cy="10" r="1.8"/><path d="m3.5 17 5-4.5 4 3.5 3-2.5 5 4"/></svg>',
 };
 
@@ -436,6 +449,21 @@ function renderContact() {
   icons.push(`<a href="#" data-wa="general" aria-label="WhatsApp" title="WhatsApp">${ICONS.whatsapp}</a>`);
 
   $$("[data-social]").forEach((el) => (el.innerHTML = icons.join("")));
+
+  /* যোগাযোগ অংশে নামসহ সামাজিক মাধ্যমের বাক্স */
+  const links = SOCIAL.filter((s) => s.url);
+  const info = $(".contact-info");
+  if (info && links.length && !$(".social-box", info)) {
+    const box = document.createElement("div");
+    box.className = "social-box";
+    box.innerHTML =
+      `<p class="social-box-title">${ICONS.globe} সামাজিক মাধ্যম</p>` +
+      `<ul>${links.map((s) => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">` +
+        `<span class="sb-icon">${ICONS[s.type] || ICONS.link}</span><span class="sb-label">${esc(s.label)}</span>` +
+        `<span class="sb-arrow" aria-hidden="true">↗</span></a></li>`).join("")}</ul>`;
+    const old = $("[data-social]", info);
+    if (old) old.replaceWith(box); else info.appendChild(box);
+  }
 }
 
 /* ---------- রেন্ডার: সময়রেখা ---------- */
