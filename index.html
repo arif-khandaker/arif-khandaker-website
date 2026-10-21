@@ -41,6 +41,13 @@
     .hero-tagline{line-height:1.9}
     .tagline-end{display:inline-block;margin-top:10px;color:var(--gold-soft);font-family:var(--font-display);font-size:1.08em}
     @media (max-width:540px){.hero-tagline br{display:none}.tagline-end{display:block}}
+    /* হোম অংশের ভেসে আসা লেখা */
+    @keyframes ak-float-in{0%{opacity:0;transform:translateY(18px);filter:blur(10px)}60%{opacity:1;filter:blur(1px)}100%{opacity:1;transform:none;filter:none}}
+    @keyframes ak-shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+    .ak-anim .ak-in{opacity:0;animation:ak-float-in 1.1s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s)}
+    .ak-anim .ak-word{display:inline-block;opacity:0;animation:ak-float-in 1s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s);will-change:transform,opacity,filter}
+    .ak-anim .tagline-end{background:linear-gradient(100deg,var(--gold) 0%,var(--gold) 40%,#fff4d6 50%,var(--gold) 60%,var(--gold) 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;animation:ak-float-in 1.3s cubic-bezier(.2,.7,.2,1) both,ak-shimmer 4.5s linear infinite;animation-delay:var(--d,0s),calc(var(--d,0s) + 1.3s)}
+    @media (prefers-reduced-motion:reduce){.ak-anim .ak-in,.ak-anim .ak-word,.ak-anim .tagline-end{animation:none!important;opacity:1!important;filter:none!important;transform:none!important}}
   </style>
 </head>
 <body>
@@ -342,6 +349,51 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <script>
+    /* হোম অংশের লেখা শব্দে শব্দে ভেসে আসবে */
+    (function () {
+      var hero = document.querySelector(".hero-inner");
+      if (!hero) return;
+      document.documentElement.classList.add("ak-anim");
+      var t = 0.1;
+      function stage(sel, step) {
+        var el = hero.querySelector(sel);
+        if (!el) return;
+        el.classList.add("ak-in");
+        el.style.setProperty("--d", t.toFixed(2) + "s");
+        t += step;
+      }
+      stage(".hero-eyebrow", 0.25);
+      stage(".hero-name", 0.35);
+      stage(".hero-en", 0.3);
+      stage(".hero-rule", 0.2);
+      var tag = hero.querySelector(".hero-tagline");
+      if (tag) {
+        Array.prototype.slice.call(tag.childNodes).forEach(function (node) {
+          if (node.nodeType === 3) {
+            var frag = document.createDocumentFragment();
+            node.textContent.split(/(\s+)/).forEach(function (part) {
+              if (!part) return;
+              if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+              var w = document.createElement("span");
+              w.className = "ak-word";
+              w.textContent = part;
+              w.style.setProperty("--d", t.toFixed(2) + "s");
+              t += 0.09;
+              frag.appendChild(w);
+            });
+            tag.replaceChild(frag, node);
+          } else if (node.classList && node.classList.contains("tagline-end")) {
+            t += 0.25;
+            node.style.setProperty("--d", t.toFixed(2) + "s");
+            t += 0.6;
+          }
+        });
+      }
+      stage(".hero-quote", 0.3);
+      stage(".hero-actions", 0.2);
+    })();
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
