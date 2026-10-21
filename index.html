@@ -48,9 +48,27 @@
     .ak-anim .ak-word{display:inline-block;opacity:0;animation:ak-float-in 1s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s);will-change:transform,opacity,filter}
     .ak-anim .tagline-end{background:linear-gradient(100deg,var(--gold) 0%,var(--gold) 40%,#fff4d6 50%,var(--gold) 60%,var(--gold) 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;animation:ak-float-in 1.3s cubic-bezier(.2,.7,.2,1) both,ak-shimmer 4.5s linear infinite;animation-delay:var(--d,0s),calc(var(--d,0s) + 1.3s)}
     @media (prefers-reduced-motion:reduce){.ak-anim .ak-in,.ak-anim .ak-word,.ak-anim .tagline-end{animation:none!important;opacity:1!important;filter:none!important;transform:none!important}}
+    /* ঝরে পড়া বাহারি পাতা */
+    .leaves{position:fixed;inset:0;pointer-events:none;z-index:80;overflow:hidden}
+    .leaf{position:absolute;top:-60px;left:var(--x);width:var(--s);height:var(--s);animation:leaf-fall var(--t) linear infinite;animation-delay:var(--d)}
+    .leaf i{display:block;width:100%;height:100%;animation:leaf-sway var(--w) ease-in-out infinite alternate;transform-origin:50% 0}
+    .leaf svg{display:block;width:100%;height:100%;filter:drop-shadow(0 3px 4px rgba(0,0,0,.18))}
+    @keyframes leaf-fall{0%{transform:translateY(-8vh);opacity:0}8%{opacity:.92}88%{opacity:.92}100%{transform:translateY(112vh);opacity:0}}
+    @keyframes leaf-sway{0%{transform:translateX(-38px) rotate(-35deg) rotateX(0deg)}50%{transform:translateX(6px) rotate(10deg) rotateX(55deg)}100%{transform:translateX(42px) rotate(48deg) rotateX(10deg)}}
+    @media (max-width:540px){.leaf{width:calc(var(--s) * .85);height:calc(var(--s) * .85)}}
+    @media (prefers-reduced-motion:reduce){.leaves{display:none}}
   </style>
 </head>
 <body>
+
+    <!-- ঝরে পড়া বাহারি পাতা -->
+  <div class="leaves" aria-hidden="true">
+    <span class="leaf" style="--x:6%;--s:30px;--t:17s;--d:-3s;--w:3.6s"><i><svg viewBox="0 0 24 24"><path d="M12 1.5C5.5 6 3.6 12.4 6 18c1.6 3.3 4.4 4.5 6 4.5s4.4-1.2 6-4.5C20.4 12.4 18.5 6 12 1.5z" fill="#e0a33a"/><path d="M12 3.5v18M12 9l-3.2-2.4M12 12.5l-4-2.8M12 16l-3.4-2.3M12 9l3.2-2.4M12 12.5l4-2.8M12 16l3.4-2.3" stroke="#a8741f" stroke-width=".9" fill="none" stroke-linecap="round"/></svg></i></span>
+    <span class="leaf" style="--x:27%;--s:26px;--t:21s;--d:-11s;--w:4.2s"><i><svg viewBox="0 0 24 24"><path d="M12 1l1.6 4.2 3-1.6-.6 4 4.6-.8-2 3.4 3.4 1.6-4 1.8 1 3.2-3.8-1.2-.6 3.6-2.6-2.6-2.6 2.6-.6-3.6-3.8 1.2 1-3.2-4-1.8 3.4-1.6-2-3.4 4.6.8-.6-4 3 1.6z" fill="#c9452e"/><path d="M12 6v17" stroke="#8e2b1c" stroke-width=".9" stroke-linecap="round"/></svg></i></span>
+    <span class="leaf" style="--x:52%;--s:32px;--t:19s;--d:-7s;--w:3.9s"><i><svg viewBox="0 0 24 24"><path d="M12 1.5C5.5 6 3.6 12.4 6 18c1.6 3.3 4.4 4.5 6 4.5s4.4-1.2 6-4.5C20.4 12.4 18.5 6 12 1.5z" fill="#d9692b"/><path d="M12 3.5v18M12 9l-3.2-2.4M12 12.5l-4-2.8M12 16l-3.4-2.3M12 9l3.2-2.4M12 12.5l4-2.8M12 16l3.4-2.3" stroke="#9a4517" stroke-width=".9" fill="none" stroke-linecap="round"/></svg></i></span>
+    <span class="leaf" style="--x:74%;--s:28px;--t:23s;--d:-15s;--w:4.6s"><i><svg viewBox="0 0 24 24"><path d="M12 1l1.6 4.2 3-1.6-.6 4 4.6-.8-2 3.4 3.4 1.6-4 1.8 1 3.2-3.8-1.2-.6 3.6-2.6-2.6-2.6 2.6-.6-3.6-3.8 1.2 1-3.2-4-1.8 3.4-1.6-2-3.4 4.6.8-.6-4 3 1.6z" fill="#e8b84a"/><path d="M12 6v17" stroke="#a9822a" stroke-width=".9" stroke-linecap="round"/></svg></i></span>
+    <span class="leaf" style="--x:91%;--s:25px;--t:18s;--d:-1s;--w:3.4s"><i><svg viewBox="0 0 24 24"><path d="M12 1.5C5.5 6 3.6 12.4 6 18c1.6 3.3 4.4 4.5 6 4.5s4.4-1.2 6-4.5C20.4 12.4 18.5 6 12 1.5z" fill="#b8362a"/><path d="M12 3.5v18M12 9l-3.2-2.4M12 12.5l-4-2.8M12 16l-3.4-2.3M12 9l3.2-2.4M12 12.5l4-2.8M12 16l3.4-2.3" stroke="#7d2219" stroke-width=".9" fill="none" stroke-linecap="round"/></svg></i></span>
+  </div>
 
   <a class="skip-link" href="#main">মূল লেখায় যান</a>
 
