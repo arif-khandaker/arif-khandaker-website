@@ -226,6 +226,33 @@ const WRITINGS = [
       "বিশাখার কাছে তার স্বামী থাকলেও তার কাছে কেনো জানি মনে হয় তার কেউ নেই। এই জগতে সে একা। নিঃসঙ্গ। কিন্তু বিশাখা জানে বাবা যে জগতে আছে সে জগতে যাওয়ার পর বিশাখা আর একা থাকবে না, নিঃসঙ্গ থাকবে না। বিশাখা বাবাকে বলেও মাঝে মাঝে, 'বাবা আমি আসার আগে আবার আমার জন্য একটা শাড়ি কিনে রেখো কিন্তু!'",
     ],
   },
+  {
+    type: "কবিতা",
+    title: "ফের দেখা হলে",
+    date: "",
+    excerpt: "",
+    body: [
+      "ফের দেখা হলে",
+      "ফিরিয়ে নেবো চোখ,",
+      "ফের দেখা হলে",
+      "ফিরিয়ে দেবো শোক।",
+      "",
+      "ফের দেখা হলে",
+      "গুটিয়ে নেবো আবদার,",
+      "ফের দেখা হলে",
+      "অভিযোগ তুলে ধরবো আবার।",
+      "",
+      "ফের দেখা হলে",
+      "সুদে আসলে বুঝে নেবো ফাগুন,",
+      "ফের দেখা হলে",
+      "জলের মধ্যে পুনরায় জ্বালাবো আগুন।",
+      "",
+      "ফের দেখা হলে",
+      "কথার মধ্যে এঁকে নেবো ব্যথা,",
+      "ফের দেখা হলে",
+      "তোমার ঠোঁটে দেবো আমার ঠোঁটের নীরবতা।",
+    ],
+  },
 ];
 
 
@@ -252,6 +279,61 @@ const POEM_TYPES = ["কবিতা"];
    ========================================================= */
 
 document.documentElement.classList.add("js");
+
+/* কবিতার সোনালি পাতা ও আলো-ছায়ার খেলা */
+const LIGHTPLAY = '<div class="lightplay" aria-hidden="true"><span class="lp-light"></span><span class="lp-shade"></span><span class="lp-rays"></span></div>';
+(function () {
+  const st = document.createElement("style");
+  st.textContent = `
+    .writing.is-gold{background:radial-gradient(ellipse at 18% 8%,rgba(255,248,220,.55),transparent 55%),linear-gradient(155deg,#f2d98e 0%,#ddb55a 55%,#c8973c 100%);border-color:#b8862e;color:#111;box-shadow:0 24px 44px -28px rgba(90,60,5,.6)}
+    .writing.is-gold::before{background:#111}
+    .writing.is-gold::after{content:"";position:absolute;inset:8px;border:1px solid rgba(17,17,17,.22);pointer-events:none}
+    .writing.is-gold .writing-type{color:#3b2a08}
+    .writing.is-gold h3{color:#0c0c0c}
+    .writing.is-gold .writing-excerpt{color:#1a1407;text-align:center;font-family:var(--font-display);font-size:18px}
+    .writing.is-gold .writing-foot{border-top-color:rgba(17,17,17,.22);color:#3b2a08}
+    .writing.is-gold .text-link{color:#0c0c0c;border-bottom-color:#0c0c0c}
+    .modal.is-gold .modal-panel{background:radial-gradient(ellipse at 15% 0%,rgba(255,250,228,.6),transparent 50%),linear-gradient(170deg,#f3dc95 0%,#e0bb62 55%,#cf9f45 100%);color:#0e0e0e;border-top:3px solid #0e0e0e}
+    .modal.is-gold .modal-kicker{color:#3b2a08;text-align:center}
+    .modal.is-gold .modal-title{color:#0c0c0c;text-align:center;padding:0 30px;font-size:clamp(34px,6vw,50px)}
+    .modal.is-gold .modal-meta{color:#3b2a08;text-align:center;border-bottom-color:rgba(17,17,17,.25)}
+    .modal.is-gold .modal-close{color:#0e0e0e}
+    .modal.is-gold .modal-body{white-space:normal}
+    .poem-text{white-space:pre-line;text-align:center;font-family:var(--font-display);font-size:clamp(19px,2.6vw,23px);line-height:2;color:#0c0c0c}
+    .modal.is-gold .modal-body{position:relative}
+    .poem-text{position:relative;z-index:1}
+    .writing.is-gold>*:not(.lightplay){position:relative;z-index:1}
+    .lightplay{position:absolute;inset:-12px -48px;z-index:0;overflow:hidden;pointer-events:none;
+      -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 16%,transparent 38%,transparent 62%,#000 84%,#000 100%),linear-gradient(180deg,transparent 0%,#000 14%,#000 86%,transparent 100%);
+      mask-image:linear-gradient(90deg,#000 0%,#000 16%,transparent 38%,transparent 62%,#000 84%,#000 100%),linear-gradient(180deg,transparent 0%,#000 14%,#000 86%,transparent 100%);
+      -webkit-mask-composite:source-in;mask-composite:intersect}
+    .writing .lightplay{inset:0;margin:0}
+    @media (max-width:540px){.lightplay{inset:-10px -22px;-webkit-mask-image:linear-gradient(90deg,#000 0%,transparent 30%,transparent 70%,#000 100%),linear-gradient(180deg,transparent 0%,#000 10%,#000 90%,transparent 100%);mask-image:linear-gradient(90deg,#000 0%,transparent 30%,transparent 70%,#000 100%),linear-gradient(180deg,transparent 0%,#000 10%,#000 90%,transparent 100%)}}
+    .lightplay span{position:absolute;inset:-15% -30%;pointer-events:none}
+    .lp-light{background:
+      radial-gradient(circle at 24% 18%,rgba(255,252,232,.95),transparent 9%),
+      radial-gradient(circle at 30% 52%,rgba(255,247,215,.85),transparent 8%),
+      radial-gradient(circle at 22% 82%,rgba(255,250,225,.9),transparent 9%),
+      radial-gradient(circle at 76% 28%,rgba(255,244,205,.85),transparent 8%),
+      radial-gradient(circle at 72% 64%,rgba(255,248,220,.9),transparent 9%),
+      radial-gradient(circle at 78% 90%,rgba(255,248,220,.7),transparent 7%);
+      mix-blend-mode:soft-light;animation:lp-drift 11s ease-in-out infinite alternate}
+    .lp-shade{background:
+      radial-gradient(ellipse at 27% 34%,rgba(35,22,0,.55),transparent 9%),
+      radial-gradient(ellipse at 20% 66%,rgba(35,22,0,.5),transparent 8%),
+      radial-gradient(ellipse at 74% 46%,rgba(35,22,0,.5),transparent 9%),
+      radial-gradient(ellipse at 80% 78%,rgba(35,22,0,.45),transparent 8%),
+      radial-gradient(ellipse at 76% 12%,rgba(35,22,0,.4),transparent 7%);
+      mix-blend-mode:multiply;animation:lp-drift2 13s ease-in-out infinite alternate}
+    .lp-rays{inset:-20% -60%;background:repeating-linear-gradient(115deg,transparent 0 38px,rgba(255,250,228,.35) 46px,transparent 60px 96px);
+      mix-blend-mode:overlay;animation:lp-sweep 9s linear infinite}
+    @keyframes lp-drift{0%{transform:translate(-6%,-4%) rotate(-4deg) scale(1)}50%{transform:translate(4%,3%) rotate(3deg) scale(1.08)}100%{transform:translate(8%,-3%) rotate(-2deg) scale(.96)}}
+    @keyframes lp-drift2{0%{transform:translate(7%,3%) scale(1.05)}50%{transform:translate(-3%,-4%) scale(.95)}100%{transform:translate(-8%,4%) scale(1.1)}}
+    @keyframes lp-sweep{0%{transform:translateX(-12%)}100%{transform:translateX(12%)}}
+    @media (prefers-reduced-motion:reduce){.lightplay span{animation:none}}
+  `;
+  document.head.appendChild(st);
+})();
 
 /* ছবির অংশের সাজানো (বাঁয়ে লম্বা ছবি, ডানে চারটি) */
 (function () {
@@ -445,10 +527,11 @@ function renderWritings() {
   grid.classList.toggle("single", WRITINGS.length === 1);
   grid.innerHTML = WRITINGS.length
     ? WRITINGS.map((w, i) => `
-      <article class="writing reveal${w.type === "গল্প" ? " is-paper" : ""}" data-type="${esc(w.type)}">
+      <article class="writing reveal${w.type === "গল্প" ? " is-paper" : ""}${isPoem(w) ? " is-gold" : ""}" data-type="${esc(w.type)}">
         <p class="writing-type">${esc(w.type)}</p>
         <h3>${esc(w.title)}</h3>
         <p class="writing-excerpt${isPoem(w) ? " is-poem" : ""}">${writingPreview(w)}</p>
+        ${isPoem(w) ? LIGHTPLAY : ""}
         <div class="writing-foot">
           <span>${esc(w.date || SITE.authorName)}</span>
           <button class="text-link" data-open="writing" data-index="${i}">পড়ুন →</button>
@@ -523,8 +606,9 @@ function renderGallery() {
 const modal = $("#modal");
 let lastFocus = null;
 
-function openModal({ kicker = "", title = "", meta = "", bodyHtml = "", poem = false, image = false, paper = false, actionsHtml = "" }) {
+function openModal({ kicker = "", title = "", meta = "", bodyHtml = "", poem = false, image = false, paper = false, gold = false, actionsHtml = "" }) {
   modal.classList.toggle("is-paper", paper);
+  modal.classList.toggle("is-gold", gold);
   $("#modal-kicker").textContent = kicker;
   $("#modal-title").textContent = title;
   $("#modal-meta").textContent = meta;
@@ -575,9 +659,10 @@ function openItem(type, index) {
     openModal({
       kicker: w.type,
       paper: w.type === "গল্প",
+      gold: isPoem(w),
       title: w.title,
       meta: w.date || SITE.authorName,
-      bodyHtml: isPoem(w) ? esc(w.body.join("\n")) : paragraphs(w.body),
+      bodyHtml: isPoem(w) ? `<div class="poem-text">${esc(w.body.join("\n"))}</div>` + LIGHTPLAY : paragraphs(w.body),
       poem: isPoem(w),
     });
   }

@@ -57,6 +57,7 @@
     @keyframes leaf-sway{0%{transform:translateX(-38px) rotate(-35deg) rotateX(0deg)}50%{transform:translateX(6px) rotate(10deg) rotateX(55deg)}100%{transform:translateX(42px) rotate(48deg) rotateX(10deg)}}
     @media (max-width:540px){.leaf{width:calc(var(--s) * .85);height:calc(var(--s) * .85)}}
     @media (prefers-reduced-motion:reduce){.leaves{display:none}}
+    body.menu-open .site-nav li:nth-child(7) a{transition-delay:.3s}
   </style>
 </head>
 <body>
@@ -92,7 +93,8 @@
           <li><a href="#intro">পরিচিতি</a></li>
           <li><a href="#biography">জীবনী</a></li>
           <li><a href="#books">বই</a></li>
-          <li><a href="#writings">লেখা</a></li>
+          <li><a href="#writings" data-filter="গল্প">গল্প</a></li>
+          <li><a href="#writings" data-filter="কবিতা">কবিতা</a></li>
           <li><a href="#gallery">ছবি</a></li>
           <li><a href="#contact">যোগাযোগ</a></li>
         </ul>
