@@ -24,6 +24,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Sans+Bengali:wght@300;400;500;600&family=Noto+Serif+Bengali:wght@400;500&family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* জীবনী অংশের বাড়তি নকশা */
+    .bio-quote{max-width:640px;margin:-28px auto 56px;text-align:center;font-family:var(--font-display);font-style:italic;font-size:clamp(20px,3vw,26px);line-height:1.7;color:var(--gold-deep)}
+    .bio-text em{font-style:normal;color:var(--ink)}
+    .desk{position:relative;margin-top:34px;padding:30px 28px 24px;background:var(--ink);color:var(--ivory);font-family:var(--font-body)}
+    .desk::before{content:"";position:absolute;inset:8px;border:1px solid var(--line-dark);pointer-events:none}
+    .desk-label{font-size:14px;letter-spacing:.08em;color:var(--gold);margin:0 0 12px}
+    .desk ul{list-style:none;margin:0;padding:0}
+    .desk li{font-family:var(--font-display);font-size:clamp(21px,3vw,25px);line-height:1.5;padding:10px 0;border-bottom:1px solid var(--line-dark)}
+    .desk li::before{content:"◆";font-size:9px;color:var(--gold);margin-right:14px;vertical-align:middle}
+    .desk-note{font-size:13px;color:var(--muted-dark);margin:16px 0 0}
+    .timeline-now .timeline-year{color:var(--ink)}
+    .timeline-now::before{background:var(--gold)!important;border-color:var(--gold)!important}
+    @media (max-width:540px){.bio-quote{margin:-16px auto 40px}.desk{padding:26px 20px 20px}}
+  </style>
 </head>
 <body>
 
@@ -137,16 +152,34 @@
           <h2>জীবন ও সাহিত্যযাত্রা</h2>
         </header>
 
+        <p class="bio-quote reveal">স্থাপত্যের ছাত্র, শব্দের কারিগর।<br>যিনি ইট-পাথরের বদলে গল্প দিয়ে ঘর বানান।</p>
+
         <div class="bio-grid">
           <div class="bio-text reveal">
-            <p class="dropcap">[জীবনীর প্রথম অনুচ্ছেদ — জন্ম, শৈশব ও বেড়ে ওঠা।]</p>
-            <p>[দ্বিতীয় অনুচ্ছেদ — শিক্ষা ও পেশাজীবন।]</p>
-            <p>[তৃতীয় অনুচ্ছেদ — লেখালেখির শুরু ও সাহিত্যযাত্রা।]</p>
-            <p>[চতুর্থ অনুচ্ছেদ — বর্তমান কাজ ও ভবিষ্যৎ পরিকল্পনা।]</p>
+            <p class="dropcap">নরসিংদী শহরেই কেটেছে আরিফ খন্দকারের শৈশবের পুরোটা সময়। এই শহরেই তাঁর বেড়ে ওঠা, আর এখান থেকেই শুরু তাঁর গল্পের পথচলা।</p>
+            <p>পড়াশোনার পথটা অবশ্য সাহিত্যের নয়, স্থাপত্যের। ডিপ্লোমা ইন ইঞ্জিনিয়ারিং (আর্কিটেকচার) শেষে তাঁর পরের ঠিকানা স্টেট ইউনিভার্সিটি অফ বাংলাদেশ, ব্যাচেলর অব আর্কিটেকচার (B.Arch)। একজন স্থপতি যেমন নকশা এঁকে ঘর গড়েন, আরিফ খন্দকার তেমনি শব্দ দিয়ে গড়ে তোলেন গল্পের ঘর, যেখানে প্রতিটি চরিত্রের জন্য আলাদা একটা জানালা থাকে।</p>
+            <p>২০১২ সালে একটি স্বনামধন্য জাতীয় পত্রিকায় ছাপা হয় তাঁর প্রথম লেখা। তার তিন বছর পর, ২০১৫ সালের অমর একুশে গ্রন্থমেলায় প্রকাশিত হয় প্রথম বই, কাব্যগ্রন্থ <em>‘মেঘমালা’</em>। কবিতা দিয়ে শুরু হওয়া সেই যাত্রা এরপর ছড়িয়ে পড়েছে উপন্যাস, থ্রিলার, সায়েন্স ফিকশন আর গল্পে। আজ তাঁর প্রকাশিত বইয়ের সংখ্যা ৬১।</p>
+            <p>তবু গল্প বলা থামেনি। এই মুহূর্তে তাঁর লেখার টেবিলে বড় পরিসরে এগিয়ে চলেছে তিনটি নতুন বই।</p>
+
+            <div class="desk reveal">
+              <p class="desk-label">লেখার টেবিলে এখন</p>
+              <ul>
+                <li>জারুল রঙের শাড়ি</li>
+                <li>ঢাকা মেট্রো গ</li>
+                <li>রাজসিক হত্যারহস্য</li>
+              </ul>
+              <p class="desk-note">লেখা চলছে · প্রকাশের খবর এখানেই জানানো হবে</p>
+            </div>
           </div>
 
-          <!-- সময়রেখার তথ্য script.js ফাইলের TIMELINE অংশে সম্পাদনা করুন -->
-          <ol class="timeline reveal" id="timeline" aria-label="সময়রেখা"></ol>
+          <ol class="timeline reveal" aria-label="সময়রেখা">
+            <li><span class="timeline-year">২৩ আগস্ট</span><p class="timeline-text">জন্ম, নরসিংদী শহরে।</p></li>
+            <li><span class="timeline-year">২০১২</span><p class="timeline-text">একটি স্বনামধন্য জাতীয় পত্রিকায় প্রথম লেখা প্রকাশ।</p></li>
+            <li><span class="timeline-year">২০১৫</span><p class="timeline-text">অমর একুশে গ্রন্থমেলায় প্রথম বই, কাব্যগ্রন্থ ‘মেঘমালা’।</p></li>
+            <li><span class="timeline-year">২০২৫</span><p class="timeline-text">বইমেলায় পাঁচটি বই: রজনীগন্ধা রিসোর্ট, আসমান জমিনের উপাখ্যান, আজমেরী, চন্দ্রমল্লিকা ও বেদনা রঙের বাড়ি।</p></li>
+            <li><span class="timeline-year">২০২৬</span><p class="timeline-text">বইমেলায় তিনটি বই: অকূলপাথার, এখানে তাবিজ বিক্রি হয় ও বড়ো ভাই। প্রকাশিত বই দাঁড়ায় ৬১-তে।</p></li>
+            <li class="timeline-now"><span class="timeline-year">এখন</span><p class="timeline-text">লিখছেন জারুল রঙের শাড়ি, ঢাকা মেট্রো গ ও রাজসিক হত্যারহস্য।</p></li>
+          </ol>
         </div>
       </div>
     </section>
