@@ -203,43 +203,27 @@ const BOOK_LIST = [
 const WRITINGS = [
   {
     type: "গল্প",
-    title: "[লেখার শিরোনাম]",
-    date: "[প্রকাশের তারিখ বা স্থান]",
-    excerpt: "[লেখার প্রথম কয়েকটি লাইন বা সংক্ষিপ্ত ভূমিকা।]",
+    title: "বিশাখা",
+    date: "",
+    excerpt: "বিশাখা নতুন শাড়ি পরেছে। তাকে চমৎকার লাগছে। রাজকন্যার মতন। কপালে ছোট একটা টিপও পরেছে। শাড়ির রঙের সাথে টিপের রঙটার কি অদ্ভুত মিল! শাড়িটা পাতা রঙের। টিপটাও। তাকে পাতার মতনই দেখাচ্ছে। মনে হচ্ছে পৃথিবীর অদ্ভুত সুন্দর পাতাটা আমার সামনে দাঁড়িয়ে আছে।",
     body: [
-      "[প্রথম অনুচ্ছেদ।]",
-      "[দ্বিতীয় অনুচ্ছেদ।]",
-    ],
-  },
-  {
-    type: "গল্প",
-    title: "[লেখার শিরোনাম]",
-    date: "[প্রকাশের তারিখ বা স্থান]",
-    excerpt: "[লেখার প্রথম কয়েকটি লাইন বা সংক্ষিপ্ত ভূমিকা।]",
-    body: [
-      "[প্রথম অনুচ্ছেদ।]",
-    ],
-  },
-  {
-    type: "কবিতা",
-    title: "[কবিতার শিরোনাম]",
-    date: "[প্রকাশের তারিখ বা স্থান]",
-    excerpt: "",
-    body: [
-      "[প্রথম পঙ্‌ক্তি]",
-      "[দ্বিতীয় পঙ্‌ক্তি]",
-      "[তৃতীয় পঙ্‌ক্তি]",
-      "",
-      "[দ্বিতীয় স্তবকের প্রথম পঙ্‌ক্তি]",
-    ],
-  },
-  {
-    type: "প্রবন্ধ",
-    title: "[লেখার শিরোনাম]",
-    date: "[প্রকাশের তারিখ বা স্থান]",
-    excerpt: "[লেখার সংক্ষিপ্ত সারাংশ।]",
-    body: [
-      "[প্রথম অনুচ্ছেদ।]",
+      "বিশাখা নতুন শাড়ি পরেছে। তাকে চমৎকার লাগছে। রাজকন্যার মতন। কপালে ছোট একটা টিপও পরেছে। শাড়ির রঙের সাথে টিপের রঙটার কি অদ্ভুত মিল! শাড়িটা পাতা রঙের। টিপটাও। তাকে পাতার মতনই দেখাচ্ছে। মনে হচ্ছে পৃথিবীর অদ্ভুত সুন্দর পাতাটা আমার সামনে দাঁড়িয়ে আছে।",
+      "বিশাখা তেমন শাড়ি-টাড়ি পরে না। সে থ্রি-পিছই বেশি পরে। আজ কি মনে করে শাড়ি পরলো কে জানে! তার এই একটাই শাড়ি। খুব যত্ন করে সে এই শাড়িটাকে। এই শাড়িটা বুঝি তার খুব পছন্দের। কেনো এতো পছন্দের তা কখনো জানা হয় নি! জানলে হয়তো তাকে শাড়িতে আর এতো সুন্দর লাগবে না।",
+      "জগতের কিছু কিছু বিষয় অজানা কারণেই সুন্দর। জানা হয়ে উঠলে হয়তো সুন্দর লাগতো না। বিশাখা শাড়ি পরে কোথায় যায় কে জানে! তাও দিনেদুপুরে নয়। সন্ধ্যা করে। আমাকে কখনো বলেও যায় না কোথায় যায়! আমি জানতে চেয়েছিলাম কয়েকবার কিন্তু সে বলে না।",
+      "জানতে চেয়ে মনে হলো বিশাখা বলতে স্বাচ্ছন্দ্যবোধ করে না। তাই আমিও আর জানতে চাই না। মানুষের অন্তত এটুকু স্বাধীনতার প্রয়োজন। তার মনের ইচ্ছেটাকে যদি সে মেলে ধরতে না পারে তাহলে আর স্বাধীনতা রইলো কই! আমি বিশাখাকে স্বাধীনতা দিতে চাই। আমার ভালো লাগে।",
+      "বিশাখা যখন তার মনের ইচ্ছেটাকে মেলে ধরে তখন তাকে আমার পাখির মতো লাগে। মনে হয় আমি এই পাখিটাকে পুষছি অনেকদিন ধরে। আমার ভালো লাগে কিন্তু খারাপও লাগে যখন বিশাখা শাড়ি পরে একা একা কোথাও যায়। আমাকে কখনো নিয়ে যেতে চায় না। সে বলেও না।",
+      "আমার খুব ইচ্ছে হয় বিশাখার হাতটা ধরে সন্ধ্যায় ল্যাম্পপোস্টের আলোতে করে হাঁটতে। কিন্তু সে আমার সাথে সন্ধ্যা করে কখনো বের হয় না। বিশাখার সাথে আমার বিয়ে হয়েছে খুব বেশিদিন হয় নি। সবেমাত্র ছ'মাস। এই ছ'মাসেই তাকে খুব আপন করে নিয়েছি। তাকে পর করতে পারবো না কখনো।",
+      "কিন্তু বিশাখা আমার বউ। এটা ভেবে মাঝেমধ্যে আমি খুব অবাক হই। আমার কাছে মনে হয় এটা কোনো স্বপ্ন। মনে হয় বিশাখা আমার বউ নয়। মনে হয় এতো সুন্দর নিষ্পাপ একটি মেয়ে আমার বউ হতে পারে না। বিশাখাকে যত দেখি তত অবাক হই। চোখের পলক পড়তে চায় না তাকে দেখা শুরু করলে।",
+      "বিয়ের পর বিশাখার মুখে তেমন হাসি দেখি নি। আমার খুব ইচ্ছে হয় তার হাসিমুখ দেখতে। এই মেয়েটাকে জানি হাসলে কত সুন্দর দেখায়! বিয়ের পরপরই তার মন খারাপ। মন খারাপ করে সে বারান্দায় বসে থাকে নাহয় বিছানায় শুয়ে থাকে নাহয় ভালো কিছু রান্না করে। বিশাখার রান্নার হাত ভালো।",
+      "রান্না করাটা তার একটা শখ। তার রান্নার হাত খুব ভালো। প্রত্যেক মাসের শেষ সপ্তাহে সে নতুন নতুন রেসিপি তৈরি করে। যার নাম আমারও জানা নেই, বিশাখারও না। কিন্তু রান্না করলেও বিশাখা নিজে খায় না। সব আমার সামনে এনে হাজির করে। আমি জানি বিশাখা আমাকে কতটা পছন্দ করে!",
+      "পছন্দ না করে কোনো উপায়ও নেই। যাকে সে বিয়ে করছে, যার সাথে সংসার করবে তাকে তো পছন্দ করবেই। একদিন রাত করে বিশাখা আলু দিয়ে, চিকেন দিয়ে, ময়দা দিয়ে আর মাশরুম দিয়ে কি যেন এক রেসিপি বানিয়েছে! দারুণ লেগেছে খেতে। মুখে লেগেই আছে। স্বাদ অমৃত।",
+      "রান্না করে সে শুধু আমাকেই খাওয়ায় না। বাটিতে করে বাইরে নিয়ে যায় যখন সন্ধ্যা করে শাড়ি পরে বের হয় তখন। আমার খুব কৌতূহল জাগে, সে খাবার নিয়ে বাইরে কোথায় যায়! বিয়ের পরপরই এই কৌতূহল তৈরি হয়। সময় বাড়ার সাথে সাথে আমার কৌতূহল বাড়ছেই শুধু।",
+      "আমি একদিন লুকিয়ে বিশাখার সাথে বের হই। তার পিছন পিছন হাঁটতে থাকি। ইচ্ছে সে কোথায় যায় দেখার! সন্ধ্যাবেলা। ল্যাম্পপোস্টের আলোয় সারা শহর হলুদ হয়ে আছে। মনে হয় প্রতিদিন সন্ধ্যায় শহরের গায়ে হলুদ হয়। বিশাখা হাঁটছে। আমিও হাঁটছি তার সাথে। তার পিছনে।",
+      "তার এই হাঁটার মাঝে বেদনা আছে। নিখুঁত বেদনা। আমি বুঝতে পারছি। সে যতবার পা ফেলছে ততবাই যেন বেদনার সুর বেজে উঠছে। বিশাখা হাঁটতে হাঁটতে কবরের সামনে চলে এলো। যে কবরটায় তার বাবাকে কবর দেওয়া হয়েছে সে কবরটায়। বিশাখা কবরের ভেতর ঢুকলো। আমিও ঢুকলাম।",
+      "আমি দূর থেকে দাঁড়িয়ে দেখতে পেলাম বিশাখা তার বাবার কবরের পাশে বসলো। বসে বিড়বিড় করে কাঁদো কাঁদো গলায় বলতে লাগলো, 'বাবা তুমি আমার রান্না করা নাম না জানা রেসিপিগুলো পছন্দ করতে! দেখো আমি আজ তোমার জন্য আরেকটা রেসিপি নিয়ে এসেছি রান্না করে। খাবে না বাবা!'",
+      "বলে সে বাটি থেকে রেসিপিটা বের করে। বের করে নিজের মুখে দেয় আর বাবার কবরের পাশেও রাখে। এতেই যেন বিশাখার মনে হয় তার বাবা খাচ্ছে। আর বলে, 'বাবা তোমার দেওয়া শাড়িটা শুধু তোমার কাছে আসার সময়ই পরি। তোমার কাছ থেকে চলে গিয়ে খুব যত্ন করে রেখে দেই। একটা দাগও লাগতে দেই না। আমাকে কি আর কোনো শাড়ি কিনে দিবে না বাবা?'",
+      "বিশাখা কাঁদে। জগতে বাবার চেয়ে প্রিয় তার আর কেউ ছিলো না। মাকে তো সে কখনোই দেখে নি। বিশাখা জানেও না মা দেখতে কেমন ছিলো! বিশাখার বাবা ওপারে চলে যায় তার বিয়ের ঠিক পরদিনই। এই শাড়িটা বিশাখাকে বাবা তার বিয়ের ঠিক দু'দিন আগেই কিনে দিয়েছিলো। এই শাড়িটা বাবা যত টাকা দিয়েই কিনুক না কেনো তার কাছে শাড়িটার দাম কোটি টাকা।",
+      "বিশাখার কাছে তার স্বামী থাকলেও তার কাছে কেনো জানি মনে হয় তার কেউ নেই। এই জগতে সে একা। নিঃসঙ্গ। কিন্তু বিশাখা জানে বাবা যে জগতে আছে সে জগতে যাওয়ার পর বিশাখা আর একা থাকবে না, নিঃসঙ্গ থাকবে না। বিশাখা বাবাকে বলেও মাঝে মাঝে, 'বাবা আমি আসার আগে আবার আমার জন্য একটা শাড়ি কিনে রেখো কিন্তু!'",
     ],
   },
 ];
@@ -280,6 +264,20 @@ document.documentElement.classList.add("js");
     ".gallery-item:nth-child(2) img{object-position:50% 38%}" +
     ".gallery-item:nth-child(4) img{object-position:72% 50%}" +
     "@media (max-width:860px){.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.gallery-item:nth-child(6){grid-column:span 2;aspect-ratio:2/1}}" +
+    ".writing.is-paper{background:radial-gradient(ellipse at 20% 10%,rgba(255,255,255,.45),transparent 55%),linear-gradient(160deg,#f9e8ad 0%,#f2d47c 100%);border-color:#d4ac4f;color:#141414;box-shadow:0 22px 40px -28px rgba(80,55,10,.55)}" +
+    ".writing.is-paper::before{background:#141414}" +
+    ".writing.is-paper::after{content:\"\";position:absolute;inset:8px;border:1px solid rgba(20,20,20,.18);pointer-events:none}" +
+    ".writing.is-paper .writing-type{color:#7a5410}.writing.is-paper h3{color:#111}.writing.is-paper .writing-excerpt{color:#2b2416}" +
+    ".writing.is-paper .writing-foot{border-top-color:rgba(20,20,20,.18);color:#5a4520}.writing.is-paper .text-link{color:#111;border-bottom-color:#111}" +
+    ".writing-grid.single{grid-template-columns:1fr}.writing-grid.single .writing{max-width:780px;width:100%;margin:0 auto;padding:52px 48px 40px}" +
+    ".writing-grid.single .writing h3{font-size:clamp(32px,5vw,46px)}.writing-grid.single .writing-excerpt{font-size:18px;line-height:2}" +
+    ".modal.is-paper .modal-panel{background:radial-gradient(ellipse at 15% 0%,rgba(255,255,255,.5),transparent 50%),linear-gradient(170deg,#f9e9b0 0%,#f1d27a 100%);color:#141414;border-top:3px solid #141414}" +
+    ".modal.is-paper .modal-kicker{color:#7a5410}.modal.is-paper .modal-title{color:#0e0e0e;font-size:clamp(34px,6vw,48px)}" +
+    ".modal.is-paper .modal-meta{color:#5a4520;border-bottom-color:rgba(20,20,20,.2)}.modal.is-paper .modal-close{color:#141414}" +
+    ".modal.is-paper .modal-body{color:#141414;font-size:19px;line-height:2.05}.modal.is-paper .modal-body p{margin-bottom:1.15em}" +
+    ".modal.is-paper .modal-body p:first-child::first-letter{float:left;font-family:var(--font-display);font-size:3.6em;line-height:.9;padding:8px 10px 0 0;color:#0e0e0e}" +
+    ".modal.is-paper .modal-body::after{content:\"◆  ◆  ◆\";display:block;text-align:center;margin-top:30px;color:#7a5410;font-size:10px;letter-spacing:.5em}" +
+    "@media (max-width:540px){.writing-grid.single .writing{padding:40px 24px 30px}.modal.is-paper .modal-body{font-size:17.5px}}" +
     "@media (hover:none){.gallery-caption{opacity:1;transform:none;font-size:12px;line-height:1.45;padding:28px 10px 8px}}";
   document.head.appendChild(st);
 })();
@@ -444,14 +442,15 @@ function renderWritings() {
   const filters = $("#filters");
   if (!grid) return;
 
+  grid.classList.toggle("single", WRITINGS.length === 1);
   grid.innerHTML = WRITINGS.length
     ? WRITINGS.map((w, i) => `
-      <article class="writing reveal" data-type="${esc(w.type)}">
+      <article class="writing reveal${w.type === "গল্প" ? " is-paper" : ""}" data-type="${esc(w.type)}">
         <p class="writing-type">${esc(w.type)}</p>
         <h3>${esc(w.title)}</h3>
         <p class="writing-excerpt${isPoem(w) ? " is-poem" : ""}">${writingPreview(w)}</p>
         <div class="writing-foot">
-          <span>${esc(w.date)}</span>
+          <span>${esc(w.date || SITE.authorName)}</span>
           <button class="text-link" data-open="writing" data-index="${i}">পড়ুন →</button>
         </div>
       </article>`).join("")
@@ -524,7 +523,8 @@ function renderGallery() {
 const modal = $("#modal");
 let lastFocus = null;
 
-function openModal({ kicker = "", title = "", meta = "", bodyHtml = "", poem = false, image = false, actionsHtml = "" }) {
+function openModal({ kicker = "", title = "", meta = "", bodyHtml = "", poem = false, image = false, paper = false, actionsHtml = "" }) {
+  modal.classList.toggle("is-paper", paper);
   $("#modal-kicker").textContent = kicker;
   $("#modal-title").textContent = title;
   $("#modal-meta").textContent = meta;
@@ -574,8 +574,9 @@ function openItem(type, index) {
     if (!w) return;
     openModal({
       kicker: w.type,
+      paper: w.type === "গল্প",
       title: w.title,
-      meta: w.date,
+      meta: w.date || SITE.authorName,
       bodyHtml: isPoem(w) ? esc(w.body.join("\n")) : paragraphs(w.body),
       poem: isPoem(w),
     });
