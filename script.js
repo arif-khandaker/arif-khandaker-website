@@ -249,12 +249,12 @@ const WRITINGS = [
    src: ছবির ফাইলের নাম, যেমন "photo-1.jpg" (GitHub-এ আপলোড করার পর)।
    caption: ছবির নিচের বিবরণ। */
 const GALLERY = [
-  { src: "", caption: "[ছবির বিবরণ]" },
-  { src: "", caption: "[ছবির বিবরণ]" },
-  { src: "", caption: "[ছবির বিবরণ]" },
-  { src: "", caption: "[ছবির বিবরণ]" },
-  { src: "", caption: "[ছবির বিবরণ]" },
-  { src: "", caption: "[ছবির বিবরণ]" },
+  { src: "gallery-6.jpg", caption: "শহরের বারান্দায়, গোধূলিবেলায়" },
+  { src: "gallery-1.jpg", caption: "লেখার টেবিলে, গভীর রাতে" },
+  { src: "gallery-4.jpg", caption: "ঢাকা এফএম ৯০.৪-এর স্টুডিওতে" },
+  { src: "gallery-5.jpg", caption: "বইমেলায় পাঠকদের সঙ্গে" },
+  { src: "gallery-3.jpg", caption: "এক তাকে নিজের লেখা বইয়ের সারি" },
+  { src: "gallery-2.jpg", caption: "পিপলস রেডিও ৯১.৬ এফএম-এর স্টুডিওতে" },
 ];
 
 
@@ -268,6 +268,21 @@ const POEM_TYPES = ["কবিতা"];
    ========================================================= */
 
 document.documentElement.classList.add("js");
+
+/* ছবির অংশের সাজানো (বাঁয়ে লম্বা ছবি, ডানে চারটি) */
+(function () {
+  const st = document.createElement("style");
+  st.id = "gallery-layout-style";
+  st.textContent =
+    ".gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}" +
+    ".gallery-item,.gallery-item:nth-child(6n + 1),.gallery-item:nth-child(6n + 5){grid-row:auto;grid-column:auto;aspect-ratio:1/1}" +
+    ".gallery-item:nth-child(1){grid-column:span 2;grid-row:span 2;aspect-ratio:auto}" +
+    ".gallery-item:nth-child(2) img{object-position:50% 38%}" +
+    ".gallery-item:nth-child(4) img{object-position:72% 50%}" +
+    "@media (max-width:860px){.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.gallery-item:nth-child(6){grid-column:span 2;aspect-ratio:2/1}}" +
+    "@media (hover:none){.gallery-caption{opacity:1;transform:none;font-size:12px;line-height:1.45;padding:28px 10px 8px}}";
+  document.head.appendChild(st);
+})();
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
