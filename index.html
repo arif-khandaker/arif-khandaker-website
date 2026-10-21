@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Sans+Bengali:wght@300;400;500;600&family=Noto+Serif+Bengali:wght@400;500&family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20261022">
   <style>
     /* জীবনী অংশের বাড়তি নকশা */
     .bio-quote{max-width:640px;margin:-28px auto 56px;text-align:center;font-family:var(--font-display);font-style:italic;font-size:clamp(20px,3vw,26px);line-height:1.7;color:var(--gold-deep)}
@@ -62,6 +62,16 @@
     @media (max-width:540px){.leaf{width:calc(var(--s) * .85);height:calc(var(--s) * .85)}}
     @media (prefers-reduced-motion:reduce){.leaves{display:none}}
     body.menu-open .site-nav li:nth-child(7) a{transition-delay:.3s}
+    /* প্রবেশের পর্দা — এখানেই রাখা, যাতে অন্য ফাইল দেরিতে এলেও ঠিক দেখায় */
+    .preloader{position:fixed;inset:0;z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0e0d0b;color:#f7f3ea;animation:pl-auto .8s 2.6s forwards}
+    .preloader.done{opacity:0;visibility:hidden;transition:opacity .8s,visibility .8s}
+    .pl-inner{position:relative;width:120px;height:120px;margin-bottom:26px}
+    .pl-ring{position:absolute;inset:0;width:120px;height:120px;transform:rotate(-90deg)}
+    .pl-ring circle{fill:none;stroke:#c9a45c;stroke-width:1.2}
+    .pl-mark{position:absolute;inset:0;display:grid;place-items:center;padding-top:8px;font-size:58px;color:#c9a45c}
+    .pl-name,.pl-tag{margin:0;text-align:center}
+    .pl-name{font-size:26px}.pl-tag{font-size:14px;color:#a59c8b;margin-top:6px}
+    @keyframes pl-auto{to{opacity:0;visibility:hidden}}
   </style>
 </head>
 <body>
@@ -461,6 +471,6 @@
       stage(".hero-actions", 0.2);
     })();
   </script>
-  <script src="script.js"></script>
+  <script src="script.js?v=20261022"></script>
 </body>
 </html>
