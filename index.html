@@ -72,6 +72,40 @@
     .pl-name,.pl-tag{margin:0;text-align:center}
     .pl-name{font-size:26px}.pl-tag{font-size:14px;color:#a59c8b;margin-top:6px}
     @keyframes pl-auto{to{opacity:0;visibility:hidden}}
+    /* হালকা বাদামি পাতার মতো পরিচিতি ও জীবনী */
+    #intro,#biography{position:relative;color:#3b2a1c;overflow:hidden}
+    #intro{background:radial-gradient(ellipse 80% 60% at 15% 10%,rgba(255,248,232,.75),transparent 60%),radial-gradient(ellipse 70% 60% at 100% 100%,rgba(150,105,60,.10),transparent 65%),linear-gradient(170deg,#f8f1e4 0%,#f1e5d0 100%)}
+    #biography{background:radial-gradient(ellipse 70% 55% at 90% 0%,rgba(255,246,226,.6),transparent 60%),radial-gradient(ellipse 60% 60% at 0% 100%,rgba(140,95,50,.11),transparent 65%),linear-gradient(175deg,#f1e5d0 0%,#eadbc0 100%)}
+    #intro::before,#biography::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.25;mix-blend-mode:multiply;
+      background-image:radial-gradient(rgba(110,75,40,.18) 1px,transparent 1.2px),radial-gradient(rgba(110,75,40,.12) 1px,transparent 1.2px);background-size:7px 7px,13px 13px;background-position:0 0,3px 5px}
+    #intro::after,#biography::after{content:"";position:absolute;left:50%;top:34px;width:150px;height:12px;transform:translateX(-50%);pointer-events:none;opacity:.7;background:linear-gradient(90deg,transparent,#9a6b3c) left center/62px 1px no-repeat,linear-gradient(90deg,#9a6b3c,transparent) right center/62px 1px no-repeat,linear-gradient(45deg,transparent 40%,#9a6b3c 40% 60%,transparent 60%) center/12px 12px no-repeat,linear-gradient(-45deg,transparent 40%,#9a6b3c 40% 60%,transparent 60%) center/12px 12px no-repeat}
+    #intro .container,#biography .container{position:relative;z-index:1}
+    #intro h2,#biography h2{color:#2e1f12}
+    #intro .section-eyebrow,#biography .section-eyebrow{color:#8a5a2b}
+    #intro .section-head h2::after,#biography .section-head h2::after{background:linear-gradient(90deg,#7a4e25,#c9935a);height:2px}
+    #intro .lead{color:#2e1f12;font-size:clamp(20px,2.5vw,24px)}
+    #intro .lead::first-letter{float:left;font-family:var(--font-display);font-size:3.4em;line-height:.85;padding:10px 12px 0 0;color:#7a4e25}
+    #intro .intro-text p:not(.lead):not(.section-eyebrow){font-family:var(--font-literary);font-size:17.5px;line-height:2;color:#46331f;padding-left:18px;border-left:2px solid rgba(138,90,43,.28);transition:border-color .5s}
+    #intro .intro-text p:not(.lead):not(.section-eyebrow):hover{border-left-color:#8a5a2b}
+    .ink{color:#5a3415;font-weight:500;padding:0 3px;border-radius:2px;background:linear-gradient(transparent 58%,rgba(201,147,90,.45) 58%) no-repeat 0 0/0% 100%;transition:background-size 1.3s .45s cubic-bezier(.2,.7,.2,1)}
+    .is-visible .ink,.ink.is-visible{background-size:100% 100%}
+    #intro .facts{border-top-color:rgba(122,78,37,.3);background:rgba(255,250,238,.45);padding:4px 20px;border-radius:2px;box-shadow:0 18px 40px -30px rgba(90,55,20,.5)}
+    #intro .facts div{border-bottom-color:rgba(122,78,37,.2)}
+    #intro .facts dt{color:#8a5a2b}#intro .facts dd{color:#2e1f12}
+    #intro .portrait-frame{border-color:#9a6b3c;box-shadow:0 30px 60px -35px rgba(70,40,10,.6)}
+    #intro .portrait-frame::before{border-color:rgba(122,78,37,.35)}
+    #intro .portrait figcaption{color:#7a4e25;font-family:var(--font-display);font-size:19px}
+    #intro .social a{background:rgba(255,250,238,.6);border-color:rgba(122,78,37,.35);color:#5a3415}
+    #intro .social a:hover{background:#5a3415;color:#f3e6cf;border-color:#5a3415}
+    #biography .bio-quote{color:#6b411c}
+    #biography .bio-text{color:#3b2a1c}
+    #biography .dropcap::first-letter{color:#6b411c}
+    #biography .timeline::before{background:linear-gradient(#7a4e25,rgba(122,78,37,.2))}
+    #biography .timeline li::before{background:#f1e5d0;border-color:#7a4e25}
+    #biography .timeline-year{color:#6b411c}
+    #biography .timeline-text{color:#46331f}
+    #biography .timeline-now .timeline-year{color:#2e1f12}
+    @media (max-width:540px){#intro .intro-text p:not(.lead):not(.section-eyebrow){font-size:16.5px;padding-left:14px}#intro::after,#biography::after{top:22px}}
   </style>
 </head>
 <body>
@@ -197,11 +231,11 @@
             <h2>লেখকের কথা</h2>
           </header>
 
-          <p class="lead reveal">আরিফ খন্দকার জন্মেছেন ২৩ আগস্ট, নরসিংদী শহরে। কিন্তু তাঁর আসল বাসস্থান গল্পের ভেতর। তিনি বিশ্বাস করেন, মানুষ বাঁচে গল্পের জন্য। গল্প শোনে বলেই মানুষ মানুষ থাকে।</p>
-          <p class="reveal">তাঁর লেখালেখির ভেতর তাই কোনো নির্দিষ্ট ঘরানা নেই—আছে কেবল গল্প বলার তাগিদ। গল্প, কবিতা, সায়েন্স ফিকশন, থ্রিলার, উপন্যাস—সবখানেই তিনি মূলত খুঁজে ফেরেন মানুষের ভেতরের নীরবতা, ভয়, প্রেম আর অনুচ্চারিত সত্য।</p>
-          <p class="reveal">আরিফ খন্দকারের লেখায় সুখ আছে, তবে তা সহজ নয়। দুঃখ আছে, তবে তা একমাত্রিক নয়। তাঁর চরিত্ররা হাসে, কাঁদে, ভুল করে আবার নীরবে ভেঙেও পড়ে—একেবারে আমাদের মতোই।</p>
-          <p class="reveal">তিনি মনে করেন, গল্প ফুরিয়ে গেলে মানুষও ফুরিয়ে যায়। কিন্তু মানুষ ফুরিয়ে গেলেও গল্প থেকে যায়। এই সামান্য ব্যবধানটাই মানুষ আর গল্পের মধ্যে একমাত্র তফাৎ।</p>
-          <p class="reveal">এ পর্যন্ত তাঁর প্রকাশিত বইয়ের সংখ্যা ৬১। কিন্তু সংখ্যার চেয়েও গুরুত্বপূর্ণ হলো—প্রতিটি বই একেকটি বলা গল্প। আরিফ খন্দকার এখনো সেই গল্প বলেই যেতে চান। কারণ তাঁর বিশ্বাস, যতদিন গল্প আছে, ততদিন মানুষও পুরোপুরি হারিয়ে যায় না।</p>
+          <p class="lead reveal">আরিফ খন্দকার জন্মেছেন ২৩ আগস্ট, নরসিংদী শহরে। কিন্তু তাঁর আসল বাসস্থান <mark class="ink">গল্পের ভেতর</mark>। তিনি বিশ্বাস করেন, <mark class="ink">মানুষ বাঁচে গল্পের জন্য</mark>। গল্প শোনে বলেই মানুষ মানুষ থাকে।</p>
+          <p class="reveal">তাঁর লেখালেখির ভেতর তাই কোনো নির্দিষ্ট ঘরানা নেই—আছে কেবল গল্প বলার তাগিদ। গল্প, কবিতা, সায়েন্স ফিকশন, থ্রিলার, উপন্যাস—সবখানেই তিনি মূলত খুঁজে ফেরেন মানুষের ভেতরের <mark class="ink">নীরবতা, ভয়, প্রেম আর অনুচ্চারিত সত্য</mark>।</p>
+          <p class="reveal">আরিফ খন্দকারের লেখায় সুখ আছে, তবে তা সহজ নয়। দুঃখ আছে, তবে তা একমাত্রিক নয়। তাঁর চরিত্ররা হাসে, কাঁদে, ভুল করে আবার নীরবে ভেঙেও পড়ে—<mark class="ink">একেবারে আমাদের মতোই</mark>।</p>
+          <p class="reveal">তিনি মনে করেন, গল্প ফুরিয়ে গেলে মানুষও ফুরিয়ে যায়। কিন্তু <mark class="ink">মানুষ ফুরিয়ে গেলেও গল্প থেকে যায়</mark>। এই সামান্য ব্যবধানটাই মানুষ আর গল্পের মধ্যে একমাত্র তফাৎ।</p>
+          <p class="reveal">এ পর্যন্ত তাঁর প্রকাশিত বইয়ের সংখ্যা ৬১। কিন্তু সংখ্যার চেয়েও গুরুত্বপূর্ণ হলো—<mark class="ink">প্রতিটি বই একেকটি বলা গল্প</mark>। আরিফ খন্দকার এখনো সেই গল্প বলেই যেতে চান। কারণ তাঁর বিশ্বাস, যতদিন গল্প আছে, ততদিন মানুষও পুরোপুরি হারিয়ে যায় না।</p>
 
           <dl class="facts reveal">
             <div><dt>পরিচয়</dt><dd>কবি ও কথাসাহিত্যিক</dd></div>
@@ -228,7 +262,7 @@
         <div class="bio-grid">
           <div class="bio-text reveal">
             <p class="dropcap">নরসিংদী শহরেই কেটেছে আরিফ খন্দকারের শৈশবের পুরোটা সময়। এই শহরেই তাঁর বেড়ে ওঠা, আর এখান থেকেই শুরু তাঁর গল্পের পথচলা।</p>
-            <p>পড়াশোনার পথটা অবশ্য সাহিত্যের নয়, স্থাপত্যের। ডিপ্লোমা ইন ইঞ্জিনিয়ারিং (আর্কিটেকচার) শেষে তাঁর পরের ঠিকানা স্টেট ইউনিভার্সিটি অফ বাংলাদেশ, ব্যাচেলর অব আর্কিটেকচার (B.Arch)। একজন স্থপতি যেমন নকশা এঁকে ঘর গড়েন, আরিফ খন্দকার তেমনি শব্দ দিয়ে গড়ে তোলেন গল্পের ঘর, যেখানে প্রতিটি চরিত্রের জন্য আলাদা একটা জানালা থাকে।</p>
+            <p>পড়াশোনার পথটা অবশ্য সাহিত্যের নয়, স্থাপত্যের। ডিপ্লোমা ইন ইঞ্জিনিয়ারিং (আর্কিটেকচার) শেষে তাঁর পরের ঠিকানা স্টেট ইউনিভার্সিটি অফ বাংলাদেশ, ব্যাচেলর অব আর্কিটেকচার (B.Arch)। একজন স্থপতি যেমন নকশা এঁকে ঘর গড়েন, আরিফ খন্দকার তেমনি শব্দ দিয়ে গড়ে তোলেন <mark class="ink">গল্পের ঘর</mark>, যেখানে প্রতিটি চরিত্রের জন্য আলাদা একটা জানালা থাকে।</p>
             <p>২০১২ সালে একটি স্বনামধন্য জাতীয় পত্রিকায় ছাপা হয় তাঁর প্রথম লেখা। তার তিন বছর পর, ২০১৫ সালের অমর একুশে গ্রন্থমেলায় প্রকাশিত হয় প্রথম বই, কাব্যগ্রন্থ <em>‘মেঘমালা’</em>। কবিতা দিয়ে শুরু হওয়া সেই যাত্রা এরপর ছড়িয়ে পড়েছে উপন্যাস, থ্রিলার, সায়েন্স ফিকশন আর গল্পে। আজ তাঁর প্রকাশিত বইয়ের সংখ্যা ৬১।</p>
             <p>তবু গল্প বলা থামেনি। এই মুহূর্তে তাঁর লেখার টেবিলে বড় পরিসরে এগিয়ে চলেছে তিনটি নতুন বই।</p>
 
@@ -246,7 +280,7 @@
           <ol class="timeline reveal" aria-label="সময়রেখা">
             <li><span class="timeline-year">২৩ আগস্ট</span><p class="timeline-text">জন্ম, নরসিংদী শহরে।</p></li>
             <li><span class="timeline-year">২০১২</span><p class="timeline-text">একটি স্বনামধন্য জাতীয় পত্রিকায় প্রথম লেখা প্রকাশ।</p></li>
-            <li><span class="timeline-year">২০১৫</span><p class="timeline-text">অমর একুশে গ্রন্থমেলায় প্রথম বই, কাব্যগ্রন্থ ‘মেঘমালা’।</p></li>
+            <li><span class="timeline-year">২০১৫</span><p class="timeline-text">অমর একুশে গ্রন্থমেলায় প্রথম বই, <mark class="ink">কাব্যগ্রন্থ ‘মেঘমালা’</mark>।</p></li>
             <li><span class="timeline-year">২০২৫</span><p class="timeline-text">এক বইমেলাতেই ষোলোটি বই! তার মধ্যে উল্লেখযোগ্য রজনীগন্ধা রিসোর্ট, আসমান জমিনের উপাখ্যান, আজমেরী, চন্দ্রমল্লিকা ও বেদনা রঙের বাড়ি।</p></li>
             <li><span class="timeline-year">২০২৬</span><p class="timeline-text">বইমেলায় তিনটি বই: অকূলপাথার, এখানে তাবিজ বিক্রি হয় ও বড়ো ভাই। প্রকাশিত বই দাঁড়ায় ৬১-তে।</p></li>
             <li class="timeline-now"><span class="timeline-year">এখন</span><p class="timeline-text">লিখছেন জারুল রঙের শাড়ি, ঢাকা মেট্রো গ ও রাজসিক হত্যারহস্য।</p></li>
