@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Sans+Bengali:wght@300;400;500;600&family=Noto+Serif+Bengali:wght@400;500&family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=20261022c">
+  <link rel="stylesheet" href="style.css?v=20261022d">
   <style>
     /* জীবনী অংশের বাড়তি নকশা */
     .bio-quote{max-width:640px;margin:-28px auto 56px;text-align:center;font-family:var(--font-display);font-style:italic;font-size:clamp(20px,3vw,26px);line-height:1.7;color:var(--gold-deep)}
@@ -51,6 +51,13 @@
     .ak-anim .ak-in{opacity:0;animation:ak-float-in 1.1s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s)}
     .ak-anim .ak-word{display:inline-block;opacity:0;animation:ak-float-in 1s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s);will-change:transform,opacity,filter}
     .ak-anim .tagline-end{background:linear-gradient(100deg,var(--gold) 0%,var(--gold) 40%,#fff4d6 50%,var(--gold) 60%,var(--gold) 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0;animation:ak-float-in 1.3s cubic-bezier(.2,.7,.2,1) both,ak-shimmer 4.5s linear infinite;animation-delay:var(--d,0s),calc(var(--d,0s) + 1.3s)}
+    .genre-flow{display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:2px 6px;font-size:14px}
+    .genre-flow b,.genre-flow i{font-weight:400;font-style:normal;display:inline-block;opacity:0;transform:translateY(14px);filter:blur(8px)}
+    .genre-flow i{color:var(--gold)}
+    .stat.is-visible .genre-flow b,.stat.is-visible .genre-flow i{animation:ak-float-in .9s cubic-bezier(.2,.7,.2,1) forwards,genre-glow 6s ease-in-out infinite;animation-delay:calc(.9s + var(--i)*.32s),calc(4.5s + var(--i)*.25s)}
+    @keyframes genre-glow{0%,80%,100%{color:inherit;text-shadow:none}40%{color:#f3dfa8;text-shadow:0 0 12px rgba(201,164,92,.55)}}
+    .stat.is-visible .genre-flow i{animation-name:ak-float-in,none}
+    @media (prefers-reduced-motion:reduce){.genre-flow b,.genre-flow i{animation:none!important;opacity:1!important;transform:none!important;filter:none!important}}
     @media (prefers-reduced-motion:reduce){.ak-anim .ak-in,.ak-anim .ak-word,.ak-anim .tagline-end{animation:none!important;opacity:1!important;filter:none!important;transform:none!important}}
     /* ঝরে পড়া বাহারি পাতা */
     .leaves{position:fixed;inset:0;pointer-events:none;z-index:80;overflow:hidden}
@@ -203,7 +210,7 @@
       <div class="container stats-grid">
         <div class="stat reveal"><span class="stat-num" data-count="61">০</span><span class="stat-label">প্রকাশিত বই</span></div>
         <div class="stat reveal"><span class="stat-num" data-count="16">০</span><span class="stat-label">এক বইমেলায় বই<br><small>২০২৫</small></span></div>
-        <div class="stat reveal"><span class="stat-num" data-count="5">০</span><span class="stat-label">সাহিত্যধারা</span></div>
+        <div class="stat reveal"><span class="stat-num" data-count="5">০</span><span class="stat-label genre-flow" aria-label="উপন্যাস, থ্রিলার, কবিতা, গল্প, সায়েন্স ফিকশন"><b style="--i:0">উপন্যাস</b> <i class="gd" style="--i:1">·</i> <b style="--i:2">থ্রিলার</b> <i class="gd" style="--i:3">·</i> <b style="--i:4">কবিতা</b> <i class="gd" style="--i:5">·</i> <b style="--i:6">গল্প</b> <i class="gd" style="--i:7">·</i> <b style="--i:8">সায়েন্স ফিকশন</b></span></div>
         <div class="stat reveal"><span class="stat-num" data-count="2012" data-plain="1">০</span><span class="stat-label">প্রথম লেখা প্রকাশ</span></div>
       </div>
     </section>
@@ -505,6 +512,6 @@
       stage(".hero-actions", 0.2);
     })();
   </script>
-  <script src="script.js?v=20261022c"></script>
+  <script src="script.js?v=20261022d"></script>
 </body>
 </html>
