@@ -29,6 +29,11 @@
 
   <link rel="stylesheet" href="style.css?v=20261022d">
   <style>
+    @font-face{font-family:"AK Sans";src:url("ak-sans.woff?v=1") format("woff");font-weight:300 600;font-style:normal;font-display:swap}
+    @font-face{font-family:"AK Serif";src:url("ak-serif.woff?v=1") format("woff");font-weight:400 500;font-style:normal;font-display:swap}
+    @font-face{font-family:"AK Tiro";src:url("ak-tiro.woff?v=1") format("woff");font-weight:400;font-style:normal;font-display:swap}
+    @font-face{font-family:"AK Tiro";src:url("ak-tiro-italic.woff?v=1") format("woff");font-weight:400;font-style:italic;font-display:swap}
+    :root{--font-display:"AK Tiro","Tiro Bangla","Noto Serif Bengali",serif;--font-body:"AK Sans","Noto Sans Bengali",sans-serif;--font-literary:"AK Serif","Noto Serif Bengali","Tiro Bangla",serif}
     /* জীবনী অংশের বাড়তি নকশা */
     .bio-quote{max-width:640px;margin:-28px auto 56px;text-align:center;font-family:var(--font-display);font-style:italic;font-size:clamp(20px,3vw,26px);line-height:1.7;color:var(--gold-deep)}
     .bio-text em{font-style:normal;color:var(--ink)}
