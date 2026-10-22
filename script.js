@@ -555,7 +555,7 @@ function renderWritings() {
   grid.classList.toggle("single", WRITINGS.length === 1);
   grid.innerHTML = WRITINGS.length
     ? WRITINGS.map((w, i) => `
-      <article class="writing reveal${w.type === "গল্প" ? " is-paper" : ""}${isPoem(w) ? " is-gold" : ""}" data-type="${esc(w.type)}">
+      <article class="writing reveal${isPoem(w) ? " is-gold" : " is-paper"}" data-type="${esc(w.type)}">
         <p class="writing-type">${esc(w.type)}</p>
         <h3>${esc(w.title)}</h3>
         <p class="writing-excerpt${isPoem(w) ? " is-poem" : ""}">${writingPreview(w)}</p>
@@ -686,7 +686,7 @@ function openItem(type, index) {
     if (!w) return;
     openModal({
       kicker: w.type,
-      paper: w.type === "গল্প",
+      paper: !isPoem(w),
       gold: isPoem(w),
       title: w.title,
       meta: w.date || SITE.authorName,
@@ -1035,4 +1035,52 @@ if (yearEl) yearEl.textContent = toBn(new Date().getFullYear());
       card.addEventListener("mouseleave", () => { card.style.transform = ""; });
     });
   }
+})();
+
+
+/* =========================================================
+   ব্লু এডিশন — সব গল্প ও কবিতার পাতা গাঢ় বিষণ্ণ নীল, সাদা কালি
+   ========================================================= */
+(function blueEdition() {
+  const st = document.createElement("style");
+  st.textContent = `
+    #writings{background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(120,150,200,.16),transparent 60%),radial-gradient(ellipse 60% 60% at 100% 100%,rgba(0,0,0,.35),transparent 60%),linear-gradient(180deg,#0e1d38 0%,#0a1529 100%);color:#e8edf6;position:relative}
+    #writings h2{color:#f4f6fb}
+    #writings .section-eyebrow{color:#9fb4d6}
+    #writings .section-head h2::after{background:linear-gradient(90deg,#9fb4d6,transparent)}
+    #writings .filter-btn{color:#c9d5ea;border-color:rgba(159,180,214,.35);background:transparent}
+    #writings .filter-btn:hover{border-color:#c9d5ea}
+    #writings .filter-btn[aria-pressed="true"]{background:#f1f4fa;color:#0e1d38;border-color:#f1f4fa}
+
+    .writing.is-paper,.writing.is-gold{
+      background:radial-gradient(ellipse at 18% 6%,rgba(160,190,235,.22),transparent 55%),radial-gradient(ellipse at 100% 100%,rgba(0,0,0,.35),transparent 60%),linear-gradient(160deg,#1a3360 0%,#13284d 50%,#0f2142 100%);
+      border-color:rgba(159,180,214,.35);color:#f1f4fa;box-shadow:0 30px 60px -32px rgba(0,0,0,.8)}
+    .writing.is-paper::before,.writing.is-gold::before{background:#dfe7f5}
+    .writing.is-paper::after,.writing.is-gold::after{content:"";position:absolute;inset:8px;border:1px solid rgba(220,230,245,.18);pointer-events:none}
+    .writing.is-paper .writing-type,.writing.is-gold .writing-type{color:#9fb4d6;letter-spacing:.06em}
+    .writing.is-paper h3,.writing.is-gold h3{color:#ffffff}
+    .writing.is-paper .writing-excerpt,.writing.is-gold .writing-excerpt{color:#dbe3f0}
+    .writing.is-paper .writing-foot,.writing.is-gold .writing-foot{border-top-color:rgba(220,230,245,.18);color:#9fb4d6}
+    .writing.is-paper .text-link,.writing.is-gold .text-link{color:#ffffff;border-bottom-color:#ffffff}
+    .writing.is-paper .text-link:hover,.writing.is-gold .text-link:hover{color:#c9d5ea}
+    .writing.is-paper:hover,.writing.is-gold:hover{border-color:rgba(200,215,240,.6)}
+
+    .modal.is-paper .modal-backdrop,.modal.is-gold .modal-backdrop{background:rgba(5,10,22,.85)}
+    .modal.is-paper .modal-panel,.modal.is-gold .modal-panel{
+      background:radial-gradient(ellipse at 15% 0%,rgba(160,190,235,.22),transparent 50%),radial-gradient(ellipse at 100% 100%,rgba(0,0,0,.4),transparent 55%),linear-gradient(175deg,#1a3360 0%,#13284d 45%,#0d1d3a 100%);
+      color:#f1f4fa;border-top:3px solid #dfe7f5}
+    .modal.is-paper .modal-kicker,.modal.is-gold .modal-kicker{color:#9fb4d6}
+    .modal.is-paper .modal-title,.modal.is-gold .modal-title{color:#ffffff}
+    .modal.is-paper .modal-meta,.modal.is-gold .modal-meta{color:#9fb4d6;border-bottom-color:rgba(220,230,245,.2)}
+    .modal.is-paper .modal-close,.modal.is-gold .modal-close{color:#ffffff}
+    .modal.is-paper .modal-body{color:#eef2f9}
+    .modal.is-paper .modal-body p:first-child::first-letter{color:#ffffff}
+    .modal.is-paper .modal-body::after{color:#9fb4d6}
+    .poem-text{color:#f4f6fb}
+    .lp-light{mix-blend-mode:screen;opacity:.35}
+    .lp-shade{mix-blend-mode:multiply;opacity:.9}
+    .lp-rays{mix-blend-mode:screen;opacity:.35}
+    .modal.is-paper ::selection,.modal.is-gold ::selection,#writings ::selection{background:#dfe7f5;color:#0e1d38}
+  `;
+  document.head.appendChild(st);
 })();
