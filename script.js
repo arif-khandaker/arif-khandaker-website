@@ -90,6 +90,11 @@ const BOOKS = [
   {
     title: "রজনীগন্ধা রিসোর্ট",
     slug: "rojonigandha-resort",
+    synopsis: [
+      "মানুষ আসলে অনেকটা রূপকথার মতনই, মানুষের জীবনটাও রূপকথার গল্পের মতনই। কিন্তু মানুষ বুঝতে পারে না, মানুষ জানে না রূপকথার মতন সে নিজেও কতটা রহস্যময়।",
+      "রহস্যময় বলেই মানুষ তার মুখের আড়ালে মুখোশ লুকিয়ে রাখে আর মুখোশের আড়ালে রাখে মুখ। যার দরুন মুখ আর মুখোশের কোন পার্থক্য খুঁজে পাওয়া যায় না, চেনা যায় না, পরিচিত মানুষটাকেও তখন বড্ড বেশি অপরিচিত মনে হয়।",
+      "যে মানুষটার সাথে মানুষ দিনের পর দিন একই ছাদের নিচে থেকে আসছে, যে মানুষটার সাথে মানুষ তার জীবনের অনেক অনেক কথা বলে আসছে অথচ সেই মানুষটাকে মুহূর্তের মধ্যেই মনে হয় অদেখা, অজানা, অপাঠ্য। মনে হয় সে মানুষটার কিছুই দেখা হয়নি, সেই মানুষটার সম্পর্কে কিছুই জানা হয়নি, মানুষটার ভেতর-বাহির, মন, চোখ কিছুই পড়া হয়নি। অথচ সেই মানুষটা পাশেই আছে বহুকাল ধরে।",
+    ],
     genre: "থ্রিলার উপন্যাস",
     year: "বইমেলা ২০২৫",
     publisher: "বইবাজার প্রকাশনী",
@@ -663,6 +668,9 @@ function coverMarkup(book) {
 
 const orderButton = (i, label = "WhatsApp-এ অর্ডার") =>
   `<a href="#" class="btn btn-gold" data-wa="book" data-index="${i}">${ICONS.whatsapp} ${label}</a>`;
+const hasSynopsis = (b) => Array.isArray(b.synopsis) && b.synopsis.some(isFilled);
+const synopsisButton = (i) => hasSynopsis(BOOKS[i])
+  ? `<button type="button" class="synopsis-box" data-open="synopsis" data-index="${i}"><span class="syn-label"><i class="syn-dot"></i>সারসংক্ষেপ</span><span class="syn-go">পড়ুন ›</span></button>` : "";
 const sampleButton = (i) => hasSample(BOOKS[i])
   ? `<button class="btn btn-outline-gold" data-open="sample" data-index="${i}">একটু পড়ে দেখুন</button>` : "";
 
@@ -693,6 +701,7 @@ function renderBooks() {
         ${cartButton(0) ? cartButton(0) + waOutline(0) : orderButton(0)}
         ${sampleButton(0)}
       </div>
+      ${synopsisButton(0)}
     </div>`;
 
   grid.innerHTML = BOOKS.slice(1).map((book, n) => {
@@ -710,6 +719,7 @@ function renderBooks() {
         ${sampleButton(i)}
         <button class="btn btn-outline-gold" data-open="book" data-index="${i}">বিস্তারিত</button>
       </div>
+      ${synopsisButton(i)}
     </article>`;
   }).join("");
 }
@@ -876,7 +886,19 @@ function openItem(type, index) {
       title: b.title,
       meta: [b.publisher, b.year, b.pages && `${b.pages} পৃষ্ঠা`, b.price].filter(Boolean).join(" · "),
       bodyHtml: isFilled(b.summary) ? `<p>${esc(b.summary)}</p>` : "",
-      actionsHtml: (cartButton(index) ? cartButton(index) + waOutline(index) : orderButton(index, "WhatsApp-এ অর্ডার করুন")) + sampleButton(index) + copyLinkButton(b),
+      actionsHtml: (cartButton(index) ? cartButton(index) + waOutline(index) : orderButton(index, "WhatsApp-এ অর্ডার করুন")) + sampleButton(index) + copyLinkButton(b) + synopsisButton(index),
+    });
+    setBookHash(b);
+  } else if (type === "synopsis") {
+    const b = BOOKS[index];
+    if (!b || !hasSynopsis(b)) return;
+    openModal({
+      kicker: "সারসংক্ষেপ",
+      paper: true,
+      title: b.title,
+      meta: SITE.authorName,
+      bodyHtml: `<div class="sample-text">${paragraphs(b.synopsis.filter(isFilled))}</div>` + `<p class="sample-end">… পুরো গল্প জানতে বইটি সংগ্রহ করুন।</p>`,
+      actionsHtml: (cartButton(index) ? cartButton(index) + waOutline(index) : orderButton(index, "WhatsApp-এ অর্ডার করুন")) + copyLinkButton(b),
     });
     setBookHash(b);
   } else if (type === "sample") {
