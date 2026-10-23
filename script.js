@@ -1495,14 +1495,26 @@ onScroll();
 
 /* বইয়ের নিজস্ব লিংক (#book-নাম) খুললে সেই বইয়ের পাতা খুলবে */
 window.addEventListener("hashchange", openFromHash);
-/* boijunction.com দিয়ে ঢুকলে আগে বইয়ের অংশ দেখাবে */
+/* বই-প্রথম: boijunction ডোমেইন, /books লিংক বা #books দিয়ে ঢুকলে সরাসরি বইয়ের অংশ।
+   ছবি/ফন্ট লোড হলে পাতার উচ্চতা বদলায়, তাই কয়েকবার ঠিক জায়গায় নিয়ে যাওয়া হয়।
+   পাঠক নিজে স্ক্রল করলে আর টানা হয় না। */
 (function booksFirst() {
-  const viaBooksDomain = /boijunction/i.test(location.hostname) || /[?&]from=boijunction\b/.test(location.search);
-  if (!viaBooksDomain || location.hash) return;
-  setTimeout(() => {
+  const viaDomain = /boijunction/i.test(location.hostname);
+  const viaLink = /[?&]from=(books|boijunction)\b/.test(location.search) || location.hash === "#books";
+  if (!viaDomain && !viaLink) return;
+  if (location.hash && location.hash !== "#books") return;
+  let stopped = false;
+  const stop = () => { stopped = true; };
+  ["wheel", "touchmove", "keydown", "mousedown"].forEach((ev) => window.addEventListener(ev, stop, { once: true, passive: true }));
+  const jump = () => {
+    if (stopped) return;
     const books = document.getElementById("books");
-    if (books) books.scrollIntoView({ behavior: "auto", block: "start" });
-  }, 1800);
+    if (!books) return;
+    const top = books.getBoundingClientRect().top + window.scrollY - 60;
+    if (Math.abs(window.scrollY - top) > 8) window.scrollTo(0, top);
+  };
+  [0, 300, 900, 1800, 2800, 4000, 6000].forEach((ms) => setTimeout(jump, ms));
+  window.addEventListener("load", () => setTimeout(jump, 100));
 })();
 
 setTimeout(openFromHash, 400);
