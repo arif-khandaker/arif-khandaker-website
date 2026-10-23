@@ -679,7 +679,7 @@ const emailReady = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(SITE.email);
 
 const waLink = (message) => `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
 
-const bookLink = (b) => b && b.slug ? `${location.origin}${location.pathname}#book-${b.slug}` : "";
+const bookLink = (b) => b && b.slug ? `${location.origin}/b/${b.slug}/` : "";
 const hasSample = (b) => Array.isArray(b.excerpt) && b.excerpt.some(isFilled);
 
 function bookOrderMessage(book) {
