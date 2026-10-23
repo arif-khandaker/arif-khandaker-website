@@ -804,6 +804,7 @@ function renderBooks() {
       <h3>${esc(b.title)}</h3>
       <p class="featured-genre">${esc(b.genre)}</p>
       ${isFilled(b.summary) ? `<p class="featured-summary">${esc(b.summary)}</p>` : ""}
+      ${canBuy(b) ? signedBadge() : ""}
       <dl class="book-details">
         <div><dt>প্রকাশনী</dt><dd>${esc(b.publisher)}</dd></div>
         <div><dt>প্রকাশকাল</dt><dd>${esc(b.year)}</dd></div>
@@ -827,6 +828,7 @@ function renderBooks() {
       <p class="book-genre">${esc(book.genre)}</p>
       <h3 class="book-title">${esc(book.title)}</h3>
       <p class="book-meta">${[book.publisher, book.year].filter(isFilled).map(esc).concat(isFilled(book.price) ? [`<span class="price">${esc(book.price)}</span>`] : []).join(" · ")}</p>
+      ${canBuy(book) ? signedBadge() : ""}
       <div class="book-actions">
         ${cartButton(i) || orderButton(i, "অর্ডার করুন")}
         ${sampleButton(i)}
@@ -1104,6 +1106,35 @@ const cartTotal = () => cart.reduce((n, x) => n + priceOf(bookBySlug(x.slug)) * 
 let cartStep = "cart";
 const cartForm = { name: "", phone: "", address: "", area: "ঢাকার ভেতরে", note: "", method: PAY.methods[0], trx: "" };
 
+/* ফিরতি পাঠকের জন্য: নাম, মোবাইল, ঠিকানা, এলাকা ও পেমেন্ট মাধ্যম এই ফোনেই সংরক্ষিত থাকে */
+const BUYER_KEY = "ak-buyer-v1";
+const BUYER_FIELDS = ["name", "phone", "address", "area", "method"];
+let buyerSaved = false;
+try {
+  const sv = JSON.parse(localStorage.getItem(BUYER_KEY) || "null");
+  if (sv && typeof sv === "object") {
+    BUYER_FIELDS.forEach((k) => { if (typeof sv[k] === "string" && sv[k]) cartForm[k] = sv[k].slice(0, 400); });
+    if (!PAY.methods.includes(cartForm.method)) cartForm.method = PAY.methods[0];
+    buyerSaved = !!(cartForm.name || cartForm.phone || cartForm.address);
+  }
+} catch (e) {}
+function saveBuyer() {
+  try {
+    const o = {}; BUYER_FIELDS.forEach((k) => { o[k] = cartForm[k]; });
+    localStorage.setItem(BUYER_KEY, JSON.stringify(o));
+    buyerSaved = !!(cartForm.name || cartForm.phone || cartForm.address);
+  } catch (e) {}
+}
+function forgetBuyer() {
+  try { localStorage.removeItem(BUYER_KEY); } catch (e) {}
+  cartForm.name = ""; cartForm.phone = ""; cartForm.address = ""; cartForm.area = "ঢাকার ভেতরে"; cartForm.method = PAY.methods[0];
+  buyerSaved = false;
+}
+
+const SIGNED_LINE = "লেখকের স্বাক্ষরসহ";
+const SIGNED_PEN = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>`;
+const signedBadge = () => `<p class="signed-badge">${SIGNED_PEN}<span>${SIGNED_LINE}</span></p>`;
+
 /* ভাসমান কার্ট বোতাম */
 const fab = document.createElement("button");
 fab.className = "cart-fab";
@@ -1179,7 +1210,7 @@ function renderCart() {
           const b = bookBySlug(x.slug);
           return `<li class="cart-row">
             <span class="cart-thumb">${b.cover ? `<img src="${esc(b.cover)}" alt="">` : ""}</span>
-            <span class="cart-info"><strong>${esc(b.title)}</strong><em>${taka(priceOf(b))}</em></span>
+            <span class="cart-info"><strong>${esc(b.title)}</strong><em>${taka(priceOf(b))}</em><span class="cart-signed">${SIGNED_PEN}${SIGNED_LINE}</span></span>
             <span class="cart-qty">
               <button type="button" data-cart-act="dec" data-slug="${esc(x.slug)}" aria-label="কমান">−</button>
               <span>${toBn(x.qty)}</span>
@@ -1189,6 +1220,7 @@ function renderCart() {
           </li>`;
         }).join("")}
       </ul>
+      <p class="cart-signed-banner">${SIGNED_PEN}<span>প্রতিটি বই আসবে <strong>লেখকের নিজ হাতের স্বাক্ষরসহ</strong> — আপনার নামে, আপনার জন্য।</span></p>
       <p class="cart-total"><span>বইয়ের মোট দাম</span><strong>${taka(total)}</strong></p>
       <p class="cart-note">ডেলিভারি খরচ আলাদা। ঠিকানা অনুযায়ী অর্ডারের পর WhatsApp-এ জানানো হবে।</p>`;
     actions.innerHTML =
@@ -1208,7 +1240,8 @@ function renderCart() {
           ${["ঢাকার ভেতরে", "ঢাকার বাইরে"].map((a) => `<label class="cart-radio"><input type="radio" name="cf-area" value="${a}"${cartForm.area === a ? " checked" : ""}> ${a}</label>`).join("")}
         </fieldset>
         <label>কিছু জানাতে চান? (ঐচ্ছিক)<input id="cf-note" value="${esc(cartForm.note)}" placeholder="যেমন: অটোগ্রাফে কার নাম লিখবেন"></label>
-      </div>`;
+      </div>
+      <p class="cart-note cart-remember">${buyerSaved ? "আপনার তথ্য এই ফোনে সংরক্ষিত আছে, পরের অর্ডারে নিজে থেকেই বসে যাবে। " : "তথ্য এই ফোনে সংরক্ষিত থাকবে, পরের অর্ডারে আর লিখতে হবে না। "}${buyerSaved ? `<button type="button" class="link-btn" data-cart-act="forget">তথ্য মুছুন</button>` : ""}</p>`;
     actions.innerHTML =
       `<button class="btn btn-gold" data-cart-act="to-pay">পেমেন্টে যান →</button>` +
       `<button class="btn btn-outline-gold" data-cart-act="to-cart">← কার্টে ফিরুন</button>`;
@@ -1255,6 +1288,7 @@ function cartAction(act, slug) {
   if (act === "inc" && row) row.qty = Math.min(10, row.qty + 1);
   else if (act === "dec" && row) row.qty = Math.max(1, row.qty - 1);
   else if (act === "rm" && row) cart = cart.filter((x) => x.slug !== slug);
+  else if (act === "forget") { forgetBuyer(); toast("সংরক্ষিত তথ্য মুছে ফেলা হয়েছে"); }
   else if (act === "to-cart") cartStep = "cart";
   else if (act === "to-info") cartStep = "info";
   else if (act === "to-pay") {
@@ -1297,6 +1331,7 @@ document.addEventListener("input", (e) => {
   else if (t.id === "cf-trx") cartForm.trx = t.value;
   else if (t.name === "cf-area") cartForm.area = t.value;
   else if (t.name === "cf-method") cartForm.method = t.value;
+  if (["cf-name", "cf-phone", "cf-address"].includes(t.id) || t.name === "cf-area" || t.name === "cf-method") saveBuyer();
 });
 
 updateFab();

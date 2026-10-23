@@ -1591,3 +1591,14 @@ body.no-scroll .toast{bottom:auto;top:84px}
 @keyframes syndot{50%{opacity:.35;transform:scale(.8)}}
 .modal-actions .synopsis-box{margin-top:6px}
 @media (prefers-reduced-motion:reduce){.synopsis-box,.syn-dot{animation:none}}
+
+
+/* ---- লেখকের স্বাক্ষরসহ ---- */
+.signed-badge{display:inline-flex;align-items:center;gap:6px;margin:6px 0 10px;padding:4px 11px;border:1px solid rgba(201,164,92,.55);border-radius:999px;color:#e2c98f;font-size:.82rem;letter-spacing:.01em;background:linear-gradient(90deg,rgba(201,164,92,.10),rgba(201,164,92,.02))}
+.signed-badge svg{flex:none}
+.cart-signed{display:flex;align-items:center;gap:5px;margin-top:3px;color:#8a6a22;font-size:.8rem}
+.cart-signed svg{flex:none}
+.cart-signed-banner{display:flex;gap:10px;align-items:flex-start;margin:14px 0 6px;padding:11px 13px;border:1px solid rgba(154,116,38,.55);border-radius:10px;background:rgba(201,164,92,.14);color:#2f2718;font-size:.92rem;line-height:1.55}
+.cart-signed-banner svg{flex:none;margin-top:4px;color:#8a6a22}
+.cart-signed-banner strong{color:#6d4f12}
+.link-btn{background:none;border:0;padding:0;color:#8a6a22;text-decoration:underline;font:inherit;cursor:pointer}
