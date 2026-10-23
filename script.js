@@ -48,10 +48,15 @@ const TIMELINE = [
 /* ---------- ৪. প্রকাশিত বই (প্রচ্ছদসহ) ----------
    প্রথম বইটি বড় করে আলাদাভাবে দেখাবে।
    cover: প্রচ্ছদের ছবির লিংক, অথবা GitHub-এ আপলোড করা ফাইলের নাম। খালি "" রাখলে নকশা করা প্রচ্ছদ দেখাবে।
-   summary: বইয়ের পরিচিতি নিজে লিখুন। */
+   summary: বইয়ের পরিচিতি নিজে লিখুন।
+   slug: বইয়ের নিজস্ব লিংকের নাম (ইংরেজি অক্ষরে)। লিংক হবে authorarifkhandaker.com/#book-<slug>
+   excerpt: "একটু পড়ে দেখুন" বোতামের লেখা। প্রতিটি অনুচ্ছেদ "" এর ভেতরে, কমা দিয়ে আলাদা:
+            excerpt: ["প্রথম অনুচ্ছেদ।", "দ্বিতীয় অনুচ্ছেদ।"],
+            এটি না লিখলে বোতামটি দেখাবে না। */
 const BOOKS = [
   {
     title: "অকূলপাথার",
+    slug: "akulpathar",
     genre: "থ্রিলার উপন্যাস",
     year: "বইমেলা ২০২৬",
     publisher: "অনিন্দ্য প্রকাশ",
@@ -62,6 +67,7 @@ const BOOKS = [
   },
   {
     title: "এখানে তাবিজ বিক্রি হয়",
+    slug: "ekhane-tabij-bikri-hoy",
     genre: "থ্রিলার উপন্যাস",
     year: "বইমেলা ২০২৬",
     publisher: "অনিন্দ্য প্রকাশ",
@@ -72,6 +78,7 @@ const BOOKS = [
   },
   {
     title: "বড়ো ভাই",
+    slug: "boro-bhai",
     genre: "উপন্যাস",
     year: "বইমেলা ২০২৬",
     publisher: "ছায়া প্রকাশন",
@@ -82,6 +89,7 @@ const BOOKS = [
   },
   {
     title: "রজনীগন্ধা রিসোর্ট",
+    slug: "rojonigandha-resort",
     genre: "থ্রিলার উপন্যাস",
     year: "বইমেলা ২০২৫",
     publisher: "বইবাজার প্রকাশনী",
@@ -92,6 +100,7 @@ const BOOKS = [
   },
   {
     title: "আসমান জমিনের উপাখ্যান",
+    slug: "asman-jominer-upakhyan",
     genre: "থ্রিলার উপন্যাস",
     year: "বইমেলা ২০২৫",
     publisher: "মনন প্রকাশ",
@@ -102,6 +111,7 @@ const BOOKS = [
   },
   {
     title: "আজমেরী",
+    slug: "ajmeri",
     genre: "থ্রিলার উপন্যাস",
     year: "বইমেলা ২০২৫",
     publisher: "মনন প্রকাশ",
@@ -112,6 +122,7 @@ const BOOKS = [
   },
   {
     title: "চন্দ্রমল্লিকা",
+    slug: "chandramallika",
     genre: "থ্রিলার উপন্যাস",
     year: "বইমেলা ২০২৫",
     publisher: "বর্ষাদুপুর প্রকাশনী",
@@ -122,6 +133,7 @@ const BOOKS = [
   },
   {
     title: "বেদনা রঙের বাড়ি",
+    slug: "bedona-ronger-bari",
     genre: "থ্রিলার উপন্যাস",
     year: "বইমেলা ২০২৫",
     publisher: "অনিন্দ্য প্রকাশ",
@@ -129,6 +141,98 @@ const BOOKS = [
     pages: "৪৮২",
     summary: "[বইটির সংক্ষিপ্ত পরিচিতি — ২ থেকে ৪ লাইন।]",
     cover: "3712.jpg",
+  },
+  {
+    title: "বনলতা সেন এখানে আছেন",
+    slug: "banalata-sen",
+    genre: "থ্রিলার উপন্যাস",
+    year: "",
+    publisher: "আহমদ পাবলিশিং হাউজ",
+    price: "৬০০ টাকা",
+    summary: "",
+    cover: "banalata-sen.jpg",
+  },
+  {
+    title: "অজাত",
+    slug: "ajat",
+    genre: "থ্রিলার উপন্যাস",
+    year: "বইমেলা ২০২৫",
+    publisher: "অনিন্দ্য প্রকাশ",
+    price: "৮০০ টাকা",
+    pages: "৪০০",
+    summary: "",
+    cover: "ajat.jpg",
+  },
+  {
+    title: "চৌকাঠ",
+    slug: "choukath",
+    genre: "থ্রিলার উপন্যাস",
+    year: "বইমেলা ২০২৫",
+    publisher: "অয়ন প্রকাশন",
+    price: "৮০০ টাকা",
+    pages: "৪৫০",
+    summary: "",
+    cover: "choukath.jpg",
+  },
+  {
+    title: "ঊনমানুষ",
+    slug: "unamanush",
+    genre: "থ্রিলার উপন্যাস",
+    year: "",
+    publisher: "অনিন্দ্য প্রকাশ",
+    price: "৮০০ টাকা",
+    summary: "",
+    cover: "unamanush.jpg",
+  },
+  {
+    title: "মুখ কিংবা মুখোশ",
+    slug: "mukh-kingba-mukhosh",
+    genre: "থ্রিলার উপন্যাস",
+    year: "",
+    publisher: "কলি প্রকাশনী",
+    price: "৫৫০ টাকা",
+    summary: "",
+    cover: "mukh-kingba-mukhosh.jpg",
+  },
+  {
+    title: "একদিন",
+    slug: "ekdin",
+    genre: "থ্রিলার উপন্যাস",
+    year: "",
+    publisher: "অনন্যা প্রকাশনী",
+    price: "৫০০ টাকা",
+    summary: "",
+    cover: "ekdin.jpg",
+  },
+  {
+    title: "গুলশান",
+    slug: "gulshan",
+    genre: "থ্রিলার উপন্যাস",
+    year: "",
+    publisher: "অনিন্দ্য প্রকাশ",
+    price: "৮০০ টাকা",
+    summary: "",
+    cover: "gulshan.jpg",
+  },
+  {
+    title: "নীরা",
+    slug: "nira",
+    genre: "রোমান্টিক উপন্যাস",
+    year: "",
+    publisher: "অনিন্দ্য প্রকাশ",
+    price: "৮০০ টাকা",
+    summary: "",
+    cover: "nira.jpg",
+  },
+  {
+    title: "ডুববো বলে ডুবছি জলে",
+    slug: "dubbo-bole",
+    genre: "কাব্যগ্রন্থ",
+    year: "বইমেলা ২০২৫",
+    publisher: "জলধি",
+    price: "২৫০ টাকা",
+    summary: "",
+    cover: "dubbo-bole.jpg",
   },
 ];
 
@@ -155,7 +259,7 @@ const BOOK_LIST = [
   { title: "ষোলো আনা", genre: "উপন্যাস", ebook: false },
   { title: "কৃষ্ণচূড়া তোমাকে দিলাম", genre: "উপন্যাস", ebook: false },
   { title: "তুমি এসেছিলে পূর্ণিমা সন্ধ্যায়", genre: "উপন্যাস", ebook: false },
-  { title: "একদিন", genre: "উপন্যাস", ebook: false },
+  { title: "একদিন", genre: "থ্রিলার উপন্যাস", ebook: false },
   { title: "অরু এখন কারাগারে", genre: "উপন্যাস", ebook: false },
   { title: "নীল মানুষ", genre: "উপন্যাস", ebook: false },
   { title: "অশ্বারোহী", genre: "উপন্যাস", ebook: false },
@@ -171,16 +275,16 @@ const BOOK_LIST = [
   { title: "রজনীগন্ধা রিসোর্ট", genre: "থ্রিলার উপন্যাস", ebook: false },
   { title: "চন্দ্রমল্লিকা", genre: "থ্রিলার উপন্যাস", ebook: false },
   { title: "অজাত", genre: "থ্রিলার উপন্যাস", ebook: false },
-  { title: "নীরা", genre: "উপন্যাস", ebook: false },
+  { title: "নীরা", genre: "রোমান্টিক উপন্যাস", ebook: false },
   { title: "গুলশান", genre: "থ্রিলার উপন্যাস", ebook: false },
   { title: "ঊনমানুষ", genre: "থ্রিলার উপন্যাস", ebook: false },
   { title: "বেদনা রঙের বাড়ি", genre: "থ্রিলার উপন্যাস", ebook: false },
   { title: "ডুববো বলে ডুবছি জলে", genre: "কাব্যগ্রন্থ", ebook: false },
   { title: "দাফন", genre: "হরর থ্রিলার উপন্যাস", ebook: false },
   { title: "মুখ কিংবা মুখোশ", genre: "থ্রিলার উপন্যাস", ebook: false },
-  { title: "বনলতা সেন এখানে আছেন", genre: "উপন্যাস", ebook: false },
+  { title: "বনলতা সেন এখানে আছেন", genre: "থ্রিলার উপন্যাস", ebook: false },
   { title: "ফাল্গুনী লেন", genre: "থ্রিলার উপন্যাস", ebook: false },
-  { title: "চৌকাঠ", genre: "উপন্যাস", ebook: false },
+  { title: "চৌকাঠ", genre: "থ্রিলার উপন্যাস", ebook: false },
   { title: "বড়ো ভাই", genre: "উপন্যাস", ebook: false },
   { title: "অকূলপাথার", genre: "থ্রিলার উপন্যাস", ebook: false },
   { title: "এখানে তাবিজ বিক্রি হয়", genre: "থ্রিলার উপন্যাস", ebook: false },
@@ -395,9 +499,14 @@ const emailReady = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(SITE.email);
 
 const waLink = (message) => `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
 
+const bookLink = (b) => b && b.slug ? `${location.origin}${location.pathname}#book-${b.slug}` : "";
+const hasSample = (b) => Array.isArray(b.excerpt) && b.excerpt.some(isFilled);
+
 function bookOrderMessage(book) {
+  const link = bookLink(book);
   return (
-    `শুভেচ্ছা! আমি ${SITE.authorName}-এর লেখা "${book.title}" বইটি অর্ডার করতে চাই।\n\n` +
+    `শুভেচ্ছা! আমি ${SITE.authorName}-এর লেখা "${book.title}" বইটি অর্ডার করতে চাই।\n` +
+    (link ? `বইয়ের লিংক: ${link}\n` : "") + `\n` +
     `নাম:\nঠিকানা:\nমোবাইল নম্বর:\nকপির সংখ্যা: ১`
   );
 }
@@ -492,6 +601,8 @@ function coverMarkup(book) {
 
 const orderButton = (i, label = "WhatsApp-এ অর্ডার") =>
   `<a href="#" class="btn btn-gold" data-wa="book" data-index="${i}">${ICONS.whatsapp} ${label}</a>`;
+const sampleButton = (i) => hasSample(BOOKS[i])
+  ? `<button class="btn btn-outline-gold" data-open="sample" data-index="${i}">একটু পড়ে দেখুন</button>` : "";
 
 function renderBooks() {
   const featured = $("#featured-book");
@@ -518,21 +629,23 @@ function renderBooks() {
       </dl>
       <div class="book-actions">
         ${orderButton(0)}
+        ${sampleButton(0)}
       </div>
     </div>`;
 
   grid.innerHTML = BOOKS.slice(1).map((book, n) => {
     const i = n + 1;
     return `
-    <article class="book reveal">
+    <article class="book reveal" id="book-${esc(book.slug || "n" + i)}">
       <button class="book-cover" data-open="book" data-index="${i}" aria-label="${esc(book.title)} — বিস্তারিত">
         ${coverMarkup(book)}
       </button>
       <p class="book-genre">${esc(book.genre)}</p>
       <h3 class="book-title">${esc(book.title)}</h3>
-      <p class="book-meta">${esc(book.publisher)} · ${esc(book.year)} · <span class="price">${esc(book.price)}</span></p>
+      <p class="book-meta">${[book.publisher, book.year].filter(isFilled).map(esc).concat(isFilled(book.price) ? [`<span class="price">${esc(book.price)}</span>`] : []).join(" · ")}</p>
       <div class="book-actions">
         ${orderButton(i, "অর্ডার করুন")}
+        ${sampleButton(i)}
         <button class="btn btn-outline-gold" data-open="book" data-index="${i}">বিস্তারিত</button>
       </div>
     </article>`;
@@ -665,7 +778,28 @@ function closeModal() {
   modal.classList.remove("open");
   document.body.classList.remove("no-scroll");
   setTimeout(() => { modal.hidden = true; }, 350);
+  clearBookHash();
   if (lastFocus) lastFocus.focus({ preventScroll: true });
+}
+
+function setBookHash(b) {
+  if (!b || !b.slug) return;
+  try { history.replaceState(null, "", `${location.pathname}${location.search}#book-${b.slug}`); } catch (e) {}
+}
+function clearBookHash() {
+  if (!location.hash.startsWith("#book-")) return;
+  try { history.replaceState(null, "", `${location.pathname}${location.search}`); } catch (e) {}
+}
+const copyLinkButton = (b) => b && b.slug
+  ? `<button class="btn btn-outline-gold" data-copy-link="${esc(b.slug)}">লিংক কপি করুন</button>` : "";
+function openFromHash() {
+  const m = location.hash.match(/^#book-(.+)$/);
+  if (!m) return;
+  const i = BOOKS.findIndex((b) => b.slug === decodeURIComponent(m[1]));
+  if (i < 0) return;
+  const card = document.getElementById(`book-${BOOKS[i].slug}`);
+  if (card) card.scrollIntoView({ block: "center" });
+  openItem("book", i);
 }
 
 const paragraphs = (arr = []) => arr.map((t) => `<p>${esc(t)}</p>`).join("");
@@ -679,8 +813,21 @@ function openItem(type, index) {
       title: b.title,
       meta: [b.publisher, b.year, b.pages && `${b.pages} পৃষ্ঠা`, b.price].filter(Boolean).join(" · "),
       bodyHtml: isFilled(b.summary) ? `<p>${esc(b.summary)}</p>` : "",
-      actionsHtml: orderButton(index, "WhatsApp-এ অর্ডার করুন"),
+      actionsHtml: orderButton(index, "WhatsApp-এ অর্ডার করুন") + sampleButton(index) + copyLinkButton(b),
     });
+    setBookHash(b);
+  } else if (type === "sample") {
+    const b = BOOKS[index];
+    if (!b || !hasSample(b)) return;
+    openModal({
+      kicker: "একটু পড়ে দেখুন",
+      paper: true,
+      title: b.title,
+      meta: SITE.authorName,
+      bodyHtml: `<div class="sample-text">${paragraphs(b.excerpt.filter(isFilled))}</div>` + `<p class="sample-end">… পুরোটা পড়তে বইটি অর্ডার করুন।</p>`,
+      actionsHtml: orderButton(index, "WhatsApp-এ অর্ডার করুন") + copyLinkButton(b),
+    });
+    setBookHash(b);
   } else if (type === "writing") {
     const w = WRITINGS[index];
     if (!w) return;
@@ -742,6 +889,23 @@ document.addEventListener("click", (e) => {
   const opener = e.target.closest("[data-open]");
   if (opener) {
     openItem(opener.dataset.open, +opener.dataset.index);
+    return;
+  }
+
+  const copy = e.target.closest("[data-copy-link]");
+  if (copy) {
+    const b = BOOKS.find((x) => x.slug === copy.dataset.copyLink);
+    const link = bookLink(b);
+    const done = () => toast("বইয়ের লিংক কপি হয়েছে");
+    const fallback = () => {
+      const t = document.createElement("textarea");
+      t.value = link; t.style.position = "fixed"; t.style.opacity = "0";
+      document.body.appendChild(t); t.select();
+      try { document.execCommand("copy"); done(); } catch (err) { toast(link); }
+      t.remove();
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(done, fallback);
+    else fallback();
     return;
   }
 
@@ -893,6 +1057,10 @@ revealOnScroll();
 watchSections();
 setupForm();
 onScroll();
+
+/* বইয়ের নিজস্ব লিংক (#book-নাম) খুললে সেই বইয়ের পাতা খুলবে */
+window.addEventListener("hashchange", openFromHash);
+setTimeout(openFromHash, 400);
 
 const yearEl = $("#year");
 if (yearEl) yearEl.textContent = toBn(new Date().getFullYear());

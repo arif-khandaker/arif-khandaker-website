@@ -1518,3 +1518,8 @@ body.has-cursor .cursor-glow { opacity: 1; }
   .marquee-track { animation: none; }
   .js .portrait.reveal .portrait-frame, .js .gallery-item.reveal > * { clip-path: none; }
 }
+
+/* বইয়ের নমুনা পাঠের শেষ লাইন */
+.modal .sample-end { margin-top: 1.4em; opacity: .75; font-style: italic; }
+.modal.is-paper .modal-body .sample-text p:first-child::first-letter { float: none; font-size: inherit; line-height: inherit; padding: 0; color: inherit; font-family: inherit; }
+.modal:not(.is-paper):not(.is-gold) .modal-actions .btn-outline-gold { color: #5c3f0e; border-color: #8a6a2c; }
