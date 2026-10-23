@@ -250,7 +250,7 @@ const BOOKS = [
     slug: "falguni-lane",
     genre: "থ্রিলার উপন্যাস",
     year: "বইমেলা ২০২৫",
-    publisher: "অয়ন প্রকাশন",
+    publisher: "অয়ন প্রকাশন",
     price: "৭০০ টাকা",
     pages: "৪৫০",
     summary: "",
@@ -267,7 +267,7 @@ const BOOKS = [
     cover: "o-mon-tomake.jpg",
   },
   {
-    title: "কৃষ্ণচূড়া তোমাকে দিলাম",
+    title: "কৃষ্ণচূড়া তোমাকে দিলাম",
     slug: "krishnachura",
     genre: "রোমান্টিক উপন্যাস",
     year: "বইমেলা ২০২১",
@@ -690,7 +690,7 @@ function renderBooks() {
         ${b.pages ? `<div><dt>পৃষ্ঠা</dt><dd>${esc(b.pages)}</dd></div>` : ""}
       </dl>
       <div class="book-actions">
-        ${orderButton(0)}
+        ${cartButton(0) ? cartButton(0) + waOutline(0) : orderButton(0)}
         ${sampleButton(0)}
       </div>
     </div>`;
@@ -706,7 +706,7 @@ function renderBooks() {
       <h3 class="book-title">${esc(book.title)}</h3>
       <p class="book-meta">${[book.publisher, book.year].filter(isFilled).map(esc).concat(isFilled(book.price) ? [`<span class="price">${esc(book.price)}</span>`] : []).join(" · ")}</p>
       <div class="book-actions">
-        ${orderButton(i, "অর্ডার করুন")}
+        ${cartButton(i) || orderButton(i, "অর্ডার করুন")}
         ${sampleButton(i)}
         <button class="btn btn-outline-gold" data-open="book" data-index="${i}">বিস্তারিত</button>
       </div>
@@ -810,6 +810,7 @@ const modal = $("#modal");
 let lastFocus = null;
 
 function openModal({ kicker = "", title = "", meta = "", bodyHtml = "", poem = false, image = false, paper = false, gold = false, actionsHtml = "" }) {
+  modal.classList.remove("is-cart");
   modal.classList.toggle("is-paper", paper);
   modal.classList.toggle("is-gold", gold);
   $("#modal-kicker").textContent = kicker;
@@ -875,7 +876,7 @@ function openItem(type, index) {
       title: b.title,
       meta: [b.publisher, b.year, b.pages && `${b.pages} পৃষ্ঠা`, b.price].filter(Boolean).join(" · "),
       bodyHtml: isFilled(b.summary) ? `<p>${esc(b.summary)}</p>` : "",
-      actionsHtml: orderButton(index, "WhatsApp-এ অর্ডার করুন") + sampleButton(index) + copyLinkButton(b),
+      actionsHtml: (cartButton(index) ? cartButton(index) + waOutline(index) : orderButton(index, "WhatsApp-এ অর্ডার করুন")) + sampleButton(index) + copyLinkButton(b),
     });
     setBookHash(b);
   } else if (type === "sample") {
@@ -887,7 +888,7 @@ function openItem(type, index) {
       title: b.title,
       meta: SITE.authorName,
       bodyHtml: `<div class="sample-text">${paragraphs(b.excerpt.filter(isFilled))}</div>` + `<p class="sample-end">… পুরোটা পড়তে বইটি অর্ডার করুন।</p>`,
-      actionsHtml: orderButton(index, "WhatsApp-এ অর্ডার করুন") + copyLinkButton(b),
+      actionsHtml: (cartButton(index) ? cartButton(index) + waOutline(index) : orderButton(index, "WhatsApp-এ অর্ডার করুন")) + copyLinkButton(b),
     });
     setBookHash(b);
   } else if (type === "writing") {
@@ -928,6 +929,243 @@ function toast(message) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.classList.remove("show"), 3200);
 }
+
+/* =========================================================
+   কার্ট ও অর্ডার
+   ---------------------------------------------------------
+   পাঠক বই কার্টে রাখেন → নাম, ঠিকানা, ফোন দেন → পেমেন্ট নম্বর দেখেন
+   → সব তথ্য একটি বার্তা হয়ে আপনার WhatsApp-এ যায়।
+   পেমেন্ট নম্বর ও মাধ্যম বদলাতে নিচের PAY অংশ সম্পাদনা করুন।
+   ========================================================= */
+const PAY = {
+  number: "01823818887",
+  methods: ["বিকাশ", "নগদ", "রকেট"],
+  note: "বিকাশে “সেন্ড মানি” করুন",
+};
+
+const bnToNum = (str) => Number(String(str).replace(/[০-৯]/g, (d) => BN_DIGITS.indexOf(d)).replace(/[^\d]/g, "")) || 0;
+const priceOf = (b) => (b && isFilled(b.price) ? bnToNum(b.price) : 0);
+const canBuy = (b) => Boolean(b && b.slug && priceOf(b) > 0);
+const taka = (n) => `${toBn(Number(n).toLocaleString("en-US"))} টাকা`;
+const bookBySlug = (slug) => BOOKS.find((b) => b.slug === slug);
+const CART_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2.2l2.1 10.2a1.5 1.5 0 0 0 1.5 1.2h7.9a1.5 1.5 0 0 0 1.5-1.1L20 8H6.3"/><circle cx="9.5" cy="19.2" r="1.3"/><circle cx="16.5" cy="19.2" r="1.3"/></svg>';
+
+const cartButton = (i, label = "কার্টে যোগ করুন") => canBuy(BOOKS[i])
+  ? `<button class="btn btn-gold" data-cart-add="${esc(BOOKS[i].slug)}">${CART_ICON} ${label}</button>` : "";
+const waOutline = (i) =>
+  `<a href="#" class="btn btn-outline-gold" data-wa="book" data-index="${i}">${ICONS.whatsapp} WhatsApp-এ জিজ্ঞাসা</a>`;
+
+const CART_KEY = "ak-cart-v1";
+let cart = [];
+try {
+  cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]")
+    .filter((x) => x && canBuy(bookBySlug(x.slug)) && x.qty > 0)
+    .map((x) => ({ slug: x.slug, qty: Math.min(10, Math.floor(x.qty)) }));
+} catch (e) { cart = []; }
+const saveCart = () => { try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) {} };
+const cartCount = () => cart.reduce((n, x) => n + x.qty, 0);
+const cartTotal = () => cart.reduce((n, x) => n + priceOf(bookBySlug(x.slug)) * x.qty, 0);
+
+let cartStep = "cart";
+const cartForm = { name: "", phone: "", address: "", area: "ঢাকার ভেতরে", note: "", method: PAY.methods[0], trx: "" };
+
+/* ভাসমান কার্ট বোতাম */
+const fab = document.createElement("button");
+fab.className = "cart-fab";
+fab.type = "button";
+fab.setAttribute("data-cart-open", "");
+fab.hidden = true;
+document.body.appendChild(fab);
+function updateFab(bump) {
+  const n = cartCount();
+  fab.hidden = n === 0;
+  fab.innerHTML = `${CART_ICON}<span class="cart-fab-label">কার্ট</span><span class="cart-fab-count">${toBn(n)}</span>`;
+  fab.setAttribute("aria-label", `কার্ট দেখুন, ${toBn(n)}টি বই`);
+  if (bump) { fab.classList.remove("bump"); void fab.offsetWidth; fab.classList.add("bump"); }
+}
+
+function addToCart(slug) {
+  const b = bookBySlug(slug);
+  if (!canBuy(b)) return;
+  const row = cart.find((x) => x.slug === slug);
+  if (row) row.qty = Math.min(10, row.qty + 1); else cart.push({ slug, qty: 1 });
+  saveCart(); updateFab(true);
+  toast(`“${b.title}” কার্টে যোগ হয়েছে`);
+}
+
+function cartOrderMessage() {
+  const lines = cart.map((x, n) => {
+    const b = bookBySlug(x.slug);
+    return `${toBn(n + 1)}। "${b.title}" × ${toBn(x.qty)} = ${taka(priceOf(b) * x.qty)}\n   লিংক: ${bookLink(b)}`;
+  });
+  return [
+    `শুভেচ্ছা! আমি ${SITE.authorName}-এর বই অর্ডার করতে চাই।`,
+    "",
+    "অর্ডার:",
+    ...lines,
+    "",
+    `বইয়ের মোট দাম: ${taka(cartTotal())}`,
+    "ডেলিভারি খরচ: আলাদা (দয়া করে জানাবেন)",
+    "",
+    `নাম: ${cartForm.name.trim()}`,
+    `মোবাইল: ${cartForm.phone.trim()}`,
+    `ঠিকানা: ${cartForm.address.trim()}`,
+    `এলাকা: ${cartForm.area}`,
+    `পেমেন্ট মাধ্যম: ${cartForm.method}`,
+    `লেনদেন আইডি (TrxID): ${cartForm.trx.trim() || "এখনো পেমেন্ট করিনি"}`,
+    ...(cartForm.note.trim() ? [`নোট: ${cartForm.note.trim()}`] : []),
+  ].join("\n");
+}
+
+function renderCart() {
+  const body = $("#modal-body");
+  const actions = $("#modal-actions");
+  const kicker = $("#modal-kicker");
+  const title = $("#modal-title");
+  const meta = $("#modal-meta");
+  const total = cartTotal();
+
+  if (!cart.length) {
+    kicker.textContent = "আপনার কার্ট";
+    title.textContent = "কার্ট খালি";
+    meta.textContent = "";
+    body.innerHTML = `<p>পছন্দের বইয়ের <strong>কার্টে যোগ করুন</strong> বোতামে চাপুন।</p>`;
+    actions.innerHTML = `<button class="btn btn-gold" data-close>বই দেখুন</button>`;
+    return;
+  }
+
+  if (cartStep === "cart") {
+    kicker.textContent = "ধাপ ১ / ৩";
+    title.textContent = "আপনার কার্ট";
+    meta.textContent = `${toBn(cartCount())}টি বই`;
+    body.innerHTML = `
+      <ul class="cart-list">
+        ${cart.map((x) => {
+          const b = bookBySlug(x.slug);
+          return `<li class="cart-row">
+            <span class="cart-thumb">${b.cover ? `<img src="${esc(b.cover)}" alt="">` : ""}</span>
+            <span class="cart-info"><strong>${esc(b.title)}</strong><em>${taka(priceOf(b))}</em></span>
+            <span class="cart-qty">
+              <button type="button" data-cart-act="dec" data-slug="${esc(x.slug)}" aria-label="কমান">−</button>
+              <span>${toBn(x.qty)}</span>
+              <button type="button" data-cart-act="inc" data-slug="${esc(x.slug)}" aria-label="বাড়ান">+</button>
+            </span>
+            <button type="button" class="cart-remove" data-cart-act="rm" data-slug="${esc(x.slug)}" aria-label="মুছুন">×</button>
+          </li>`;
+        }).join("")}
+      </ul>
+      <p class="cart-total"><span>বইয়ের মোট দাম</span><strong>${taka(total)}</strong></p>
+      <p class="cart-note">ডেলিভারি খরচ আলাদা। ঠিকানা অনুযায়ী অর্ডারের পর WhatsApp-এ জানানো হবে।</p>`;
+    actions.innerHTML =
+      `<button class="btn btn-gold" data-cart-act="to-info">অর্ডারের তথ্য দিন →</button>` +
+      `<button class="btn btn-outline-gold" data-close>আরও বই দেখুন</button>`;
+  } else if (cartStep === "info") {
+    kicker.textContent = "ধাপ ২ / ৩";
+    title.textContent = "আপনার তথ্য";
+    meta.textContent = `বইয়ের মোট দাম ${taka(total)}`;
+    body.innerHTML = `
+      <div class="cart-form">
+        <label>আপনার নাম<input id="cf-name" autocomplete="name" value="${esc(cartForm.name)}" placeholder="পুরো নাম"></label>
+        <label>মোবাইল নম্বর<input id="cf-phone" type="tel" inputmode="tel" autocomplete="tel" value="${esc(cartForm.phone)}" placeholder="01XXXXXXXXX"></label>
+        <label>পুরো ঠিকানা<textarea id="cf-address" rows="3" autocomplete="street-address" placeholder="বাড়ি/রোড, এলাকা, থানা, জেলা">${esc(cartForm.address)}</textarea></label>
+        <fieldset>
+          <legend>ডেলিভারি কোথায়?</legend>
+          ${["ঢাকার ভেতরে", "ঢাকার বাইরে"].map((a) => `<label class="cart-radio"><input type="radio" name="cf-area" value="${a}"${cartForm.area === a ? " checked" : ""}> ${a}</label>`).join("")}
+        </fieldset>
+        <label>কিছু জানাতে চান? (ঐচ্ছিক)<input id="cf-note" value="${esc(cartForm.note)}" placeholder="যেমন: অটোগ্রাফে কার নাম লিখবেন"></label>
+      </div>`;
+    actions.innerHTML =
+      `<button class="btn btn-gold" data-cart-act="to-pay">পেমেন্টে যান →</button>` +
+      `<button class="btn btn-outline-gold" data-cart-act="to-cart">← কার্টে ফিরুন</button>`;
+  } else {
+    kicker.textContent = "ধাপ ৩ / ৩";
+    title.textContent = "পেমেন্ট ও অর্ডার";
+    meta.textContent = `বইয়ের মোট দাম ${taka(total)}`;
+    body.innerHTML = `
+      <div class="pay-box">
+        <p class="pay-label">${esc(PAY.methods.join(" · "))} — একই নম্বর</p>
+        <p class="pay-number">${esc(PAY.number)}</p>
+        <button type="button" class="btn btn-outline-gold pay-copy" data-cart-act="copy-num">নম্বর কপি করুন</button>
+        <p class="pay-hint">${esc(PAY.note)}।</p>
+      </div>
+      <div class="cart-form">
+        <fieldset>
+          <legend>কোন মাধ্যমে পাঠাবেন?</legend>
+          ${PAY.methods.map((m) => `<label class="cart-radio"><input type="radio" name="cf-method" value="${m}"${cartForm.method === m ? " checked" : ""}> ${m}</label>`).join("")}
+        </fieldset>
+        <label>লেনদেন আইডি (TrxID) <small>— টাকা পাঠানোর পর লিখুন</small><input id="cf-trx" autocapitalize="characters" value="${esc(cartForm.trx)}" placeholder="যেমন: 9AB3C4D5EF"></label>
+      </div>
+      <p class="cart-note">ডেলিভারি খরচ বইয়ের দামের সাথে যোগ হবে। এখনো টাকা না পাঠালেও অর্ডার পাঠাতে পারেন; WhatsApp-এ মোট অঙ্ক জানিয়ে দেওয়া হবে।</p>`;
+    actions.innerHTML =
+      `<button class="btn btn-gold" data-cart-act="send">${ICONS.whatsapp} WhatsApp-এ অর্ডার পাঠান</button>` +
+      `<button class="btn btn-outline-gold" data-cart-act="to-info">← তথ্য বদলান</button>`;
+  }
+}
+
+function openCart() {
+  if (!cart.length) cartStep = "cart";
+  openModal({ kicker: "আপনার কার্ট", title: "কার্ট", meta: "", bodyHtml: "", actionsHtml: "" });
+  modal.classList.add("is-cart");
+  renderCart();
+}
+
+const bnDigitsToLatin = (str) => String(str).replace(/[০-৯]/g, (d) => BN_DIGITS.indexOf(d));
+function validPhone(v) {
+  const d = bnDigitsToLatin(v).replace(/[^\d]/g, "").replace(/^88/, "");
+  return /^01[3-9]\d{8}$/.test(d);
+}
+
+function cartAction(act, slug) {
+  const row = cart.find((x) => x.slug === slug);
+  if (act === "inc" && row) row.qty = Math.min(10, row.qty + 1);
+  else if (act === "dec" && row) row.qty = Math.max(1, row.qty - 1);
+  else if (act === "rm" && row) cart = cart.filter((x) => x.slug !== slug);
+  else if (act === "to-cart") cartStep = "cart";
+  else if (act === "to-info") cartStep = "info";
+  else if (act === "to-pay") {
+    if (cartForm.name.trim().length < 2) return toast("আপনার নাম লিখুন");
+    if (!validPhone(cartForm.phone)) return toast("সঠিক মোবাইল নম্বর লিখুন (যেমন 01XXXXXXXXX)");
+    if (cartForm.address.trim().length < 8) return toast("পুরো ঠিকানা লিখুন");
+    cartStep = "pay";
+  } else if (act === "copy-num") {
+    const done = () => toast("নম্বর কপি হয়েছে");
+    const fb = () => { const t = document.createElement("textarea"); t.value = PAY.number; t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t); t.select(); try { document.execCommand("copy"); done(); } catch (e) { toast(PAY.number); } t.remove(); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(PAY.number).then(done, fb); else fb();
+    return;
+  } else if (act === "send") {
+    if (!cart.length) return;
+    if (openWhatsApp(cartOrderMessage())) {
+      cart = []; saveCart(); updateFab(); cartStep = "cart";
+      closeModal();
+      toast("ধন্যবাদ! WhatsApp-এ অর্ডার পাঠিয়ে দিন");
+    }
+    return;
+  }
+  saveCart(); updateFab(); renderCart();
+}
+
+document.addEventListener("click", (e) => {
+  const add = e.target.closest("[data-cart-add]");
+  if (add) { e.preventDefault(); addToCart(add.dataset.cartAdd); return; }
+  if (e.target.closest("[data-cart-open]")) { openCart(); return; }
+  const act = e.target.closest("[data-cart-act]");
+  if (act) { e.preventDefault(); cartAction(act.dataset.cartAct, act.dataset.slug); }
+});
+
+document.addEventListener("input", (e) => {
+  const t = e.target;
+  if (!modal.classList.contains("is-cart")) return;
+  if (t.id === "cf-name") cartForm.name = t.value;
+  else if (t.id === "cf-phone") cartForm.phone = t.value;
+  else if (t.id === "cf-address") cartForm.address = t.value;
+  else if (t.id === "cf-note") cartForm.note = t.value;
+  else if (t.id === "cf-trx") cartForm.trx = t.value;
+  else if (t.name === "cf-area") cartForm.area = t.value;
+  else if (t.name === "cf-method") cartForm.method = t.value;
+});
+
+updateFab();
+
 
 /* ---------- সব ক্লিক এক জায়গা থেকে ---------- */
 document.addEventListener("click", (e) => {
@@ -1120,7 +1358,7 @@ watchSections();
 setupForm();
 onScroll();
 
-/* বইয়ের নিজস্ব লিংক (#book-নাম) খুললে সেই বইয়ের পাতা খুলবে */
+/* বইয়ের নিজস্ব লিংক (#book-নাম) খুললে সেই বইয়ের পাতা খুলবে */
 window.addEventListener("hashchange", openFromHash);
 setTimeout(openFromHash, 400);
 

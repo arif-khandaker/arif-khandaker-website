@@ -1,6 +1,6 @@
 /* =========================================================
    আরিফ খন্দকার — লেখক পোর্টফোলিও
-   রঙ: কালো · অফ-হোয়াইট · সোনালি
+   রঙ: কালো · অফ-হোয়াইট · সোনালি
    ========================================================= */
 
 :root {
@@ -13,7 +13,7 @@
   --white: #fffdf8;
   --gold: #c9a45c;          /* কালো পটভূমিতে */
   --gold-soft: #e2c98f;
-  --gold-deep: #8c6a2c;     /* অফ-হোয়াইট পটভূমিতে লেখা */
+  --gold-deep: #8c6a2c;     /* অফ-হোয়াইট পটভূমিতে লেখা */
   --text: #24211c;
   --muted: #6f685c;
   --muted-dark: #a59c8b;
@@ -603,7 +603,7 @@ p { margin: 0 0 1.1em; overflow-wrap: anywhere; }
 }
 .book-cover img { width: 100%; height: 100%; object-fit: cover; }
 
-/* বইয়ের বাঁধাইয়ের ছায়া */
+/* বইয়ের বাঁধাইয়ের ছায়া */
 .book-cover::after {
   content: "";
   position: absolute;
@@ -688,7 +688,7 @@ p { margin: 0 0 1.1em; overflow-wrap: anywhere; }
 
 .book-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
-/* বাকি বইয়ের তালিকা */
+/* বাকি বইয়ের তালিকা */
 .book-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -932,7 +932,7 @@ p { margin: 0 0 1.1em; overflow-wrap: anywhere; }
 .field textarea {
   width: 100%;
   font: inherit;
-  font-size: 16px; /* মোবাইলে অটো-জুম ঠেকায় */
+  font-size: 16px; /* মোবাইলে অটো-জুম ঠেকায় */
   color: var(--ivory);
   background: rgba(255,255,255,.03);
   border: 1px solid rgba(201,164,92,.28);
@@ -1106,7 +1106,7 @@ p { margin: 0 0 1.1em; overflow-wrap: anywhere; }
 .modal-actions .btn-gold { background: var(--ink); color: var(--gold-soft); border-color: var(--ink); }
 .modal-actions .btn-gold:hover { background: var(--gold); color: var(--ink); border-color: var(--gold); }
 
-/* ছবি দেখার সময় পপআপ */
+/* ছবি দেখার সময় পপআপ */
 .modal.is-image .modal-panel { max-width: 960px; background: var(--ink); color: var(--ivory); padding: 54px 20px 22px; }
 .modal.is-image .modal-close { color: var(--ivory); }
 .modal.is-image .modal-title { font-size: 18px; font-family: var(--font-body); color: var(--muted-dark); margin-top: 14px; text-align: center; }
@@ -1349,7 +1349,7 @@ p { margin: 0 0 1.1em; overflow-wrap: anywhere; }
 }
 
 /* =========================================================
-   প্রিমিয়াম স্তর — প্রবেশের পর্দা, চলন ও নতুন অংশ
+   প্রিমিয়াম স্তর — প্রবেশের পর্দা, চলন ও নতুন অংশ
    ========================================================= */
 
 /* প্রবেশের পর্দা */
@@ -1401,7 +1401,7 @@ body.has-cursor .cursor-glow { opacity: 1; }
 /* হিরোর সোনালি ধূলিকণা */
 .hero-dust { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 
-/* সংখ্যায় সাহিত্যযাত্রা */
+/* সংখ্যায় সাহিত্যযাত্রা */
 .stats {
   background: var(--ink);
   border-top: 1px solid var(--line-dark);
@@ -1422,7 +1422,7 @@ body.has-cursor .cursor-glow { opacity: 1; }
 .stat-label { margin-top: 8px; font-size: 15px; color: var(--muted-dark); line-height: 1.5; }
 .stat-label small { color: var(--gold); font-size: 12px; letter-spacing: .1em; }
 
-/* বইয়ের নামের চলমান ফিতা */
+/* বইয়ের নামের চলমান ফিতা */
 .marquee {
   overflow: hidden; background: var(--gold); color: var(--ink);
   padding: 14px 0; border-block: 1px solid var(--gold-deep);
@@ -1461,13 +1461,13 @@ body.has-cursor .cursor-glow { opacity: 1; }
 .js .section-head-center h2::after { transform-origin: center; }
 .js .section-head.is-visible h2::after { transform: scaleX(1); }
 
-/* ছবি পর্দা সরিয়ে প্রকাশ */
+/* ছবি পর্দা সরিয়ে প্রকাশ */
 .js .portrait.reveal .portrait-frame,
 .js .gallery-item.reveal > * { clip-path: inset(0 0 100% 0); transition: clip-path 1.2s var(--ease); }
 .js .portrait.reveal.is-visible .portrait-frame,
 .js .gallery-item.reveal.is-visible > * { clip-path: inset(0 0 0 0); }
 
-/* বইয়ের প্রচ্ছদে ত্রিমাত্রিক হেলানো ও ঝিলিক */
+/* বইয়ের প্রচ্ছদে ত্রিমাত্রিক হেলানো ও ঝিলিক */
 .book-cover { transform-style: preserve-3d; will-change: transform; }
 .book-cover .shine {
   position: absolute; inset: 0; pointer-events: none; z-index: 2;
@@ -1476,7 +1476,7 @@ body.has-cursor .cursor-glow { opacity: 1; }
 }
 .book-cover:hover .shine { opacity: 1; }
 
-/* উপরে যাওয়ার গোল বোতাম */
+/* উপরে যাওয়ার গোল বোতাম */
 .to-top-btn {
   position: fixed; left: 20px; bottom: 20px; z-index: 90;
   width: 52px; height: 52px; border-radius: 50%;
@@ -1519,7 +1519,7 @@ body.has-cursor .cursor-glow { opacity: 1; }
   .js .portrait.reveal .portrait-frame, .js .gallery-item.reveal > * { clip-path: none; }
 }
 
-/* বইয়ের নমুনা পাঠের শেষ লাইন */
+/* বইয়ের নমুনা পাঠের শেষ লাইন */
 .modal .sample-end { margin-top: 1.4em; opacity: .75; font-style: italic; }
 .modal.is-paper .modal-body .sample-text p:first-child::first-letter { float: none; font-size: inherit; line-height: inherit; padding: 0; color: inherit; font-family: inherit; }
 .modal:not(.is-paper):not(.is-gold) .modal-actions .btn-outline-gold { color: #5c3f0e; border-color: #8a6a2c; }
@@ -1539,3 +1539,41 @@ body.has-cursor .cursor-glow { opacity: 1; }
   .how-steps { grid-template-columns: repeat(4, 1fr); gap: 24px; }
   .how-steps li { flex-direction: column; align-items: center; text-align: center; }
 }
+
+/* ---- কার্ট ---- */
+.cart-fab{position:fixed;right:14px;bottom:16px;z-index:60;display:flex;align-items:center;gap:8px;padding:12px 16px;border:1px solid #8a6a2c;border-radius:999px;background:#c9a45c;color:#1a1407;font:inherit;font-size:16px;cursor:pointer;box-shadow:0 10px 28px -8px rgba(0,0,0,.55)}
+.cart-fab[hidden]{display:none}
+.cart-fab svg{width:22px;height:22px}
+.cart-fab-count{min-width:24px;height:24px;padding:0 6px;border-radius:999px;background:#1a1407;color:#f2d98e;display:grid;place-items:center;font-size:14px}
+.cart-fab.bump{animation:cartbump .45s ease}
+@keyframes cartbump{40%{transform:scale(1.14)}}
+body.no-scroll .cart-fab{display:none}
+.btn svg{width:18px;height:18px;flex:none}
+.modal.is-cart .modal-body{white-space:normal}
+.cart-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.cart-row{display:grid;grid-template-columns:44px 1fr auto 28px;gap:10px;align-items:center;padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,.12)}
+.cart-thumb{width:44px;height:62px;background:#ddd;overflow:hidden;display:block}
+.cart-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.cart-info strong{display:block;font-weight:500;line-height:1.35}
+.cart-info em{font-style:normal;font-size:.9em;opacity:.75}
+.cart-qty{display:flex;align-items:center;gap:6px}
+.cart-qty button,.cart-remove{width:30px;height:30px;border:1px solid rgba(0,0,0,.3);background:transparent;color:inherit;font:inherit;font-size:18px;line-height:1;cursor:pointer;border-radius:50%}
+.cart-remove{border:0;font-size:22px;opacity:.6;width:28px}
+.cart-qty>span{min-width:18px;text-align:center}
+.cart-total{display:flex;justify-content:space-between;align-items:baseline;margin:18px 0 4px;font-size:1.1em}
+.cart-total strong{font-weight:600}
+.cart-note{margin:8px 0 0;font-size:.88em;opacity:.78;line-height:1.7}
+.cart-form{display:grid;gap:14px;margin-top:6px}
+.cart-form label,.cart-form legend{display:grid;gap:6px;font-size:.92em}
+.cart-form input:not([type=radio]),.cart-form textarea{width:100%;padding:11px 12px;border:1px solid rgba(0,0,0,.3);background:rgba(255,255,255,.75);color:#111;font:inherit;font-size:16px;border-radius:2px}
+.cart-form textarea{resize:vertical}
+.cart-form fieldset{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 18px}
+.cart-form legend{width:100%;padding:0;margin-bottom:6px}
+.cart-radio{display:flex!important;align-items:center;gap:8px!important}
+.cart-form small{opacity:.7}
+.pay-box{margin:6px 0 18px;padding:18px;border:1px dashed #8a6a2c;background:rgba(201,164,92,.14);text-align:center}
+.pay-label{margin:0;font-size:.9em;opacity:.8}
+.pay-number{margin:8px 0 12px;font-size:1.9rem;letter-spacing:.06em;font-weight:600;font-family:system-ui,sans-serif}
+.pay-hint{margin:12px 0 0;font-size:.88em;opacity:.8}
+.pay-copy{color:#5c3f0e!important;border-color:#8a6a2c!important;background:rgba(255,255,255,.5)!important}
+body.no-scroll .toast{bottom:auto;top:84px}
