@@ -1580,3 +1580,14 @@ body.no-scroll .toast{bottom:auto;top:84px}
 /* কার্ট বোতাম WhatsApp বোতামের ওপরে */
 .cart-fab{right:20px;bottom:88px}
 @media (max-width:720px){.cart-fab{right:16px;bottom:84px}}
+
+/* ---- সারসংক্ষেপ বোতাম (লাল জ্বলন্ত বাক্স) ---- */
+.synopsis-box{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;margin-top:12px;padding:14px 16px;border:1px solid #ff4a4a;border-radius:3px;background:linear-gradient(135deg,#3a0507,#6b0b10);color:#ffe3e0;font:inherit;font-size:17px;cursor:pointer;text-align:left;box-shadow:0 0 0 1px rgba(255,74,74,.25),0 0 18px rgba(255,40,40,.55),inset 0 0 14px rgba(255,60,60,.25);animation:synglow 2.4s ease-in-out infinite;transition:transform .25s}
+.synopsis-box:hover{transform:translateY(-2px)}
+.syn-label{display:flex;align-items:center;gap:10px;color:#fff;text-shadow:0 0 10px rgba(255,80,80,.95),0 0 22px rgba(255,40,40,.7);letter-spacing:.02em}
+.syn-dot{width:9px;height:9px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 10px 3px rgba(255,59,59,.9);animation:syndot 1.2s ease-in-out infinite}
+.syn-go{font-size:.85em;color:#ffb3ad;white-space:nowrap}
+@keyframes synglow{0%,100%{box-shadow:0 0 0 1px rgba(255,74,74,.25),0 0 12px rgba(255,40,40,.4),inset 0 0 10px rgba(255,60,60,.18)}50%{box-shadow:0 0 0 1px rgba(255,90,90,.5),0 0 26px rgba(255,40,40,.85),inset 0 0 18px rgba(255,60,60,.38)}}
+@keyframes syndot{50%{opacity:.35;transform:scale(.8)}}
+.modal-actions .synopsis-box{margin-top:6px}
+@media (prefers-reduced-motion:reduce){.synopsis-box,.syn-dot{animation:none}}
