@@ -656,12 +656,20 @@ const WRITINGS = [
    src: ছবির ফাইলের নাম, যেমন "photo-1.jpg" (GitHub-এ আপলোড করার পর)।
    caption: ছবির নিচের বিবরণ। */
 const GALLERY = [
-  { src: "gallery-6.jpg", caption: "শহরের বারান্দায়, গোধূলিবেলায়" },
-  { src: "gallery-1.jpg", caption: "লেখার টেবিলে, গভীর রাতে" },
-  { src: "gallery-4.jpg", caption: "ঢাকা এফএম ৯০.৪-এর স্টুডিওতে" },
-  { src: "gallery-5.jpg", caption: "বইমেলায় পাঠকদের সঙ্গে" },
-  { src: "gallery-3.jpg", caption: "এক তাকে নিজের লেখা বইয়ের সারি" },
-  { src: "gallery-2.jpg", caption: "পিপলস রেডিও ৯১.৬ এফএম-এর স্টুডিওতে" },
+  { src: "gallery-6.jpg", caption: "শহরের বারান্দায়, গোধূলির আলোয়", w: 1024, h: 1019 },
+  { src: "gallery-1.jpg", caption: "লেখার টেবিলে, গভীর রাতের নিস্তব্ধতায়", w: 1000, h: 1333 },
+  { src: "gallery-4.jpg", caption: "ঢাকা এফএম ৯০.৪-এর স্টুডিওতে", w: 720, h: 540 },
+  { src: "gallery-5.jpg", caption: "বইমেলায় পাঠকদের সঙ্গে", w: 720, h: 540 },
+  { src: "gallery-3.jpg", caption: "এক তাকে, নিজের লেখা বইয়ের সারি", w: 720, h: 763 },
+  { src: "gallery-2.jpg", caption: "পিপলস রেডিও ৯১.৬ এফএম-এর স্টুডিওতে", w: 720, h: 540 },
+  { src: "fair-1.jpg", caption: "বইমেলার বিকেল", note: "সোনালি আলোয় বই হাতে এক স্মরণীয় মুহূর্ত", w: 1400, h: 630 },
+  { src: "fair-2.jpg", caption: "বইমেলায় পাঠকের সঙ্গে", note: "বইয়ের হাত ধরে গড়ে ওঠা আলাপ", w: 1400, h: 786 },
+  { src: "fair-3.jpg", caption: "বইমেলায় সন্ধ্যা", note: "আলো-ঝলমলে সন্ধ্যায় প্রিয় পাঠকের পাশে", w: 1400, h: 786 },
+  { src: "fair-4.jpg", caption: "ফুলের মুকুটে বইমেলা", note: "বইয়ের ভাঁজে ভাঁজে উৎসবের রং", w: 1400, h: 1050 },
+  { src: "fair-5.jpg", caption: "বইমেলার রাত", note: "রাতের আলোয় পাঠকের হাতে নিজের বই", w: 1400, h: 786 },
+  { src: "fair-6.jpg", caption: "বইমেলার ভিড়ে এক তরুণ পাঠক", note: "হাজার মানুষের ভিড়ে একটি বই, একটি হাসি", w: 1400, h: 786 },
+  { src: "fair-7.jpg", caption: "মনন প্রকাশের সামনে", note: "দুই পাঠকের সঙ্গে ধুলো-ওড়া সন্ধ্যায়", w: 1400, h: 786 },
+  { src: "fair-8.jpg", caption: "বইমেলায় অটোগ্রাফ দেওয়ার মুহূর্ত", note: "পাতায় কলমের ছোঁয়া, পাঠকের জন্য ভালোবাসা", w: 720, h: 722 },
 ];
 
 
@@ -736,12 +744,6 @@ const LIGHTPLAY = '<div class="lightplay" aria-hidden="true"><span class="lp-lig
   const st = document.createElement("style");
   st.id = "gallery-layout-style";
   st.textContent =
-    ".gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}" +
-    ".gallery-item,.gallery-item:nth-child(6n + 1),.gallery-item:nth-child(6n + 5){grid-row:auto;grid-column:auto;aspect-ratio:1/1}" +
-    ".gallery-item:nth-child(1){grid-column:span 2;grid-row:span 2;aspect-ratio:auto}" +
-    ".gallery-item:nth-child(2) img{object-position:50% 38%}" +
-    ".gallery-item:nth-child(4) img{object-position:72% 50%}" +
-    "@media (max-width:860px){.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.gallery-item:nth-child(6){grid-column:span 2;aspect-ratio:2/1}}" +
     ".writing.is-paper{background:radial-gradient(ellipse at 20% 10%,rgba(255,255,255,.45),transparent 55%),linear-gradient(160deg,#f9e8ad 0%,#f2d47c 100%);border-color:#d4ac4f;color:#141414;box-shadow:0 22px 40px -28px rgba(80,55,10,.55)}" +
     ".writing.is-paper::before{background:#141414}" +
     ".writing.is-paper::after{content:\"\";position:absolute;inset:8px;border:1px solid rgba(20,20,20,.18);pointer-events:none}" +
@@ -767,8 +769,7 @@ const LIGHTPLAY = '<div class="lightplay" aria-hidden="true"><span class="lp-lig
     ".sb-icon svg{width:19px;height:19px}" +
     ".sb-label{flex:1;font-size:17px}.sb-arrow{color:var(--gold);font-size:16px}" +
     ".social-dark{justify-content:center}.social-dark a{border-radius:50%;width:48px;height:48px}" +
-    "@media (max-width:400px){.social-dark{gap:8px}.social-dark a{width:44px;height:44px}}" +
-    "@media (hover:none){.gallery-caption{opacity:1;transform:none;font-size:12px;line-height:1.45;padding:28px 10px 8px}}";
+    "@media (max-width:400px){.social-dark{gap:8px}.social-dark a{width:44px;height:44px}}";
   document.head.appendChild(st);
 })();
 
@@ -1037,7 +1038,8 @@ function renderGallery() {
   grid.innerHTML = GALLERY.map((g, i) => `
     <button class="gallery-item reveal" data-photo="${i}" aria-label="${esc(g.caption || "ছবি")}">
       ${g.src
-        ? `<img src="${esc(g.src)}" alt="${esc(g.caption)}" loading="lazy"><span class="gallery-caption">${esc(g.caption)}</span>`
+        ? `<span class="frame-wood"><span class="frame-mat"><img src="${esc(g.src)}" alt="${esc(g.caption)}" loading="lazy"${g.w && g.h ? ` width="${g.w}" height="${g.h}"` : ""}></span></span>
+           <span class="frame-plaque">${esc(g.caption)}${g.note ? `<small>${esc(g.note)}</small>` : ""}</span>`
         : `<span class="gallery-empty">${ICONS.photo}<span>ছবি ${toBn(i + 1)}</span></span>`}
     </button>`).join("");
 }
@@ -1164,6 +1166,7 @@ function openPhoto(index) {
   }
   openModal({
     title: g.caption,
+    meta: g.note || "",
     bodyHtml: `<img src="${esc(g.src)}" alt="${esc(g.caption)}">`,
     image: true,
   });
