@@ -1495,6 +1495,16 @@ onScroll();
 
 /* বইয়ের নিজস্ব লিংক (#book-নাম) খুললে সেই বইয়ের পাতা খুলবে */
 window.addEventListener("hashchange", openFromHash);
+/* boijunction.com দিয়ে ঢুকলে আগে বইয়ের অংশ দেখাবে */
+(function booksFirst() {
+  const viaBooksDomain = /boijunction/i.test(location.hostname) || /[?&]from=boijunction\b/.test(location.search);
+  if (!viaBooksDomain || location.hash) return;
+  setTimeout(() => {
+    const books = document.getElementById("books");
+    if (books) books.scrollIntoView({ behavior: "auto", block: "start" });
+  }, 1800);
+})();
+
 setTimeout(openFromHash, 400);
 
 const yearEl = $("#year");
