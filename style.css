@@ -1523,3 +1523,19 @@ body.has-cursor .cursor-glow { opacity: 1; }
 .modal .sample-end { margin-top: 1.4em; opacity: .75; font-style: italic; }
 .modal.is-paper .modal-body .sample-text p:first-child::first-letter { float: none; font-size: inherit; line-height: inherit; padding: 0; color: inherit; font-family: inherit; }
 .modal:not(.is-paper):not(.is-gold) .modal-actions .btn-outline-gold { color: #5c3f0e; border-color: #8a6a2c; }
+
+/* ---- কীভাবে অর্ডার করবেন ---- */
+.how-order { margin: 56px 0 8px; padding: 32px 22px; border: 1px solid rgba(201,164,92,.35); background: rgba(201,164,92,.05); }
+.how-order h3 { margin: 0 0 22px; font-size: 1.35rem; color: var(--gold-soft); font-weight: 500; text-align: center; }
+.how-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+.how-steps li { display: flex; gap: 14px; align-items: flex-start; }
+.how-steps li > span { flex: 0 0 34px; height: 34px; border-radius: 50%; border: 1px solid var(--gold); color: var(--gold-soft); display: grid; place-items: center; font-size: 1rem; }
+.how-steps p { margin: 0; line-height: 1.75; color: rgba(255,255,255,.82); }
+.how-steps strong { color: var(--gold-soft); font-weight: 500; }
+.how-pay { margin: 26px 0 0; padding-top: 18px; border-top: 1px solid rgba(201,164,92,.25); text-align: center; color: rgba(255,255,255,.7); }
+.how-pay strong { color: var(--gold-soft); font-weight: 500; }
+@media (min-width: 820px) {
+  .how-order { padding: 40px 48px; }
+  .how-steps { grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .how-steps li { flex-direction: column; align-items: center; text-align: center; }
+}
