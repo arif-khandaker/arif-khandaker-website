@@ -1577,3 +1577,6 @@ body.no-scroll .cart-fab{display:none}
 .pay-hint{margin:12px 0 0;font-size:.88em;opacity:.8}
 .pay-copy{color:#5c3f0e!important;border-color:#8a6a2c!important;background:rgba(255,255,255,.5)!important}
 body.no-scroll .toast{bottom:auto;top:84px}
+/* কার্ট বোতাম WhatsApp বোতামের ওপরে */
+.cart-fab{right:20px;bottom:88px}
+@media (max-width:720px){.cart-fab{right:16px;bottom:84px}}
