@@ -27,7 +27,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Sans+Bengali:wght@300;400;500;600&family=Noto+Serif+Bengali:wght@400;500&family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=20261024n">
+  <script>
+    /* বই-প্রথম: boijunction ডোমেইন, /books বা #books দিয়ে ঢুকলে বইয়ের অংশ সবার ওপরে বসে (স্ক্রলের ওপর নির্ভর করে না) */
+    (function () {
+      var l = location;
+      if (/boijunction/i.test(l.hostname) || /[?&]from=(books|boijunction)\b/.test(l.search) || l.hash === "#books") {
+        document.documentElement.classList.add("books-first");
+      }
+    })();
+  </script>
+  <style>
+    html.books-first #main{display:flex;flex-direction:column}
+    html.books-first #books{order:-1;padding-top:120px}
+  </style>
+  <link rel="stylesheet" href="style.css?v=20261024o">
   <style>
     @font-face{font-family:"AK Sans";src:url("ak-sans.woff?v=3") format("woff");font-weight:300 600;font-style:normal;font-display:swap}
     @font-face{font-family:"AK Serif";src:url("ak-serif.woff?v=3") format("woff");font-weight:400 500;font-style:normal;font-display:swap}
@@ -530,6 +543,6 @@
       stage(".hero-actions", 0.2);
     })();
   </script>
-  <script src="script.js?v=20261024n"></script>
+  <script src="script.js?v=20261024o"></script>
 </body>
 </html>
