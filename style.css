@@ -1602,3 +1602,85 @@ body.no-scroll .toast{bottom:auto;top:84px}
 .cart-signed-banner svg{flex:none;margin-top:4px;color:#8a6a22}
 .cart-signed-banner strong{color:#6d4f12}
 .link-btn{background:none;border:0;padding:0;color:#8a6a22;text-decoration:underline;font:inherit;cursor:pointer}
+
+/* ======== আলোকচিত্র: কাঠের ফ্রেমে বাঁধা ছবির দেয়াল ======== */
+#gallery { background-image: radial-gradient(ellipse at 50% 0%, rgba(150,110,50,.10), transparent 60%), radial-gradient(ellipse at 50% 100%, rgba(80,50,15,.08), transparent 55%); }
+.gallery-grid { display: block; column-count: 3; column-gap: 40px; padding: 18px 4px 0; }
+.gallery-item {
+  position: relative; display: block; width: 100%; margin: 0 0 46px; padding: 0;
+  aspect-ratio: auto !important; grid-row: auto !important; grid-column: auto !important;
+  break-inside: avoid; -webkit-column-break-inside: avoid; overflow: visible; background: none;
+  border: 0; cursor: pointer; text-align: center; color: #3a2610;
+  transform: rotate(var(--tilt, 0deg)); transform-origin: 50% 0;
+  transition: transform .7s var(--ease);
+}
+.gallery-item:nth-child(3n + 1) { --tilt: -.8deg; }
+.gallery-item:nth-child(3n + 2) { --tilt: .6deg; }
+.gallery-item:nth-child(3n) { --tilt: -.4deg; }
+.gallery-item:hover, .gallery-item:focus-visible { transform: rotate(0deg) translateY(-6px); }
+
+/* ঝোলানোর পেরেক ও সুতো */
+.gallery-item::before {
+  content: ""; position: absolute; z-index: 4; top: -16px; left: 50%; width: 10px; height: 10px; margin-left: -5px;
+  border-radius: 50%; background: radial-gradient(circle at 35% 30%, #f7e6ac, #a67e2c 58%, #5a4010);
+  box-shadow: 0 2px 3px rgba(0,0,0,.55);
+}
+.gallery-item::after {
+  content: ""; position: absolute; inset: auto; z-index: 3; top: -11px; left: 22%; width: 56%; height: 24px; border: 0;
+  background:
+    linear-gradient(to bottom right, transparent calc(50% - .7px), rgba(140,105,50,.75) 50%, transparent calc(50% + .7px)) left top / 50% 100% no-repeat,
+    linear-gradient(to bottom left, transparent calc(50% - .7px), rgba(140,105,50,.75) 50%, transparent calc(50% + .7px)) right top / 50% 100% no-repeat;
+  pointer-events: none;
+}
+
+/* কাঠের ফ্রেম: চার কোণে কোনাকুনি জোড় */
+.frame-wood {
+  position: relative; display: block; border: 16px solid; border-color: #b3834a #6e4423 #4d2c14 #8f5f30;
+  border-radius: 3px; background: #2b1a0b;
+  box-shadow: 0 0 0 1px #2a1708, 0 26px 36px -16px rgba(40,22,5,.75), 0 8px 12px -6px rgba(40,22,5,.55);
+}
+.frame-wood::before { /* কাঠের শিরা + আলোর ঝিলিক */
+  content: ""; position: absolute; z-index: 2; inset: -16px; border-radius: 3px; pointer-events: none;
+  background:
+    linear-gradient(135deg, rgba(255,240,205,.30), transparent 28%, transparent 72%, rgba(0,0,0,.28)),
+    repeating-linear-gradient(88deg, rgba(0,0,0,.11) 0 1px, transparent 1px 5px),
+    repeating-linear-gradient(1.5deg, rgba(255,230,185,.07) 0 2px, transparent 2px 9px);
+  -webkit-mask: linear-gradient(#000 0 0) padding-box exclude, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) exclude, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+}
+.frame-wood::after { /* ভেতরের সোনালি কাঠের ধার */
+  content: ""; position: absolute; z-index: 2; inset: 0; pointer-events: none;
+  box-shadow: inset 0 0 0 2px rgba(222,184,112,.55), inset 0 6px 14px rgba(0,0,0,.55);
+}
+.frame-mat { display: block; padding: 10px; background: linear-gradient(145deg, #f3ead6, #e6d9bd); box-shadow: inset 0 0 0 1px rgba(110,75,25,.35), inset 0 3px 10px rgba(70,45,10,.4); }
+.frame-mat img { display: block; width: 100%; height: auto; object-fit: cover; filter: saturate(.96) contrast(1.02); box-shadow: 0 0 0 1px rgba(60,40,10,.55); transition: filter .6s var(--ease); }
+.gallery-item:hover .frame-mat img { filter: saturate(1.08) contrast(1.04); transform: none; }
+
+/* পিতলের নামফলক */
+.frame-plaque {
+  position: relative; display: block; width: fit-content; max-width: 94%; margin: 18px auto 0; padding: 8px 18px 9px;
+  background: linear-gradient(180deg, #e6cd8c, #bf9a4c 55%, #d8bb75); color: #2d1f08; border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgba(255,244,205,.6), inset 0 -2px 3px rgba(110,80,20,.35), 0 5px 10px -4px rgba(40,22,5,.6);
+  font-family: var(--font-display); font-size: 16px; line-height: 1.45; letter-spacing: .01em;
+}
+.frame-plaque small { display: block; margin-top: 2px; font-family: var(--font-body); font-size: 12.5px; letter-spacing: 0; color: #4a3510; opacity: .9; }
+
+@media (max-width: 860px) {
+  .gallery-grid { column-count: 2; column-gap: 22px; }
+  .gallery-item { margin-bottom: 38px; }
+  .frame-wood { border-width: 11px; }
+  .frame-wood::before { inset: -11px; }
+  .frame-mat { padding: 6px; }
+  .frame-plaque { margin-top: 14px; padding: 6px 11px 7px; font-size: 13.5px; }
+  .frame-plaque small { font-size: 11px; }
+}
+@media (hover: none) { .gallery-item:hover { transform: rotate(var(--tilt, 0deg)); } }
+
+/* বড় করে দেখার সময়ও কাঠের ফ্রেমে */
+.modal.is-image .modal-body img {
+  border: 14px solid; border-color: #b3834a #6e4423 #4d2c14 #8f5f30; padding: 9px; background: #efe4cc; border-radius: 3px;
+  box-shadow: 0 0 0 1px #2a1708, 0 20px 40px -14px rgba(0,0,0,.8), inset 0 0 0 1px rgba(110,75,25,.4);
+  box-sizing: border-box; max-width: 100%; height: auto;
+}
+.modal.is-image .modal-meta { text-align: center; color: var(--gold); border-bottom: 0; margin-top: -4px; }
