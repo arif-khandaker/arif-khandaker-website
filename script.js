@@ -901,12 +901,12 @@ const EBOOKS = [
 
 
 /* ---------- ৪ক. সম্পূর্ণ গ্রন্থতালিকা ----------
-   ebook: true লিখলে বইটি "ইবুক" হিসেবে দেখাবে।
+   ebook: true লিখলে বইটি "ইবুক" হিসেবে দেখাবে। out: true লিখলে "স্টক আউট" লেখা দেখাবে।
    নতুন বই যোগ করতে একটি লাইন কপি করে নাম ও ধরন বদলান। */
 const BOOK_LIST = [
   { title: "মেঘমালা", genre: "কাব্যগ্রন্থ", ebook: false },
-  { title: "সন্ধ্যাবেলায় বৃষ্টি", genre: "কাব্যগ্রন্থ", ebook: false },
-  { title: "চাঁদমুখী", genre: "উপন্যাস", ebook: false },
+  { title: "সন্ধ্যাবেলায় বৃষ্টি", genre: "কাব্যগ্রন্থ", ebook: false, out: true },
+  { title: "চাঁদমুখী", genre: "উপন্যাস", ebook: false, out: true },
   { title: "যে শহরে তুমি নেই", genre: "রোমান্টিক উপন্যাস", ebook: false },
   { title: "হাজার বসন্ত তোমার অপেক্ষায়", genre: "রোমান্টিক উপন্যাস", ebook: false },
   { title: "অর্ধেক প্রেম অর্ধেক বিরহ", genre: "উপন্যাস", ebook: false },
@@ -1510,6 +1510,7 @@ function catalogAction(b) {
     const p = BOOKS.find((x) => nf(x.title) === name && canBuy(x));
     if (p) return `<button type="button" class="catalog-order catalog-buy" data-cart-add="${esc(p.slug)}">কার্টে যোগ করুন</button>`;
   }
+  if (b.out) return `<span class="catalog-order catalog-out">স্টক আউট</span>`;
   return `<a href="#" class="catalog-order" data-wa="title" data-title="${esc(b.title)}">অর্ডার</a>`;
 }
 
