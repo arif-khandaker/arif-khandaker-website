@@ -1401,6 +1401,21 @@ function applyFilter(type) {
 }
 
 /* ---------- রেন্ডার: সম্পূর্ণ গ্রন্থতালিকা ---------- */
+/* গ্রন্থতালিকার পাশের বোতাম: সাইটে কেনা যায় এমন বই → কার্টে যোগ; ইবুক → ইবুক কিনুন; বাকিগুলো → WhatsApp */
+const CATALOG_ALIAS = { "চামেলী কটেজ": "চামেলি কটেজ" };
+function catalogAction(b) {
+  const nf = (t) => String(t).normalize("NFC");
+  const name = nf(CATALOG_ALIAS[b.title] || b.title);
+  if (b.ebook) {
+    const e = EBOOKS.find((x) => x.link && nf(x.title) === name);
+    if (e) return `<a class="catalog-order catalog-buy" href="${esc(e.link)}" target="_blank" rel="noopener" data-ebook-buy="${esc(e.slug)}">ইবুক কিনুন ↗</a>`;
+  } else {
+    const p = BOOKS.find((x) => nf(x.title) === name && canBuy(x));
+    if (p) return `<button type="button" class="catalog-order catalog-buy" data-cart-add="${esc(p.slug)}">কার্টে যোগ করুন</button>`;
+  }
+  return `<a href="#" class="catalog-order" data-wa="title" data-title="${esc(b.title)}">অর্ডার</a>`;
+}
+
 function renderCatalog() {
   const box = $("#catalog");
   $$("[data-book-count]").forEach((el) => (el.textContent = toBn(BOOK_LIST.length)));
@@ -1416,7 +1431,7 @@ function renderCatalog() {
   box.innerHTML = `
     <div class="catalog-head">
       <h3>সম্পূর্ণ গ্রন্থতালিকা</h3>
-      <p>এখানে তালিকাভুক্ত ${toBn(BOOK_LIST.length)}টি বই · যেকোনো বইয়ের পাশের <em>অর্ডার</em> লেখায় চাপুন</p>
+      <p>এখানে তালিকাভুক্ত ${toBn(BOOK_LIST.length)}টি বই · যেকোনো বইয়ের পাশের বোতামে চাপুন</p>
     </div>
     <div class="catalog-groups">
       ${order.map((g) => `
@@ -1426,7 +1441,7 @@ function renderCatalog() {
             ${groups[g].map((b) => `
               <li>
                 <span class="catalog-title">${esc(b.title)}${b.ebook ? ` <small>${esc(b.genre)}</small>` : ""}</span>
-                <a href="#" class="catalog-order" data-wa="title" data-title="${esc(b.title)}">অর্ডার</a>
+                ${catalogAction(b)}
               </li>`).join("")}
           </ol>
         </section>`).join("")}
