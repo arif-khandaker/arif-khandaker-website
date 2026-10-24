@@ -673,6 +673,24 @@ const EBOOKS = [
     cover: "brishti-tomake-dilam.jpg",
     link: "https://link.boitoi.com.bd/KhHXZ",
   },
+  {
+    title: "এক দুপুরের নির্জনতায়",
+    slug: "ek-dupurer-nirjonotay",
+    synopsis: [
+      "একটি দুপুরের নির্জনতা, যখন সময় থেমে থাকে, পৃথিবী শান্ত হয়, আর দুটি মন একে অপরকে খুঁজে পায়। 'এক দুপুরের নির্জনতায়' এক আবেগময় এবং রহস্যময় প্রেমের গল্প, যেখানে দুই মানুষের সম্পর্কের নানা ওঠাপড়া, বিশ্বাসের সংকট, আর একে অপরকে জানার গভীরতা উঠে এসেছে। নন্দিনী এবং অদ্বিত—এই দুই চরিত্রের গল্পে রয়েছে ভালোবাসা, সংকট, আত্মবিশ্বাসের খোঁজ, আর একে অপরকে সঠিকভাবে বোঝার সংগ্রাম।",
+      "তাদের জীবন চলে এক অদ্ভুত পথ ধরে, যেখানে কখনো সম্পর্কের মাঝে ছায়া, কখনো আলোর রশ্মি। কিন্তু, যখন জীবন এক নতুন বাঁকে পৌঁছায়, তখন তারা বুঝতে পারে, প্রেম শুধু অনুভূতির নাম নয়—এটা এক যাত্রা, যেখানে বিশ্বাস এবং সহানুভূতির সবচেয়ে বড় ভূমিকা।",
+      "তবে, একটি গোপন রহস্যও তাদের জীবনকে ঘিরে রয়েছে। অতীতের ছায়া তাদের সম্পর্কের উপর যে প্রভাব ফেলবে, তা কি কাটিয়ে ওঠা সম্ভব হবে? কি এমন কিছু রয়েছে, যা তারা জানতেও চায়নি? প্রতিটি অধ্যায়ে সম্পর্কের গভীরতা, মানবিক যন্ত্রণা, এবং আত্মবিশ্বাসের প্রশ্ন উঠে আসে।",
+      "\"এক দুপুরের নির্জনতায়\" শুধু একটি প্রেমের গল্প নয়, এটি সেই সব মানুষের গল্প যারা কখনো নিজেদের সত্যিকার অনুভূতিগুলো জানতে চায়, যারা জানে, জীবন কখনো সহজ হয় না, তবে সত্যিকার ভালোবাসা সব বাধা ভেদ করে।",
+      "এই উপন্যাস আপনাকে নিয়ে যাবে দুই মানুষের বিচিত্র, আবেগপূর্ণ এবং রহস্যময় যাত্রায়, যেখানে সম্পর্কের প্রতি অনুভূতি, বিশ্বাস এবং সত্যের সন্ধান চিরকালীন হয়ে উঠবে।",
+    ],
+    genre: "উপন্যাস",
+    year: "ঈদ স্পেশাল ২০২৫",
+    publisher: "বইটই",
+    pages: "১১২",
+    price: "৫০ টাকা",
+    cover: "ek-dupurer-nirjonotay.jpg",
+    link: "https://link.boitoi.com.bd/CBqt",
+  },
 ];
 
 
@@ -1134,7 +1152,7 @@ function renderEbooks() {
           <div class="ebook-info">
             <p class="book-genre">${esc(e.genre)} · ইবুক</p>
             <h4 class="book-title">${esc(e.title)}</h4>
-            <p class="book-meta">${[e.publisher, e.year, e.pages ? e.pages + " পৃষ্ঠা" : ""].filter(isFilled).map(esc).join(" · ")}</p>
+            <p class="book-meta">${[e.publisher, e.year, e.pages ? e.pages + " পৃষ্ঠা" : ""].filter(isFilled).map(esc).join(" · ")}${e.price ? ` · <span class="price">মূল্য ${esc(e.price)}</span>` : ""}</p>
             <div class="book-actions">
               ${EBOOK_BUY(e)}
               <button class="btn btn-outline-gold" data-open="ebook" data-index="${i}">সারসংক্ষেপ</button>
@@ -1580,7 +1598,7 @@ function cartEbooksBlock() {
   return `<div class="cart-ebooks">
     <h4>ইবুক — আলাদাভাবে কিনুন</h4>
     <p>ইবুকের দাম কার্টের হিসাবে যুক্ত হয় না। প্রকাশনীর পাতা থেকে আলাদা কিনতে হয়।</p>
-    ${list.map((e) => `<div class="cart-ebook-row"><span class="cart-thumb">${e.cover ? `<img src="${esc(e.cover)}" alt="">` : ""}</span><span class="cart-info"><strong>${esc(e.title)}</strong><em>ইবুক</em></span>${EBOOK_BUY(e, "কিনুন")}</div>`).join("")}
+    ${list.map((e) => `<div class="cart-ebook-row"><span class="cart-thumb">${e.cover ? `<img src="${esc(e.cover)}" alt="">` : ""}</span><span class="cart-info"><strong>${esc(e.title)}</strong><em>ইবুক${e.price ? " · " + esc(e.price) : ""}</em></span>${EBOOK_BUY(e, "কিনুন")}</div>`).join("")}
   </div>`;
 }
 
