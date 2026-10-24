@@ -1761,3 +1761,6 @@ html.ak-intro-on, html.ak-intro-on body{overflow:hidden}
   .ak-intro-tag .w{filter:none;transform:none}
 }
 .footer-privacy{font-size:13px;opacity:.6;max-width:46ch;line-height:1.6}
+
+.footer-domains{font-size:13px;opacity:.7;margin:10px 0 0;letter-spacing:.02em}
+.footer-domains a{color:inherit;text-decoration:underline;text-underline-offset:3px}
