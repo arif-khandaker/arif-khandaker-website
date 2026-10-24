@@ -1022,6 +1022,11 @@ function coverMarkup(book) {
     </span>`;
 }
 
+/* "নতুন" ব্যাজ: এই সালের বইমেলার বই। পরের বছর শুধু নিচের সংখ্যাটি বদলান (যেমন ২০২৭)। */
+const NEW_BOOK_YEAR = "২০২৬";
+const isNewBook = (b) => Boolean(b && b.year && String(b.year).includes(NEW_BOOK_YEAR));
+const coverBadge = (b) => (isNewBook(b) ? '<span class="cover-badge">নতুন</span>' : "");
+
 const orderButton = (i, label = "WhatsApp-এ অর্ডার") =>
   `<a href="#" class="btn btn-gold" data-wa="book" data-index="${i}">${ICONS.whatsapp} ${label}</a>`;
 const hasSynopsis = (b) => Array.isArray(b.synopsis) && b.synopsis.some(isFilled);
@@ -1039,7 +1044,7 @@ function renderBooks() {
   featured.innerHTML = `
     <div class="reveal">
       <button class="book-cover" data-open="book" data-index="0" aria-label="${esc(b.title)} — বিস্তারিত">
-        ${coverMarkup(b)}
+        ${coverMarkup(b)}${coverBadge(b)}
       </button>
     </div>
     <div class="reveal">
@@ -1066,7 +1071,7 @@ function renderBooks() {
     return `
     <article class="book reveal" id="book-${esc(book.slug || "n" + i)}">
       <button class="book-cover" data-open="book" data-index="${i}" aria-label="${esc(book.title)} — বিস্তারিত">
-        ${coverMarkup(book)}
+        ${coverMarkup(book)}${coverBadge(book)}
       </button>
       <p class="book-genre">${esc(book.genre)}</p>
       <h3 class="book-title">${esc(book.title)}</h3>
@@ -1096,6 +1101,7 @@ function initBookFilter() {
   const norm = (t) => String(t || "").toLowerCase().replace(/[\s\-_.,]+/g, " ").trim();
   const GROUPS = [
     { label: "সব", test: () => true },
+    { label: "নতুন", test: isNewBook },
     { label: "থ্রিলার", test: (b) => /থ্রিলার/.test(b.genre) },
     { label: "রোমান্টিক", test: (b) => /রোমান্টিক/.test(b.genre) },
     { label: "কাব্যগ্রন্থ", test: (b) => /কাব্য|কবিতা/.test(b.genre) },
