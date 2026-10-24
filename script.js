@@ -1748,7 +1748,7 @@ const cartTotal = () => cart.reduce((n, x) => n + priceOf(bookBySlug(x.slug)) * 
 
 let cartStep = "cart";
 let orderSending = false;
-const cartForm = { name: "", phone: "", address: "", area: "ঢাকার ভেতরে", note: "", signName: "", signMsg: "", method: PAY.methods[0], trx: "" };
+const cartForm = { name: "", phone: "", address: "", area: "ঢাকার ভেতরে", note: "", signName: "", signMsg: "", gift: false, giftTo: "", giftCard: "", method: PAY.methods[0], trx: "" };
 
 /* ফিরতি পাঠকের জন্য: নাম, মোবাইল, ঠিকানা, এলাকা ও পেমেন্ট মাধ্যম এই ফোনেই সংরক্ষিত থাকে */
 const BUYER_KEY = "ak-buyer-v1";
@@ -1825,6 +1825,7 @@ function cartOrderMessage() {
     `এলাকা: ${cartForm.area}`,
     `পেমেন্ট মাধ্যম: ${cartForm.method}`,
     `লেনদেন আইডি (TrxID): ${cartForm.trx.trim() || "এখনো পেমেন্ট করিনি"}`,
+    ...(cartForm.gift ? ["🎁 এটি উপহার হিসেবে পাঠানো হবে", `উপহার যাঁকে দেওয়া হচ্ছে: ${cartForm.giftTo.trim() || "(নাম দেননি)"}`, ...(cartForm.giftCard.trim() ? [`উপহারের কার্ডে লেখা বার্তা: ${cartForm.giftCard.trim()}`] : []), "দাম বইয়ের গায়ে/প্যাকেটে না রাখার অনুরোধ"] : []),
     ...(cartForm.signName.trim() ? [`স্বাক্ষর যার নামে: ${cartForm.signName.trim()}`] : []),
     ...(cartForm.signMsg.trim() ? [`বইয়ে লিখে দেওয়ার বার্তা: ${cartForm.signMsg.trim()}`] : []),
     ...(cartForm.note.trim() ? [`নোট: ${cartForm.note.trim()}`] : []),
@@ -1897,6 +1898,13 @@ function renderCart() {
         <fieldset>
           <legend>ডেলিভারি কোথায়?</legend>
           ${["ঢাকার ভেতরে", "ঢাকার বাইরে"].map((a) => `<label class="cart-radio"><input type="radio" name="cf-area" value="${a}"${cartForm.area === a ? " checked" : ""}> ${a}</label>`).join("")}
+        </fieldset>
+        <fieldset class="cart-sign cart-gift">
+          <legend>🎁 উপহার হিসেবে পাঠাবেন? <small>— ঐচ্ছিক</small></legend>
+          <label class="cart-radio"><input type="checkbox" id="cf-gift"${cartForm.gift ? " checked" : ""}> হ্যাঁ, এটি কাউকে উপহার দিচ্ছি</label>
+          ${cartForm.gift ? `<label>যাঁকে উপহার দিচ্ছেন তাঁর নাম<input id="cf-giftto" maxlength="80" value="${esc(cartForm.giftTo)}" placeholder="যেমন: সুমি আপু"></label>
+          <label>উপহারের কার্ডে কী লিখব?<input id="cf-giftcard" maxlength="200" value="${esc(cartForm.giftCard)}" placeholder="যেমন: শুভ জন্মদিন, ভালো থেকো সবসময়"></label>
+          <p class="cart-note">ঠিকানা ও মোবাইল নম্বর <strong>যাঁকে উপহার পাঠাচ্ছেন তাঁর</strong> দিন। দাম প্যাকেটে লেখা থাকবে না, লেখকের স্বাক্ষরসহ সুন্দর করে পাঠানো হবে।</p>` : ""}
         </fieldset>
         <fieldset class="cart-sign">
           <legend>✎ লেখকের স্বাক্ষর <small>— ঐচ্ছিক</small></legend>
@@ -1991,7 +1999,7 @@ function cartAction(act, slug) {
       orderSending = false;
       if (!j || !j.success) throw new Error("fail");
       if (window.akTrack) akTrack("order_sent", { currency: "BDT", value: total, method: "site", items });
-      cart = []; saveCart(); updateFab(); cartStep = "cart"; cartForm.signName = ""; cartForm.signMsg = "";
+      cart = []; saveCart(); updateFab(); cartStep = "cart"; cartForm.signName = ""; cartForm.signMsg = ""; cartForm.gift = false; cartForm.giftTo = ""; cartForm.giftCard = "";
       closeModal();
       toast(`ধন্যবাদ! আপনার অর্ডার পৌঁছেছে। অর্ডার নম্বর: ${ref}`);
     }).catch(() => {
@@ -2003,7 +2011,7 @@ function cartAction(act, slug) {
     if (!cart.length) return;
     if (openWhatsApp(cartOrderMessage())) {
       if (window.akTrack) akTrack("order_sent", { currency: "BDT", value: cartTotal(), items: cart.map((x) => ({ item_id: x.slug, quantity: x.qty })) });
-      cart = []; saveCart(); updateFab(); cartStep = "cart"; cartForm.signName = ""; cartForm.signMsg = "";
+      cart = []; saveCart(); updateFab(); cartStep = "cart"; cartForm.signName = ""; cartForm.signMsg = ""; cartForm.gift = false; cartForm.giftTo = ""; cartForm.giftCard = "";
       closeModal();
       toast("ধন্যবাদ! WhatsApp-এ অর্ডার পাঠিয়ে দিন");
     }
@@ -2020,6 +2028,10 @@ document.addEventListener("click", (e) => {
   if (act) { e.preventDefault(); cartAction(act.dataset.cartAct, act.dataset.slug); }
 });
 
+document.addEventListener("change", (e) => {
+  if (e.target.id === "cf-gift" && modal.classList.contains("is-cart")) { cartForm.gift = e.target.checked; renderCart(); }
+});
+
 document.addEventListener("input", (e) => {
   const t = e.target;
   if (!modal.classList.contains("is-cart")) return;
@@ -2029,6 +2041,8 @@ document.addEventListener("input", (e) => {
   else if (t.id === "cf-note") cartForm.note = t.value;
   else if (t.id === "cf-signname") cartForm.signName = t.value;
   else if (t.id === "cf-signmsg") cartForm.signMsg = t.value;
+  else if (t.id === "cf-giftto") cartForm.giftTo = t.value;
+  else if (t.id === "cf-giftcard") cartForm.giftCard = t.value;
   else if (t.id === "cf-trx") cartForm.trx = t.value;
   else if (t.name === "cf-area") cartForm.area = t.value;
   else if (t.name === "cf-method") cartForm.method = t.value;
@@ -2516,4 +2530,73 @@ if (yearEl) yearEl.textContent = toBn(new Date().getFullYear());
       note.textContent = "এখন পাঠানো যায়নি। একটু পরে আবার চেষ্টা করুন।";
     });
   });
+})();
+
+
+/* ---------- "কোন বই পড়বেন?" কুইজ ---------- */
+(function () {
+  const btn = document.getElementById("quiz-open");
+  if (!btn) return;
+  const QS = [
+    { q: "এখন মনটা কেমন?", o: [
+      ["রহস্য আর উত্তেজনা চাই", { t: 3 }],
+      ["ভালোবাসার গল্পে ডুবতে চাই", { r: 3 }],
+      ["শান্ত, একটু ভাবতে ইচ্ছে করছে", { c: 3, p: 1 }],
+      ["অন্যরকম কিছু, কল্পনার জগৎ", { s: 3 }],
+    ] },
+    { q: "কেমন করে পড়তে চান?", o: [
+      ["এক বসায় শেষ করার মতো টানটান", { t: 2, s: 1 }],
+      ["ধীরে, প্রতিটি অনুভূতি টের পেয়ে", { r: 2, c: 2 }],
+      ["টুকরো টুকরো, কবিতার মতো", { p: 3 }],
+    ] },
+    { q: "বইটা শেষ করে কী মনে হোক?", o: [
+      ["বুকের ভেতর ধুকপুক, পরের পাতা উল্টাই", { t: 2 }],
+      ["মন খারাপ, অথচ ভালো লাগা", { r: 2, p: 1 }],
+      ["জীবনটাকে নতুন চোখে দেখা", { c: 2, s: 1, p: 1 }],
+    ] },
+  ];
+  const KIND = { t: /থ্রিলার/, r: /রোমান্টিক/, c: /^উপন্যাস$/, p: /কাব্য|কবিতা/, s: /সায়েন্স ফিকশন/ };
+  let step = 0, score = {}, lastPick = null;
+  const pool = () => BOOKS.filter((b) => b.slug && b.cover && canBuy(b));
+  function pick(skip) {
+    const top = Object.keys(KIND).sort((a, b) => (score[b] || 0) - (score[a] || 0))[0];
+    let c = pool().filter((b) => KIND[top].test(b.genre) && b.slug !== skip);
+    if (!c.length) c = pool().filter((b) => b.slug !== skip);
+    return c[Math.floor(Math.random() * c.length)];
+  }
+  function show() {
+    const qz = QS[step];
+    openModal({
+      kicker: `কুইজ · ${toBn(step + 1)}/${toBn(QS.length)}`, title: qz.q, gold: true,
+      bodyHtml: `<div class="quiz-opts">${qz.o.map((x, i) => `<button type="button" class="quiz-opt" data-quiz="${i}">${esc(x[0])}</button>`).join("")}</div>`,
+    });
+  }
+  function result(skip) {
+    const b = pick(skip); lastPick = b;
+    if (window.akTrack) akTrack("quiz_result", { item_id: b.slug });
+    const url = bookLink(b);
+    const shareText = `আমার জন্য "${b.title}" — আরিফ খন্দকারের বই। তোমারটা জানতে কুইজ দাও: ${location.origin}/?quiz=1`;
+    openModal({
+      kicker: "আপনার জন্য বই", title: b.title, meta: b.genre, gold: true,
+      bodyHtml: `<div class="quiz-result"><img src="${esc(b.cover)}" alt="${esc(b.title)} — প্রচ্ছদ"><p>${esc(b.genre)}${b.price ? " · " + esc(b.price) : ""}</p></div>`,
+      actionsHtml: `<button class="btn btn-gold" data-cart-add="${esc(b.slug)}">কার্টে যোগ করুন</button>
+        <a class="btn btn-ghost" href="/b/${esc(b.slug)}/">বইয়ের পাতা</a>
+        <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(shareText)}">বন্ধুকে পাঠান</a>
+        <button class="btn btn-ghost" data-quiz-again="1">আরেকটা দেখি</button>`,
+    });
+  }
+  function start() { step = 0; score = {}; show(); if (window.akTrack) akTrack("quiz_start"); }
+  btn.addEventListener("click", start);
+  document.addEventListener("click", (e) => {
+    const o = e.target.closest("[data-quiz]");
+    if (o) {
+      const add = QS[step].o[+o.dataset.quiz][1];
+      Object.keys(add).forEach((k) => { score[k] = (score[k] || 0) + add[k]; });
+      step++;
+      if (step < QS.length) show(); else result();
+      return;
+    }
+    if (e.target.closest("[data-quiz-again]")) result(lastPick && lastPick.slug);
+  });
+  if (/[?&]quiz=1/.test(location.search)) setTimeout(start, 1200);
 })();
