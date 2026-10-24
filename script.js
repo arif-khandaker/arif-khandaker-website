@@ -2133,3 +2133,44 @@ if (yearEl) yearEl.textContent = toBn(new Date().getFullYear());
     document.head.appendChild(el);
   } catch (e) {}
 })();
+
+
+/* ---------- নতুন বইয়ের খবর: ইমেইল সাইনআপ (Web3Forms-এর মাধ্যমে আপনার ইমেইলে আসে) ---------- */
+(function () {
+  const sec = document.getElementById("subscribe");
+  const form = document.getElementById("subscribe-form");
+  if (!sec || !form || !SITE.orderFormKey) return;
+  sec.hidden = false;
+  const input = document.getElementById("sub-email");
+  const btn = document.getElementById("sub-btn");
+  const note = document.getElementById("sub-note");
+  const keep = note.textContent;
+  let busy = false;
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (busy) return;
+    const email = input.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { note.textContent = "সঠিক ইমেইল ঠিকানা লিখুন (যেমন name@gmail.com)।"; input.focus(); return; }
+    busy = true; btn.disabled = true; btn.textContent = "পাঠানো হচ্ছে…";
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        access_key: SITE.orderFormKey,
+        subject: "নতুন বইয়ের খবরের গ্রাহক: " + email,
+        from_name: "আরিফ খন্দকার ওয়েবসাইট",
+        email: email,
+        message: "নতুন বইয়ের খবর পেতে চান: " + email,
+        botcheck: "",
+      }),
+    }).then((r) => r.json()).then((j) => {
+      if (!j || !j.success) throw new Error("fail");
+      if (window.akTrack) akTrack("subscribe", { method: "email" });
+      form.innerHTML = '<p class="subscribe-ok">ধন্যবাদ! আপনার ইমেইল যোগ হয়েছে। নতুন বই এলে জানাব।</p>';
+      note.textContent = keep;
+    }).catch(() => {
+      busy = false; btn.disabled = false; btn.textContent = "খবর পেতে চাই";
+      note.textContent = "এখন পাঠানো যায়নি। একটু পরে আবার চেষ্টা করুন।";
+    });
+  });
+})();

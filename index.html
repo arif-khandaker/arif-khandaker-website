@@ -66,7 +66,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=20261025q">
+  <link rel="stylesheet" href="style.css?v=20261025r">
   <style>
     @font-face{font-family:"AK Sans";src:url("ak-sans.woff?v=3") format("woff");font-weight:300 600;font-style:normal;font-display:swap}
     @font-face{font-family:"AK Serif";src:url("ak-serif.woff?v=3") format("woff");font-weight:400 500;font-style:normal;font-display:swap}
@@ -491,6 +491,21 @@
   </main>
 
   <!-- ================= ফুটার ================= -->
+  <!-- ================= নতুন বইয়ের খবর (ইমেইল তালিকা) ================= -->
+  <section id="subscribe" class="subscribe" hidden>
+    <div class="container">
+      <p class="section-eyebrow">নতুন বইয়ের খবর</p>
+      <h2>নতুন বই এলে সবার আগে জানুন</h2>
+      <p class="subscribe-sub">আপনার ইমেইল দিন। নতুন বই, বইমেলার খবর বা নতুন লেখা এলে জানাব।</p>
+      <form class="subscribe-form" id="subscribe-form" novalidate>
+        <label class="sr-only" for="sub-email">ইমেইল</label>
+        <input type="email" id="sub-email" name="email" inputmode="email" autocomplete="email" placeholder="আপনার ইমেইল ঠিকানা" required>
+        <button type="submit" class="btn btn-gold" id="sub-btn">খবর পেতে চাই</button>
+      </form>
+      <p class="subscribe-note" id="sub-note">আপনার ইমেইল শুধু নতুন বইয়ের খবর জানাতে ব্যবহার হবে। না চাইলে ইমেইল করে জানালেই বাদ দেওয়া হবে।</p>
+    </div>
+  </section>
+
   <footer class="site-footer">
     <div class="container">
       <div class="footer-top">
@@ -503,7 +518,7 @@
       </div>
       <div class="footer-bottom">
         <p>© <span id="year">২০২৬</span> আরিফ খন্দকার। সর্বস্বত্ব সংরক্ষিত।</p>
-        <p class="footer-privacy">সাইটের উন্নতির জন্য গুগল অ্যানালিটিক্সের মাধ্যমে নামহীন ভিজিটর-সংখ্যা গোনা হয়। আপনার নাম, ফোন বা ঠিকানা এতে যায় না।</p>
+        <p class="footer-privacy">সাইটের উন্নতির জন্য গুগল অ্যানালিটিক্সের মাধ্যমে নামহীন ভিজিটর-সংখ্যা গোনা হয়। আপনার নাম, ফোন বা ঠিকানা এতে যায় না। ইমেইল দিলে সেটি শুধু নতুন বইয়ের খবর জানাতে ব্যবহার হয়।</p>
         <a href="#home" class="to-top">উপরে যান ↑</a>
       </div>
     </div>
@@ -595,7 +610,7 @@
       stage(".hero-actions", 0.2);
     })();
   </script>
-  <script src="script.js?v=20261025q"></script>
-  <script src="intro.js?v=20261025q"></script>
+  <script src="script.js?v=20261025r"></script>
+  <script src="intro.js?v=20261025r"></script>
 </body>
 </html>
