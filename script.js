@@ -1747,7 +1747,7 @@ const cartCount = () => cart.reduce((n, x) => n + x.qty, 0);
 /* বই বাছাই সেট: সেটের সব বই কার্টে থাকলে সেটের দামে ছাড় ও ফ্রি ডেলিভারি।
    সেট বদলাতে বা নতুন সেট যোগ করতে এই তালিকা বদলান (price = সেটের দাম, টাকায়)। */
 const SETS = [
-  { id: "thriller3", title: "থ্রিলারপ্রেমীর তিন বই", price: 3400, slugs: ["ekhane-tabij-bikri-hoy", "akulpathar", "rojonigandha-resort"],
+  { id: "thriller3", title: "থ্রিলারপ্রেমীর তিন বই", price: 3400, slugs: ["ekhane-tabij-bikri-hoy", "akulpathar", "boro-bhai"],
     perks: ["লেখকের অটোগ্রাফ", "লেখকের হাতে লেখা চিঠি", "ফ্রি ডেলিভারি"] },
 ];
 const setCount = (st) => Math.min(...st.slugs.map((sl) => { const x = cart.find((c) => c.slug === sl); return x ? x.qty : 0; }));
