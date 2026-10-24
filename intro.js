@@ -111,9 +111,10 @@
     timer = setTimeout(function () { go(cur + 1); }, DURATION);
   }
 
-  function close(afterClose) {
+  function close(afterClose, how) {
     if (closed) return;
     closed = true;
+    if (window.akTrack) akTrack("intro_" + (how || "close"), { slide: cur + 1 });
     clearTimeout(timer);
     try { sessionStorage.setItem("ak-intro-seen", "1"); } catch (e) {}
     el.classList.add("is-leaving");
@@ -131,7 +132,7 @@
   document.addEventListener("keydown", onKey);
   cta.addEventListener("click", function () {
     var b = books[cur];
-    close(function () { if (b && canBuy(b)) { addToCart(b.slug); openCart(); } });
+    close(function () { if (b && canBuy(b)) { addToCart(b.slug); openCart(); } }, "order_click");
   });
 
   /* ব্যাকগ্রাউন্ডে ধীরে ওঠা ছোট ছোট কভার */
