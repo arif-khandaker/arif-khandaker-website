@@ -2626,7 +2626,8 @@ if (yearEl) yearEl.textContent = toBn(new Date().getFullYear());
       return `<div class="set-card"><p class="set-eyebrow">✦ বিশেষ সেট</p><h3>${esc(st.title)}</h3>
         <div class="set-covers">${bs.map((b) => `<a href="/b/${esc(b.slug)}/"><img src="${esc(b.cover)}" alt="${esc(b.title)}" loading="lazy"></a>`).join("")}</div>
         <p class="set-names">${bs.map((b) => esc(b.title)).join(" · ")}</p>
-        <p class="set-price"><s>${taka(setSum(st))}</s> <strong>${taka(st.price)}</strong></p>
+        <p class="set-price"><s>${taka(setSum(st))}</s><strong>${taka(st.price)}</strong></p>
+        <p class="set-save"><span>🎉 ছাড় ${taka(setSum(st) - st.price)}</span></p>
         <ul class="set-perks">${st.perks.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>
         <button class="btn btn-gold" data-cart-act="add-set" data-slug="${esc(st.id)}">সেটটি কার্টে নিন</button></div>`;
     }).join("");

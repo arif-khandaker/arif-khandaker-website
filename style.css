@@ -1876,3 +1876,9 @@ html.books-first .bj-brand{display:flex;flex-direction:column;align-items:center
 .quote-card{margin:0;padding:34px 22px 24px;border-radius:12px;border:1px solid rgba(201,164,92,.35)}
 .quote-card blockquote{margin:0 0 14px;font-family:var(--font-literary);font-size:clamp(21px,5vw,26px);line-height:1.9}
 .quote-card figcaption{margin-bottom:18px;opacity:.8;font-size:15px}
+
+.set-price{display:flex;align-items:baseline;justify-content:center;gap:14px;flex-wrap:wrap}
+.set-price s{opacity:1;color:#ff8a80;font-size:22px;text-decoration:line-through;text-decoration-color:#e53935;text-decoration-thickness:3px;margin:0}
+.set-price strong{font-size:34px;text-shadow:0 0 22px rgba(201,164,92,.35)}
+.set-save{margin:0 0 14px}
+.set-save span{display:inline-block;background:linear-gradient(135deg,#e53935,#b71c1c);color:#fff;font-weight:600;font-size:16px;padding:6px 18px;border-radius:999px;box-shadow:0 6px 18px -6px rgba(229,57,53,.7)}
