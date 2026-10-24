@@ -1802,6 +1802,7 @@ function addToCart(slug) {
   saveCart(); updateFab(true);
   if (window.akTrack) akTrack("add_to_cart", { currency: "BDT", value: priceOf(b), items: [{ item_id: b.slug, item_name: b.title, price: priceOf(b), quantity: 1 }] });
   toast(`“${b.title}” কার্টে যোগ হয়েছে`);
+  if (!modal.hidden && modal.classList.contains("is-cart") && cartStep === "cart") renderCart();
 }
 
 function cartOrderMessage() {
@@ -1830,13 +1831,14 @@ function cartOrderMessage() {
   ].join("\n");
 }
 
+/* কার্টের নিচে "আরও বই": নিচের তালিকার যেসব বই কার্টে নেই সেগুলো দেখায়। বই বদলাতে SLUGS বদলান। */
+const CART_SUGGEST_SLUGS = ["ekhane-tabij-bikri-hoy", "boro-bhai", "rojonigandha-resort"];
 function cartEbooksBlock() {
-  const list = EBOOKS.filter((e) => e.link);
+  const list = CART_SUGGEST_SLUGS.map((s) => bookBySlug(s)).filter((b) => b && canBuy(b) && !cart.some((x) => x.slug === b.slug));
   if (!list.length) return "";
   return `<div class="cart-ebooks">
-    <h4>ইবুক — আলাদাভাবে কিনুন</h4>
-    <p>ইবুকের দাম কার্টের হিসাবে যুক্ত হয় না। প্রকাশনীর পাতা থেকে আলাদা কিনতে হয়।</p>
-    ${list.map((e) => `<div class="cart-ebook-row"><span class="cart-thumb">${e.cover ? `<img src="${esc(e.cover)}" alt="">` : ""}</span><span class="cart-info"><strong>${esc(e.title)}</strong><em>ইবুক${e.price ? " · " + esc(e.price) : ""}</em></span>${EBOOK_BUY(e, "কিনুন")}</div>`).join("")}
+    <h4>আরও বই দেখুন</h4>
+    ${list.map((b) => `<div class="cart-ebook-row"><span class="cart-thumb">${b.cover ? `<img src="${esc(b.cover)}" alt="">` : ""}</span><span class="cart-info"><strong>${esc(b.title)}</strong><em>${taka(priceOf(b))}</em></span><button type="button" class="btn btn-gold" data-cart-add="${esc(b.slug)}">কার্টে যোগ করুন</button></div>`).join("")}
   </div>`;
 }
 
