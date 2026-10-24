@@ -55,7 +55,7 @@
     (function () {
       var l = location, on = true;
       try { if (sessionStorage.getItem("ak-intro-seen")) on = false; } catch (e) {}
-      if (l.hash && l.hash.length > 1) on = false;
+      if (l.hash && l.hash.length > 1 && l.hash !== "#books") on = false; /* #books (বই জংশন) থেকে এলে ইন্ট্রো দেখাবে; নির্দিষ্ট বইয়ের লিংকে দেখাবে না */
       if (/[?&]intro=0\b/.test(l.search)) on = false;
       if (on) {
         document.documentElement.classList.add("ak-intro-on");
@@ -63,7 +63,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=20261025b">
+  <link rel="stylesheet" href="style.css?v=20261025c">
   <style>
     @font-face{font-family:"AK Sans";src:url("ak-sans.woff?v=3") format("woff");font-weight:300 600;font-style:normal;font-display:swap}
     @font-face{font-family:"AK Serif";src:url("ak-serif.woff?v=3") format("woff");font-weight:400 500;font-style:normal;font-display:swap}
@@ -582,7 +582,7 @@
       stage(".hero-actions", 0.2);
     })();
   </script>
-  <script src="script.js?v=20261025b"></script>
-  <script src="intro.js?v=20261025b"></script>
+  <script src="script.js?v=20261025c"></script>
+  <script src="intro.js?v=20261025c"></script>
 </body>
 </html>
