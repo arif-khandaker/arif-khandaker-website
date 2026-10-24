@@ -1089,6 +1089,7 @@ function closeModal() {
 
 function setBookHash(b) {
   if (!b || !b.slug) return;
+  if (window.akTrack) akTrack("view_item", { items: [{ item_id: b.slug, item_name: b.title }] });
   try { history.replaceState(null, "", `${location.pathname}${location.search}#book-${b.slug}`); } catch (e) {}
 }
 function clearBookHash() {
@@ -1274,6 +1275,7 @@ function addToCart(slug) {
   const row = cart.find((x) => x.slug === slug);
   if (row) row.qty = Math.min(10, row.qty + 1); else cart.push({ slug, qty: 1 });
   saveCart(); updateFab(true);
+  if (window.akTrack) akTrack("add_to_cart", { currency: "BDT", value: priceOf(b), items: [{ item_id: b.slug, item_name: b.title, price: priceOf(b), quantity: 1 }] });
   toast(`“${b.title}” কার্টে যোগ হয়েছে`);
 }
 
@@ -1408,12 +1410,13 @@ function cartAction(act, slug) {
   else if (act === "rm" && row) cart = cart.filter((x) => x.slug !== slug);
   else if (act === "forget") { forgetBuyer(); toast("সংরক্ষিত তথ্য মুছে ফেলা হয়েছে"); }
   else if (act === "to-cart") cartStep = "cart";
-  else if (act === "to-info") cartStep = "info";
+  else if (act === "to-info") { cartStep = "info"; if (window.akTrack) akTrack("begin_checkout", { currency: "BDT", value: cartTotal() }); }
   else if (act === "to-pay") {
     if (cartForm.name.trim().length < 2) return toast("আপনার নাম লিখুন");
     if (!validPhone(cartForm.phone)) return toast("সঠিক মোবাইল নম্বর লিখুন (যেমন 01XXXXXXXXX)");
     if (cartForm.address.trim().length < 8) return toast("পুরো ঠিকানা লিখুন");
     cartStep = "pay";
+    if (window.akTrack) akTrack("add_payment_info", { currency: "BDT", value: cartTotal() });
   } else if (act === "copy-num") {
     const done = () => toast("নম্বর কপি হয়েছে");
     const fb = () => { const t = document.createElement("textarea"); t.value = PAY.number; t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t); t.select(); try { document.execCommand("copy"); done(); } catch (e) { toast(PAY.number); } t.remove(); };
@@ -1422,6 +1425,7 @@ function cartAction(act, slug) {
   } else if (act === "send") {
     if (!cart.length) return;
     if (openWhatsApp(cartOrderMessage())) {
+      if (window.akTrack) akTrack("order_sent", { currency: "BDT", value: cartTotal(), items: cart.map((x) => ({ item_id: x.slug, quantity: x.qty })) });
       cart = []; saveCart(); updateFab(); cartStep = "cart";
       closeModal();
       toast("ধন্যবাদ! WhatsApp-এ অর্ডার পাঠিয়ে দিন");

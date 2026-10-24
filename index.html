@@ -40,6 +40,16 @@
     html.books-first #main{display:flex;flex-direction:column}
     html.books-first #books{order:-1;padding-top:120px}
   </style>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H027R58T1E"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H027R58T1E');
+    /* নিরাপদ ইভেন্ট পাঠানো: গুগল আটকানো থাকলেও সাইট ভাঙবে না */
+    window.akTrack = function (name, params) { try { gtag('event', name, params || {}); } catch (e) {} };
+  </script>
   <script>
     /* শুরুর ভাসমান পোস্টার: প্রতি সেশনে একবার। বইয়ের সরাসরি লিংক (#...) বা ?intro=0 হলে দেখাবে না */
     (function () {
@@ -53,7 +63,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=20261025a">
+  <link rel="stylesheet" href="style.css?v=20261025b">
   <style>
     @font-face{font-family:"AK Sans";src:url("ak-sans.woff?v=3") format("woff");font-weight:300 600;font-style:normal;font-display:swap}
     @font-face{font-family:"AK Serif";src:url("ak-serif.woff?v=3") format("woff");font-weight:400 500;font-style:normal;font-display:swap}
@@ -480,6 +490,7 @@
       </div>
       <div class="footer-bottom">
         <p>© <span id="year">২০২৬</span> আরিফ খন্দকার। সর্বস্বত্ব সংরক্ষিত।</p>
+        <p class="footer-privacy">সাইটের উন্নতির জন্য গুগল অ্যানালিটিক্সের মাধ্যমে নামহীন ভিজিটর-সংখ্যা গোনা হয়। আপনার নাম, ফোন বা ঠিকানা এতে যায় না।</p>
         <a href="#home" class="to-top">উপরে যান ↑</a>
       </div>
     </div>
@@ -571,7 +582,7 @@
       stage(".hero-actions", 0.2);
     })();
   </script>
-  <script src="script.js?v=20261025a"></script>
-  <script src="intro.js?v=20261025a"></script>
+  <script src="script.js?v=20261025b"></script>
+  <script src="intro.js?v=20261025b"></script>
 </body>
 </html>
