@@ -66,7 +66,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=20261025m">
+  <link rel="stylesheet" href="style.css?v=20261025n">
   <style>
     @font-face{font-family:"AK Sans";src:url("ak-sans.woff?v=3") format("woff");font-weight:300 600;font-style:normal;font-display:swap}
     @font-face{font-family:"AK Serif";src:url("ak-serif.woff?v=3") format("woff");font-weight:400 500;font-style:normal;font-display:swap}
@@ -350,6 +350,15 @@
         </header>
 
         <!-- বইয়ের তথ্য ও প্রচ্ছদ script.js ফাইলের BOOKS অংশে সম্পাদনা করুন -->
+        <!-- বই খোঁজা ও ধরন অনুযায়ী বাছাই -->
+        <div class="book-tools" id="book-tools">
+          <label class="book-search">
+            <span class="sr-only">বই খুঁজুন</span>
+            <input type="search" id="book-search" placeholder="বইয়ের নাম বা ধরন লিখে খুঁজুন…" autocomplete="off" enterkeyhint="search">
+          </label>
+          <div class="book-chips" id="book-chips" role="group" aria-label="বইয়ের ধরন"></div>
+          <p class="book-count" id="book-count" aria-live="polite"></p>
+        </div>
         <div class="featured-book" id="featured-book"></div>
         <div class="book-grid" id="book-grid"></div>
 
@@ -586,7 +595,7 @@
       stage(".hero-actions", 0.2);
     })();
   </script>
-  <script src="script.js?v=20261025m"></script>
-  <script src="intro.js?v=20261025m"></script>
+  <script src="script.js?v=20261025n"></script>
+  <script src="intro.js?v=20261025n"></script>
 </body>
 </html>
