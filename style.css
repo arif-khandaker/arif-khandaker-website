@@ -1834,3 +1834,5 @@ html.ak-intro-on, html.ak-intro-on body{overflow:hidden}
 /* গ্রন্থতালিকার কার্ট/ইবুক বোতাম */
 button.catalog-order{font-family:inherit;background:none;border:0;border-bottom:1px solid transparent;padding:0;cursor:pointer}
 .catalog-buy{font-weight:600;white-space:nowrap}
+
+.catalog-out{color:var(--ivory-2);opacity:.55;border-bottom:0;white-space:nowrap}
