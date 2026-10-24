@@ -1836,3 +1836,12 @@ button.catalog-order{font-family:inherit;background:none;border:0;border-bottom:
 .catalog-buy{font-weight:600;white-space:nowrap}
 
 .catalog-out{color:var(--ivory-2);opacity:.55;border-bottom:0;white-space:nowrap}
+
+/* বই জংশন ব্র্যান্ড: শুধু বই-প্রথম প্রবেশে দেখায় */
+.bj-brand{display:none}
+html.books-first .bj-brand{display:flex;align-items:center;justify-content:center;gap:16px;margin:0 auto 34px}
+.bj-brand img{width:64px;height:64px;flex:none}
+.bj-text{display:flex;flex-direction:column;text-align:left;line-height:1.25}
+.bj-text strong{font-family:var(--font-display);font-weight:400;font-size:30px;color:var(--ivory)}
+.bj-text em{font-style:normal;color:var(--gold);font-size:12px;letter-spacing:.34em}
+.bj-text small{color:var(--ivory-2);opacity:.75;font-size:13px;margin-top:2px}
