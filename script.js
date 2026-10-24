@@ -727,6 +727,7 @@ const WRITINGS = [
   {
     type: "গল্প",
     title: "বিশাখা",
+    slug: "bishakha",
     date: "",
     excerpt: "বিশাখা নতুন শাড়ি পরেছে। তাকে চমৎকার লাগছে। রাজকন্যার মতন। কপালে ছোট একটা টিপও পরেছে। শাড়ির রঙের সাথে টিপের রঙটার কি অদ্ভুত মিল! শাড়িটা পাতা রঙের। টিপটাও। তাকে পাতার মতনই দেখাচ্ছে। মনে হচ্ছে পৃথিবীর অদ্ভুত সুন্দর পাতাটা আমার সামনে দাঁড়িয়ে আছে।",
     body: [
@@ -752,6 +753,7 @@ const WRITINGS = [
   {
     type: "কবিতা",
     title: "ফের দেখা হলে",
+    slug: "fer-dekha-hole",
     date: "",
     excerpt: "",
     body: [
@@ -1351,6 +1353,7 @@ function openItem(type, index) {
       meta: w.date || SITE.authorName,
       bodyHtml: isPoem(w) ? `<div class="poem-text">${esc(w.body.join("\n"))}</div>` + LIGHTPLAY : paragraphs(w.body),
       poem: isPoem(w),
+      actionsHtml: w.slug ? `<a class="btn btn-outline-gold" href="lekha/${esc(w.slug)}/">আলাদা পাতায় পড়ুন / শেয়ার করুন</a>` : "",
     });
   }
 }
