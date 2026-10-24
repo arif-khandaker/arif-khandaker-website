@@ -1847,3 +1847,12 @@ html.books-first .bj-brand{display:flex;flex-direction:column;align-items:center
 .bj-row i{font-style:normal;font-size:22px;letter-spacing:0}
 .bj-legs{display:flex;gap:min(46vw,190px)}
 .bj-legs b{display:block;width:7px;height:30px;background:#6b5420}
+
+.quiz-cta{text-align:center;margin:0 0 22px}
+.quiz-opts{display:grid;gap:10px}
+.quiz-opt{font:inherit;text-align:left;padding:14px 16px;border:1px solid rgba(140,106,44,.55);border-radius:10px;background:transparent;color:inherit;cursor:pointer;font-size:1.02rem}
+.quiz-opt:hover,.quiz-opt:focus-visible{background:rgba(201,164,92,.2);outline:none}
+.quiz-result{text-align:center}
+.quiz-result img{display:block;margin:0 auto;width:min(190px,60%);height:auto;border-radius:4px;box-shadow:0 20px 40px -20px rgba(0,0,0,.7)}
+.quiz-result p{margin:12px 0 0;opacity:.8}
+.cart-form fieldset.cart-gift .cart-radio{display:flex;align-items:center;gap:8px}
