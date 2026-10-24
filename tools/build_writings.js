@@ -116,7 +116,6 @@ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.write
   console.log("পাতা তৈরি:", `lekha/${w.slug}/`);
 });
 
-/* sitemap.xml */
-const urls = [SITE + "/", ...items.map((w) => `${SITE}/lekha/${w.slug}/`)];
-fs.writeFileSync(path.join(root, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${u}</loc></url>`).join("\n")}\n</urlset>\n`);
-console.log("sitemap.xml হালনাগাদ:", urls.length, "টি ঠিকানা");
+/* sitemap.xml এখানে লেখা হয় না: বইয়ের পাতাও একই সাইটম্যাপে থাকে, তাই এটি tools/build_books.js বানায়।
+   লেখা যোগ করার পর এই স্ক্রিপ্টের পরে "node tools/build_books.js" চালান। */
+console.log("এবার চালান: node tools/build_books.js (সাইটম্যাপ হালনাগাদ করতে)");
