@@ -1829,3 +1829,4 @@ html.ak-intro-on, html.ak-intro-on body{overflow:hidden}
 .ebook-info .book-title{color:var(--ivory)}.ebook-info .book-meta{color:var(--ivory-2);opacity:.85}
 .ebook-card .book-cover{aspect-ratio:2/3;height:auto}.ebook-card .book-cover img{width:100%;height:100%;object-fit:cover}
 @media (max-width:540px){.ebook-card .book-cover{flex:none}}
+.ebook-card[hidden]{display:none}

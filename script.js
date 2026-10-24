@@ -1294,11 +1294,17 @@ function initBookFilter() {
     { label: "রোমান্টিক উপন্যাস", test: (b) => /রোমান্টিক/.test(b.genre) },
     { label: "কাব্যগ্রন্থ", test: (b) => /কাব্য|কবিতা/.test(b.genre) },
     { label: "সমকালীন উপন্যাস", test: (b) => b.genre === "উপন্যাস" },
+    { label: "ইবুক", ebook: true, test: () => false },
   ];
+  const shelf = $("#ebook-shelf");
+  const ebList = EBOOKS.filter((e) => e.link);
+  const ebCards = shelf ? $$(".ebook-card", shelf) : [];
+  const ebHay = ebList.map((e) => norm([e.title, e.genre, e.publisher, e.year, "ইবুক ebook"].join(" ")));
+  if (!ebList.length) GROUPS.pop();
   let group = 0;
 
   chipsEl.innerHTML = GROUPS.map((g, i) => {
-    const n = BOOKS.filter(g.test).length;
+    const n = g.ebook ? ebList.length : i === 0 ? BOOKS.length + ebList.length : BOOKS.filter(g.test).length;
     return `<button type="button" class="chip${i === 0 ? " is-on" : ""}" data-chip="${i}" aria-pressed="${i === 0}">${g.label} <span>${toBn(n)}</span></button>`;
   }).join("");
 
@@ -1314,6 +1320,17 @@ function initBookFilter() {
       if (nodes[i]) nodes[i].hidden = !ok;
       if (ok) shown++;
     });
+    if (shelf && ebList.length) {
+      const ebOn = group === 0 || GROUPS[group].ebook;
+      let ebShown = 0;
+      ebCards.forEach((card, i) => {
+        const ok = ebOn && words.every((w) => ebHay[i].includes(w));
+        card.hidden = !ok;
+        if (ok) ebShown++;
+      });
+      shelf.hidden = !ebShown;
+      shown += ebShown;
+    }
     const filtering = q || group !== 0;
     countEl.innerHTML = !filtering ? "" : shown
       ? `${toBn(shown)}টি বই পাওয়া গেছে · <button type="button" class="chip-clear" data-chip-clear>সব বই দেখুন</button>`
