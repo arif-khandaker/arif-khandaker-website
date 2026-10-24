@@ -1412,7 +1412,7 @@ const cartTotal = () => cart.reduce((n, x) => n + priceOf(bookBySlug(x.slug)) * 
 
 let cartStep = "cart";
 let orderSending = false;
-const cartForm = { name: "", phone: "", address: "", area: "ঢাকার ভেতরে", note: "", method: PAY.methods[0], trx: "" };
+const cartForm = { name: "", phone: "", address: "", area: "ঢাকার ভেতরে", note: "", signName: "", signMsg: "", method: PAY.methods[0], trx: "" };
 
 /* ফিরতি পাঠকের জন্য: নাম, মোবাইল, ঠিকানা, এলাকা ও পেমেন্ট মাধ্যম এই ফোনেই সংরক্ষিত থাকে */
 const BUYER_KEY = "ak-buyer-v1";
@@ -1488,6 +1488,8 @@ function cartOrderMessage() {
     `এলাকা: ${cartForm.area}`,
     `পেমেন্ট মাধ্যম: ${cartForm.method}`,
     `লেনদেন আইডি (TrxID): ${cartForm.trx.trim() || "এখনো পেমেন্ট করিনি"}`,
+    ...(cartForm.signName.trim() ? [`স্বাক্ষর যার নামে: ${cartForm.signName.trim()}`] : []),
+    ...(cartForm.signMsg.trim() ? [`বইয়ে লিখে দেওয়ার বার্তা: ${cartForm.signMsg.trim()}`] : []),
     ...(cartForm.note.trim() ? [`নোট: ${cartForm.note.trim()}`] : []),
   ].join("\n");
 }
@@ -1547,6 +1549,11 @@ function renderCart() {
         <fieldset>
           <legend>ডেলিভারি কোথায়?</legend>
           ${["ঢাকার ভেতরে", "ঢাকার বাইরে"].map((a) => `<label class="cart-radio"><input type="radio" name="cf-area" value="${a}"${cartForm.area === a ? " checked" : ""}> ${a}</label>`).join("")}
+        </fieldset>
+        <fieldset class="cart-sign">
+          <legend>✎ লেখকের স্বাক্ষর <small>— ঐচ্ছিক</small></legend>
+          <label>বইয়ে কার নামে স্বাক্ষর করে দেব?<input id="cf-signname" maxlength="80" value="${esc(cartForm.signName)}" placeholder="আপনার নাম, বা যাঁকে উপহার দিচ্ছেন তাঁর নাম"></label>
+          <label>বইয়ে বিশেষ কিছু লিখে দিতে চাইলে লিখুন<input id="cf-signmsg" maxlength="160" value="${esc(cartForm.signMsg)}" placeholder="যেমন: জন্মদিনের শুভেচ্ছা"></label>
         </fieldset>
         <label>কিছু জানাতে চান? (ঐচ্ছিক)<input id="cf-note" value="${esc(cartForm.note)}" placeholder="যেমন: অটোগ্রাফে কার নাম লিখবেন"></label>
       </div>
@@ -1636,7 +1643,7 @@ function cartAction(act, slug) {
       orderSending = false;
       if (!j || !j.success) throw new Error("fail");
       if (window.akTrack) akTrack("order_sent", { currency: "BDT", value: total, method: "site", items });
-      cart = []; saveCart(); updateFab(); cartStep = "cart";
+      cart = []; saveCart(); updateFab(); cartStep = "cart"; cartForm.signName = ""; cartForm.signMsg = "";
       closeModal();
       toast(`ধন্যবাদ! আপনার অর্ডার পৌঁছেছে। অর্ডার নম্বর: ${ref}`);
     }).catch(() => {
@@ -1648,7 +1655,7 @@ function cartAction(act, slug) {
     if (!cart.length) return;
     if (openWhatsApp(cartOrderMessage())) {
       if (window.akTrack) akTrack("order_sent", { currency: "BDT", value: cartTotal(), items: cart.map((x) => ({ item_id: x.slug, quantity: x.qty })) });
-      cart = []; saveCart(); updateFab(); cartStep = "cart";
+      cart = []; saveCart(); updateFab(); cartStep = "cart"; cartForm.signName = ""; cartForm.signMsg = "";
       closeModal();
       toast("ধন্যবাদ! WhatsApp-এ অর্ডার পাঠিয়ে দিন");
     }
@@ -1672,6 +1679,8 @@ document.addEventListener("input", (e) => {
   else if (t.id === "cf-phone") cartForm.phone = t.value;
   else if (t.id === "cf-address") cartForm.address = t.value;
   else if (t.id === "cf-note") cartForm.note = t.value;
+  else if (t.id === "cf-signname") cartForm.signName = t.value;
+  else if (t.id === "cf-signmsg") cartForm.signMsg = t.value;
   else if (t.id === "cf-trx") cartForm.trx = t.value;
   else if (t.name === "cf-area") cartForm.area = t.value;
   else if (t.name === "cf-method") cartForm.method = t.value;
