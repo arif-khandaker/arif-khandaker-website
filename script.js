@@ -2712,5 +2712,45 @@ if (yearEl) yearEl.textContent = toBn(new Date().getFullYear());
     setTimeout(() => log(deferred ? "ইনস্টল ইভেন্ট: এসেছে" : "ইনস্টল ইভেন্ট: ১০ সেকেন্ডেও আসেনি (Chrome এখন অনুমতি দিচ্ছে না)"), 10000);
   }
   window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); deferred = e; log("ইনস্টল ইভেন্ট: এসেছে"); setTimeout(show, 6000); });
+
+  /* বিকল্প ব্যানার: যেখানে ব্রাউজার নিজে ইনস্টলের ইভেন্ট দেয় না (iPhone, ফেসবুকের ভেতরের ব্রাউজার) */
+  const ua = navigator.userAgent || "";
+  const isIOS = /iPhone|iPad|iPod/i.test(ua) && !/CriOS|FxiOS|EdgiOS/i.test(ua) && !/FBAN|FBAV|Instagram|Messenger/i.test(ua);
+  const inApp = /FBAN|FBAV|FB_IAB|Instagram|Messenger|Line\//i.test(ua);
+  const isAndroid = /Android/i.test(ua);
+  function showHint(kind) {
+    if (shown || standalone() || recently()) return;
+    shown = true;
+    const bar = document.createElement("div");
+    bar.className = "install-bar";
+    bar.setAttribute("role", "dialog");
+    let body, btn = "";
+    if (kind === "ios") {
+      body = `<strong>হোম স্ক্রিনে অ্যাপ রাখুন</strong><span>নিচে শেয়ার <b>⬆</b> চাপুন → <b>Add to Home Screen</b></span>`;
+    } else {
+      body = `<strong>অ্যাপ হিসেবে রাখুন</strong><span>Chrome-এ খুলুন, এখানে ইনস্টল হয় না</span>`;
+      btn = isAndroid ? `<button type="button" class="install-go">খুলুন</button>` : `<button type="button" class="install-go">লিংক কপি</button>`;
+    }
+    bar.innerHTML = `<img src="/icon-192.png" alt="" width="48" height="48"><div class="install-text">${body}</div>${btn}<button type="button" class="install-x" aria-label="বন্ধ করুন">×</button>`;
+    document.body.appendChild(bar);
+    requestAnimationFrame(() => bar.classList.add("open"));
+    if (window.akTrack) akTrack("install_hint_shown", { kind });
+    const close = () => { try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {} bar.classList.remove("open"); setTimeout(() => bar.remove(), 400); };
+    $(".install-x", bar).addEventListener("click", close);
+    const go = $(".install-go", bar);
+    if (go) go.addEventListener("click", () => {
+      if (isAndroid) {
+        location.href = "intent://" + location.host + "/?from=app#Intent;scheme=https;package=com.android.chrome;end";
+      } else {
+        const done = () => { go.textContent = "কপি হয়েছে ✓"; };
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(location.origin + "/").then(done, done); else done();
+      }
+    });
+  }
+  setTimeout(() => {
+    if (deferred || shown) return;
+    if (isIOS) showHint("ios");
+    else if (inApp) showHint("inapp");
+  }, 8000);
   window.addEventListener("appinstalled", () => { deferred = null; const b = $(".install-bar"); if (b) b.remove(); });
 })();
