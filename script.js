@@ -2672,3 +2672,36 @@ if (yearEl) yearEl.textContent = toBn(new Date().getFullYear());
     b.textContent = old; b.disabled = false;
   });
 })();
+
+
+/* ---------- "অ্যাপ ইনস্টল করুন" ব্যানার ----------
+   ব্রাউজার ইনস্টলযোগ্য মনে করলে (beforeinstallprompt) কয়েক সেকেন্ড পর ওপরে ছোট ব্যানার দেখায়।
+   বন্ধ করলে ৭ দিন আর দেখায় না। ইনস্টল হয়ে গেলে বা অ্যাপ হিসেবে খুললে দেখায় না। */
+(function () {
+  const KEY = "ak-install-dismissed";
+  let deferred = null, shown = false;
+  const standalone = () => window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+  const recently = () => { try { const t = +localStorage.getItem(KEY) || 0; return Date.now() - t < 7 * 864e5; } catch (e) { return false; } };
+  function show() {
+    if (shown || !deferred || standalone() || recently()) return;
+    shown = true;
+    const bar = document.createElement("div");
+    bar.className = "install-bar";
+    bar.setAttribute("role", "dialog");
+    bar.setAttribute("aria-label", "অ্যাপ ইনস্টল করুন");
+    bar.innerHTML = `<img src="/icon-192.png" alt="" width="48" height="48"><div class="install-text"><strong>আরিফ খন্দকার অ্যাপ</strong><span>হোম স্ক্রিনে রাখুন, এক ট্যাপে খুলুন</span></div><button type="button" class="install-go">ইনস্টল</button><button type="button" class="install-x" aria-label="বন্ধ করুন">×</button>`;
+    document.body.appendChild(bar);
+    requestAnimationFrame(() => bar.classList.add("open"));
+    if (window.akTrack) akTrack("install_banner_shown");
+    const close = (remember) => { if (remember) { try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {} } bar.classList.remove("open"); setTimeout(() => bar.remove(), 400); };
+    $(".install-x", bar).addEventListener("click", () => close(true));
+    $(".install-go", bar).addEventListener("click", async () => {
+      if (!deferred) return close(false);
+      deferred.prompt();
+      try { const r = await deferred.userChoice; if (window.akTrack) akTrack("install_choice", { outcome: r.outcome }); } catch (e) {}
+      deferred = null; close(true);
+    });
+  }
+  window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); deferred = e; setTimeout(show, 6000); });
+  window.addEventListener("appinstalled", () => { deferred = null; const b = $(".install-bar"); if (b) b.remove(); });
+})();
