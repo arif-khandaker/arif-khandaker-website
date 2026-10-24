@@ -1744,7 +1744,18 @@ try {
 } catch (e) { cart = []; }
 const saveCart = () => { try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) {} };
 const cartCount = () => cart.reduce((n, x) => n + x.qty, 0);
-const cartTotal = () => cart.reduce((n, x) => n + priceOf(bookBySlug(x.slug)) * x.qty, 0);
+/* বই বাছাই সেট: সেটের সব বই কার্টে থাকলে সেটের দামে ছাড় ও ফ্রি ডেলিভারি।
+   সেট বদলাতে বা নতুন সেট যোগ করতে এই তালিকা বদলান (price = সেটের দাম, টাকায়)। */
+const SETS = [
+  { id: "thriller3", title: "থ্রিলারপ্রেমীর তিন বই", price: 3400, slugs: ["ekhane-tabij-bikri-hoy", "akulpathar", "rojonigandha-resort"],
+    perks: ["লেখকের অটোগ্রাফ", "লেখকের হাতে লেখা চিঠি", "ফ্রি ডেলিভারি"] },
+];
+const setCount = (st) => Math.min(...st.slugs.map((sl) => { const x = cart.find((c) => c.slug === sl); return x ? x.qty : 0; }));
+const setSum = (st) => st.slugs.reduce((n, sl) => n + priceOf(bookBySlug(sl)), 0);
+const cartSets = () => SETS.map((st) => ({ st, k: setCount(st) })).filter((x) => x.k > 0);
+const cartSetDiscount = () => cartSets().reduce((n, x) => n + x.k * (setSum(x.st) - x.st.price), 0);
+const cartFreeDelivery = () => cartSets().length > 0;
+const cartTotal = () => cart.reduce((n, x) => n + priceOf(bookBySlug(x.slug)) * x.qty, 0) - cartSetDiscount();
 
 let cartStep = "cart";
 let orderSending = false;
@@ -1816,8 +1827,9 @@ function cartOrderMessage() {
     "অর্ডার:",
     ...lines,
     "",
-    `বইয়ের মোট দাম: ${taka(cartTotal())}`,
-    "ডেলিভারি খরচ: আলাদা (দয়া করে জানাবেন)",
+    ...cartSets().map((x) => `সেট: ${x.st.title} × ${toBn(x.k)} (ছাড় ধরে)`),
+    `বইয়ের মোট দাম: ${taka(cartTotal())}`,
+    cartFreeDelivery() ? "ডেলিভারি: ফ্রি (সেট অফার); সাথে লেখকের অটোগ্রাফ ও হাতে লেখা চিঠি" : "ডেলিভারি খরচ: আলাদা (দয়া করে জানাবেন)",
     "",
     `নাম: ${cartForm.name.trim()}`,
     `মোবাইল: ${cartForm.phone.trim()}`,
@@ -1881,8 +1893,9 @@ function renderCart() {
         }).join("")}
       </ul>
       <p class="cart-signed-banner">${SIGNED_PEN}<span>প্রতিটি বই আসবে <strong>লেখকের নিজ হাতের স্বাক্ষরসহ</strong> — আপনার নামে, আপনার জন্য।</span></p>
-      <p class="cart-total"><span>বইয়ের মোট দাম</span><strong>${taka(total)}</strong></p>
-      <p class="cart-note">ডেলিভারি খরচ আলাদা। ঠিকানা অনুযায়ী অর্ডারের পর WhatsApp-এ জানানো হবে।</p>` + cartEbooksBlock();
+      ${cartSetDiscount() ? `<p class="cart-setnote">🎁 ${cartSets().map((x) => esc(x.st.title)).join(", ")} — সেট ছাড় ${taka(cartSetDiscount())}। সাথে লেখকের অটোগ্রাফ, হাতে লেখা চিঠি ও ফ্রি ডেলিভারি।</p>` : ""}
+      <p class="cart-total"><span>বইয়ের মোট দাম</span><strong>${taka(total)}</strong></p>
+      <p class="cart-note">${cartFreeDelivery() ? "সেট অফারে ডেলিভারি ফ্রি।" : "ডেলিভারি খরচ আলাদা। ঠিকানা অনুযায়ী অর্ডারের পর WhatsApp-এ জানানো হবে।"}</p>` + cartEbooksBlock();
     actions.innerHTML =
       `<button class="btn btn-gold" data-cart-act="to-info">অর্ডারের তথ্য দিন →</button>` +
       `<button class="btn btn-outline-gold" data-close>আরও বই দেখুন</button>`;
@@ -1965,6 +1978,7 @@ function cartAction(act, slug) {
   else if (act === "rm" && row) cart = cart.filter((x) => x.slug !== slug);
   else if (act === "forget") { forgetBuyer(); toast("সংরক্ষিত তথ্য মুছে ফেলা হয়েছে"); }
   else if (act === "to-cart") cartStep = "cart";
+  else if (act === "add-set") { const st = SETS.find((z) => z.id === slug); if (st) { st.slugs.forEach((sl) => { if (!cart.some((c) => c.slug === sl)) cart.push({ slug: sl, qty: 1 }); }); cartStep = "cart"; saveCart(); updateFab(); openCart(); return; } }
   else if (act === "to-info") { cartStep = "info"; if (window.akTrack) akTrack("begin_checkout", { currency: "BDT", value: cartTotal() }); }
   else if (act === "to-pay") {
     if (cartForm.name.trim().length < 2) return toast("আপনার নাম লিখুন");
@@ -2599,4 +2613,61 @@ if (yearEl) yearEl.textContent = toBn(new Date().getFullYear());
     if (e.target.closest("[data-quiz-again]")) result(lastPick && lastPick.slug);
   });
   if (/[?&]quiz=1/.test(location.search)) setTimeout(start, 1200);
+})();
+
+
+/* ---------- সেট ও কোটকার্ড দেখানো ---------- */
+(function () {
+  const box = document.getElementById("book-sets");
+  if (box) {
+    box.innerHTML = SETS.map((st) => {
+      const bs = st.slugs.map(bookBySlug).filter(Boolean);
+      if (bs.length !== st.slugs.length) return "";
+      return `<div class="set-card"><p class="set-eyebrow">✦ বিশেষ সেট</p><h3>${esc(st.title)}</h3>
+        <div class="set-covers">${bs.map((b) => `<a href="/b/${esc(b.slug)}/"><img src="${esc(b.cover)}" alt="${esc(b.title)}" loading="lazy"></a>`).join("")}</div>
+        <p class="set-names">${bs.map((b) => esc(b.title)).join(" · ")}</p>
+        <p class="set-price"><s>${taka(setSum(st))}</s> <strong>${taka(st.price)}</strong></p>
+        <ul class="set-perks">${st.perks.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>
+        <button class="btn btn-gold" data-cart-act="add-set" data-slug="${esc(st.id)}">সেটটি কার্টে নিন</button></div>`;
+    }).join("");
+  }
+  const qbox = document.getElementById("quote-cards");
+  if (!qbox) return;
+  /* কোটকার্ডের লাইন: বদলাতে বা যোগ করতে এই তালিকা বদলান। \n মানে নতুন লাইন। */
+  const QUOTES = [
+    { t: "তোমাকে চাইনি অথচ পেয়েছি\nতোমাকে পাইনি অথচ চেয়েছি।" },
+    { t: "পাওয়ার চেয়েও তীব্রভাবে পেয়েছি তোমাকে\nচাওয়ার প্রার্থনায়।" },
+  ];
+  const PAL = [["#1d1a14", "#3a2f1a", "#e2c98f"], ["#10202c", "#1d3a4d", "#f0d9a8"]];
+  qbox.innerHTML = `<h3>পছন্দের লাইন, ছবি করে শেয়ার করুন</h3><div class="quote-grid">${QUOTES.map((q, i) => `<figure class="quote-card" style="background:linear-gradient(160deg,${PAL[i % 2][0]},${PAL[i % 2][1]});color:${PAL[i % 2][2]}"><blockquote>${esc(q.t).replace(/\n/g, "<br>")}</blockquote><figcaption>— আরিফ খন্দকার</figcaption><button type="button" class="btn btn-ghost" data-quote="${i}">ছবি হিসেবে শেয়ার / সেভ</button></figure>`).join("")}</div>`;
+  async function make(i) {
+    try { await document.fonts.load('48px "AK Serif"'); await document.fonts.load('30px "AK Sans"'); } catch (e) {}
+    const W = 1080, H = 1350, c = document.createElement("canvas"); c.width = W; c.height = H;
+    const g = c.getContext("2d"), p = PAL[i % 2];
+    const gr = g.createLinearGradient(0, 0, W, H); gr.addColorStop(0, p[0]); gr.addColorStop(1, p[1]);
+    g.fillStyle = gr; g.fillRect(0, 0, W, H);
+    g.strokeStyle = p[2]; g.globalAlpha = .45; g.lineWidth = 3; g.strokeRect(50, 50, W - 100, H - 100); g.globalAlpha = 1;
+    g.fillStyle = p[2]; g.textAlign = "center"; g.textBaseline = "alphabetic";
+    g.font = '58px "AK Serif", "Noto Serif Bengali", serif';
+    const lines = [];
+    QUOTES[i].t.split("\n").forEach((ln) => { let cur = ""; ln.split(" ").forEach((w) => { const tt = cur ? cur + " " + w : w; if (g.measureText(tt).width > W - 240 && cur) { lines.push(cur); cur = w; } else cur = tt; }); lines.push(cur); });
+    const lh = 104, y0 = H / 2 - ((lines.length - 1) * lh) / 2 + 20;
+    lines.forEach((ln, n) => g.fillText(ln, W / 2, y0 + n * lh));
+    g.font = '130px "AK Serif", serif'; g.globalAlpha = .6; g.fillText("“", W / 2, y0 - 120); g.globalAlpha = 1;
+    g.font = '36px "AK Sans", sans-serif'; g.fillText("— আরিফ খন্দকার", W / 2, H - 190);
+    g.font = '26px "AK Sans", sans-serif'; g.globalAlpha = .7; g.fillText("authorarifkhandaker.com", W / 2, H - 120); g.globalAlpha = 1;
+    return new Promise((r) => c.toBlob(r, "image/png"));
+  }
+  window.__makeQuote = make;
+  qbox.addEventListener("click", async (e) => {
+    const b = e.target.closest("[data-quote]"); if (!b) return;
+    const old = b.textContent; b.textContent = "ছবি বানানো হচ্ছে…"; b.disabled = true;
+    try {
+      const blob = await make(+b.dataset.quote), file = new File([blob], "arif-khandaker-quote.png", { type: "image/png" });
+      if (window.akTrack) akTrack("quote_share", { item_id: b.dataset.quote });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], text: location.origin }); }
+      else { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "arif-khandaker-quote.png"; document.body.appendChild(a); a.click(); a.remove(); }
+    } catch (err) {}
+    b.textContent = old; b.disabled = false;
+  });
 })();
