@@ -20,6 +20,9 @@ const SITE = {
   // লেখকের ছবি — GitHub-এ আপলোড করা ছবির ফাইলের নাম
   portrait: "author.jpg",
 
+  // সাইট থেকে সরাসরি অর্ডার (Web3Forms access key)। খালি "" থাকলে শুধু WhatsApp বোতাম দেখাবে।
+  orderFormKey: "",
+
   // WhatsApp বোতামে চাপলে যে বার্তা লেখা থাকবে
   generalMessage: "শুভেচ্ছা! আমি আপনার বই অর্ডার করতে / যোগাযোগ করতে চাই।",
 };
@@ -1347,6 +1350,7 @@ const cartCount = () => cart.reduce((n, x) => n + x.qty, 0);
 const cartTotal = () => cart.reduce((n, x) => n + priceOf(bookBySlug(x.slug)) * x.qty, 0);
 
 let cartStep = "cart";
+let orderSending = false;
 const cartForm = { name: "", phone: "", address: "", area: "ঢাকার ভেতরে", note: "", method: PAY.methods[0], trx: "" };
 
 /* ফিরতি পাঠকের জন্য: নাম, মোবাইল, ঠিকানা, এলাকা ও পেমেন্ট মাধ্যম এই ফোনেই সংরক্ষিত থাকে */
@@ -1507,9 +1511,12 @@ function renderCart() {
         </fieldset>
         <label>লেনদেন আইডি (TrxID) <small>— টাকা পাঠানোর পর লিখুন</small><input id="cf-trx" autocapitalize="characters" value="${esc(cartForm.trx)}" placeholder="যেমন: 9AB3C4D5EF"></label>
       </div>
-      <p class="cart-note">ডেলিভারি খরচ বইয়ের দামের সাথে যোগ হবে। এখনো টাকা না পাঠালেও অর্ডার পাঠাতে পারেন; WhatsApp-এ মোট অঙ্ক জানিয়ে দেওয়া হবে।</p>`;
+      <p class="cart-note">ডেলিভারি খরচ বইয়ের দামের সাথে যোগ হবে। এখনো টাকা না পাঠালেও অর্ডার পাঠাতে পারেন; মোট অঙ্ক আপনাকে জানিয়ে দেওয়া হবে।${SITE.orderFormKey ? " আপনার অর্ডারের তথ্য ইমেইলের মাধ্যমে লেখকের কাছে পৌঁছায়।" : ""}</p>`;
     actions.innerHTML =
-      `<button class="btn btn-gold" data-cart-act="send">${ICONS.whatsapp} WhatsApp-এ অর্ডার পাঠান</button>` +
+      (SITE.orderFormKey
+        ? `<button class="btn btn-gold" data-cart-act="send-site"${orderSending ? " disabled" : ""}>${orderSending ? "পাঠানো হচ্ছে…" : "অর্ডার পাঠান"}</button>` +
+          `<button class="btn btn-outline-gold" data-cart-act="send">${ICONS.whatsapp} WhatsApp-এ পাঠান</button>`
+        : `<button class="btn btn-gold" data-cart-act="send">${ICONS.whatsapp} WhatsApp-এ অর্ডার পাঠান</button>`) +
       `<button class="btn btn-outline-gold" data-cart-act="to-info">← তথ্য বদলান</button>`;
   }
 }
@@ -1545,6 +1552,36 @@ function cartAction(act, slug) {
     const done = () => toast("নম্বর কপি হয়েছে");
     const fb = () => { const t = document.createElement("textarea"); t.value = PAY.number; t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t); t.select(); try { document.execCommand("copy"); done(); } catch (e) { toast(PAY.number); } t.remove(); };
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(PAY.number).then(done, fb); else fb();
+    return;
+  } else if (act === "send-site") {
+    if (!cart.length || orderSending || !SITE.orderFormKey) return;
+    orderSending = true; renderCart();
+    const ref = "AK-" + new Date().toISOString().slice(2, 10).replace(/-/g, "") + "-" + Math.random().toString(36).slice(2, 6).toUpperCase();
+    const total = cartTotal();
+    const items = cart.map((x) => ({ item_id: x.slug, quantity: x.qty }));
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        access_key: SITE.orderFormKey,
+        subject: `নতুন বই অর্ডার ${ref} — ${cartForm.name.trim()}`,
+        from_name: "আরিফ খন্দকার ওয়েবসাইট",
+        name: cartForm.name.trim(),
+        phone: cartForm.phone.trim(),
+        message: `অর্ডার নম্বর: ${ref}\n\n` + cartOrderMessage(),
+        botcheck: "",
+      }),
+    }).then((r) => r.json()).then((j) => {
+      orderSending = false;
+      if (!j || !j.success) throw new Error("fail");
+      if (window.akTrack) akTrack("order_sent", { currency: "BDT", value: total, method: "site", items });
+      cart = []; saveCart(); updateFab(); cartStep = "cart";
+      closeModal();
+      toast(`ধন্যবাদ! আপনার অর্ডার পৌঁছেছে। অর্ডার নম্বর: ${ref}`);
+    }).catch(() => {
+      orderSending = false; renderCart();
+      toast("অর্ডার পাঠানো যায়নি। নেট দেখে আবার চেষ্টা করুন, বা WhatsApp-এ পাঠান।");
+    });
     return;
   } else if (act === "send") {
     if (!cart.length) return;
