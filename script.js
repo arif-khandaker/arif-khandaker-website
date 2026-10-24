@@ -629,7 +629,7 @@ const BOOKS = [
     genre: "থ্রিলার উপন্যাস",
     year: "বইমেলা ২০২৩",
     publisher: "পার্ল পাবলিকেশন্স",
-    price: "",
+    price: "২০০ টাকা",
     pages: "৯৬",
     summary: "",
     cover: "chameli-cottage.jpg",
