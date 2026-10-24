@@ -1780,3 +1780,10 @@ html.ak-intro-on, html.ak-intro-on body{overflow:hidden}
 .book-count{text-align:center;margin:16px 0 0;color:var(--muted-dark);font-size:14px;min-height:1px}
 .chip-clear{font:inherit;background:none;border:0;color:var(--gold);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:0}
 .book[hidden],.featured-book[hidden]{display:none!important}
+
+/* ---------- কার্ট: স্বাক্ষর অংশ ---------- */
+.cart-form fieldset.cart-sign{display:grid;gap:12px;border:1px dashed rgba(140,106,44,.6);border-radius:8px;padding:12px 14px 14px;margin:4px 0 2px;min-width:0;box-sizing:border-box}
+.cart-form fieldset.cart-sign legend{display:block;width:auto;padding:0 8px;margin:0;color:#8c6a2c;font-size:15px}
+.cart-form fieldset.cart-sign legend small{display:inline;margin-left:4px;opacity:.7;font-size:12px}
+.cart-form fieldset.cart-sign label{display:grid;gap:6px;width:100%;margin:0}
+.cart-form fieldset.cart-sign input{width:100%;box-sizing:border-box}
