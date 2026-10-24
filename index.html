@@ -40,7 +40,20 @@
     html.books-first #main{display:flex;flex-direction:column}
     html.books-first #books{order:-1;padding-top:120px}
   </style>
-  <link rel="stylesheet" href="style.css?v=20261024w">
+  <script>
+    /* শুরুর ভাসমান পোস্টার: প্রতি সেশনে একবার। বইয়ের সরাসরি লিংক (#...) বা ?intro=0 হলে দেখাবে না */
+    (function () {
+      var l = location, on = true;
+      try { if (sessionStorage.getItem("ak-intro-seen")) on = false; } catch (e) {}
+      if (l.hash && l.hash.length > 1) on = false;
+      if (/[?&]intro=0\b/.test(l.search)) on = false;
+      if (on) {
+        document.documentElement.classList.add("ak-intro-on");
+        setTimeout(function () { if (!window.__akIntro) document.documentElement.classList.remove("ak-intro-on"); }, 8000);
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css?v=20261025a">
   <style>
     @font-face{font-family:"AK Sans";src:url("ak-sans.woff?v=3") format("woff");font-weight:300 600;font-style:normal;font-display:swap}
     @font-face{font-family:"AK Serif";src:url("ak-serif.woff?v=3") format("woff");font-weight:400 500;font-style:normal;font-display:swap}
@@ -496,6 +509,21 @@
     </article>
   </div>
 
+  <div class="ak-intro" id="ak-intro" role="dialog" aria-modal="true" aria-label="আরিফ খন্দকারের বই" hidden>
+    <div class="ak-intro-glow" id="ak-intro-glow"></div>
+    <div class="ak-intro-drift" id="ak-intro-drift" aria-hidden="true"></div>
+    <button type="button" class="ak-intro-close" id="ak-intro-close" aria-label="বন্ধ করুন">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <p class="ak-intro-tag" id="ak-intro-tag">জনপ্রিয় কথাসাহিত্যিক আরিফ খন্দকারের বই</p>
+    <div class="ak-intro-stage" id="ak-intro-stage"></div>
+    <div class="ak-intro-info">
+      <div class="ak-intro-meta" id="ak-intro-meta"></div>
+      <button type="button" class="ak-intro-cta" id="ak-intro-cta">অর্ডার করুন কার্টে</button>
+      <div class="ak-intro-ticks" id="ak-intro-ticks" aria-hidden="true"></div>
+    </div>
+  </div>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
@@ -543,6 +571,7 @@
       stage(".hero-actions", 0.2);
     })();
   </script>
-  <script src="script.js?v=20261024w"></script>
+  <script src="script.js?v=20261025a"></script>
+  <script src="intro.js?v=20261025a"></script>
 </body>
 </html>
