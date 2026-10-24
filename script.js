@@ -1990,3 +1990,31 @@ if (yearEl) yearEl.textContent = toBn(new Date().getFullYear());
   `;
   document.head.appendChild(st);
 })();
+
+
+/* ---------- SEO: বইয়ের তালিকা গুগলের জন্য (BOOKS থেকে নিজে নিজে তৈরি হয়) ---------- */
+(function () {
+  try {
+    const items = BOOKS.filter((b) => b.slug && b.title).map((b, i) => {
+      const yr = String(b.year || "").replace(/[০-৯]/g, (d) => "০১২৩৪৫৬৭৮৯".indexOf(d)).match(/\d{4}/);
+      const book = {
+        "@type": "Book",
+        name: b.title,
+        url: `https://authorarifkhandaker.com/#book-${b.slug}`,
+        image: `https://authorarifkhandaker.com/${b.cover}`,
+        inLanguage: "bn",
+        author: { "@type": "Person", name: SITE.authorName },
+      };
+      if (b.genre) book.genre = b.genre;
+      if (b.publisher) book.publisher = { "@type": "Organization", name: b.publisher };
+      if (yr) book.datePublished = yr[0];
+      if (b.pages && bnToNum(b.pages)) book.numberOfPages = bnToNum(b.pages);
+      if (canBuy(b)) book.offers = { "@type": "Offer", price: priceOf(b), priceCurrency: "BDT", availability: "https://schema.org/InStock", url: "https://authorarifkhandaker.com/" };
+      return { "@type": "ListItem", position: i + 1, item: book };
+    });
+    const el = document.createElement("script");
+    el.type = "application/ld+json";
+    el.textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "ItemList", name: "আরিফ খন্দকারের প্রকাশিত বই", itemListElement: items });
+    document.head.appendChild(el);
+  } catch (e) {}
+})();
