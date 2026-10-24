@@ -1082,6 +1082,67 @@ function renderBooks() {
   }).join("");
 }
 
+
+/* ---------- বই খোঁজা ও বাছাই ---------- */
+function initBookFilter() {
+  const box = $("#book-tools");
+  const input = $("#book-search");
+  const chipsEl = $("#book-chips");
+  const countEl = $("#book-count");
+  const grid = $("#book-grid");
+  const featured = $("#featured-book");
+  if (!box || !input || !chipsEl || !grid) return;
+
+  const norm = (t) => String(t || "").toLowerCase().replace(/[\s\-_.,]+/g, " ").trim();
+  const GROUPS = [
+    { label: "সব", test: () => true },
+    { label: "থ্রিলার", test: (b) => /থ্রিলার/.test(b.genre) },
+    { label: "রোমান্টিক", test: (b) => /রোমান্টিক/.test(b.genre) },
+    { label: "কাব্যগ্রন্থ", test: (b) => /কাব্য|কবিতা/.test(b.genre) },
+    { label: "অন্যান্য উপন্যাস", test: (b) => b.genre === "উপন্যাস" },
+  ];
+  let group = 0;
+
+  chipsEl.innerHTML = GROUPS.map((g, i) => {
+    const n = BOOKS.filter(g.test).length;
+    return `<button type="button" class="chip${i === 0 ? " is-on" : ""}" data-chip="${i}" aria-pressed="${i === 0}">${g.label} <span>${toBn(n)}</span></button>`;
+  }).join("");
+
+  const hay = BOOKS.map((b) => norm([b.title, b.genre, b.publisher, b.year, (b.slug || "").replace(/-/g, " ")].join(" ")));
+  const nodes = BOOKS.map((b, i) => (i === 0 ? featured : $("#book-" + (b.slug || "n" + i))));
+
+  function apply() {
+    const q = norm(input.value);
+    const words = q ? q.split(" ") : [];
+    let shown = 0;
+    BOOKS.forEach((b, i) => {
+      const ok = GROUPS[group].test(b) && words.every((w) => hay[i].includes(w));
+      if (nodes[i]) nodes[i].hidden = !ok;
+      if (ok) shown++;
+    });
+    const filtering = q || group !== 0;
+    countEl.innerHTML = !filtering ? "" : shown
+      ? `${toBn(shown)}টি বই পাওয়া গেছে · <button type="button" class="chip-clear" data-chip-clear>সব বই দেখুন</button>`
+      : `কোনো বই পাওয়া যায়নি। অন্য শব্দে খুঁজুন · <button type="button" class="chip-clear" data-chip-clear>সব বই দেখুন</button>`;
+    if (window.akTrack && q.length > 2) akTrack("search", { search_term: q });
+  }
+
+  let timer;
+  input.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(apply, 120); });
+  box.addEventListener("click", (e) => {
+    const chip = e.target.closest("[data-chip]");
+    if (chip) {
+      group = +chip.dataset.chip;
+      $$(".chip", chipsEl).forEach((c) => { const on = c === chip; c.classList.toggle("is-on", on); c.setAttribute("aria-pressed", on); });
+      apply();
+    } else if (e.target.closest("[data-chip-clear]")) {
+      input.value = ""; group = 0;
+      $$(".chip", chipsEl).forEach((c, i) => { c.classList.toggle("is-on", i === 0); c.setAttribute("aria-pressed", i === 0); });
+      apply();
+    }
+  });
+}
+
 /* ---------- রেন্ডার: নির্বাচিত লেখা ---------- */
 function writingPreview(w) {
   if (isPoem(w)) {
@@ -1803,6 +1864,7 @@ renderPortrait();
 renderContact();
 renderTimeline();
 renderBooks();
+initBookFilter();
 renderCatalog();
 renderWritings();
 renderGallery();
