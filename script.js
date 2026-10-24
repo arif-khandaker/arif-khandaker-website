@@ -2005,6 +2005,7 @@ if (yearEl) yearEl.textContent = toBn(new Date().getFullYear());
         inLanguage: "bn",
         author: { "@type": "Person", name: SITE.authorName },
       };
+      book.alternateName = b.slug.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
       if (b.genre) book.genre = b.genre;
       if (b.publisher) book.publisher = { "@type": "Organization", name: b.publisher };
       if (yr) book.datePublished = yr[0];
