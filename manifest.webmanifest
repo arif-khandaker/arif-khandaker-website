@@ -1,0 +1,17 @@
+{
+  "name": "আরিফ খন্দকার — বই জংশন",
+  "short_name": "আরিফ খন্দকার",
+  "description": "আরিফ খন্দকারের বই, লেখা ও সরাসরি অর্ডার।",
+  "lang": "bn",
+  "start_url": "/?from=app",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0e0d0b",
+  "theme_color": "#0e0d0b",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
