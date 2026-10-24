@@ -655,6 +655,27 @@ const BOOKS = [
 ];
 
 
+/* ---------- ইবুক (প্রিন্টেড বইয়ের নিচে আলাদা জায়গায় দেখায়) ----------
+   link: ইবুক কেনার ঠিকানা। নতুন ইবুক যোগ করতে একটি { … } ব্লক কপি করুন। */
+const EBOOKS = [
+  {
+    title: "বৃষ্টি তোমাকে দিলাম",
+    slug: "brishti-tomake-dilam",
+    synopsis: [
+      "– “আপা, তুই আমাকে একা করে চলে যাচ্ছিস?”\n\nঅথৈয়ের এমন কথা শুনে নবনী কষ্ট পেল। কী জানি, এক অজানা কষ্ট বুকের ভেতরটা খানিকটা মোচড় দিয়ে উঠলো। মন খারাপ করে থাকলে অথৈ এই মুহূর্তে আরও বেশি কষ্ট পাবে—এটা বুঝতে পেরে নিজের অজান্তেই মুখভরা নিঃশব্দ মুচকি হেসে ফেললো নবনী।",
+      "বললো, “আমি চলে যাওয়ার কিছুদিন পরই তো তুইও চলে যাবি। তোর তো যাওয়ার সময় হয়ে এসেছে।”",
+      "অথৈ বলল, “আমি যাব না আপা। আব্বু–আম্মুকে একা করে আমি অন্তত যেতে পারবো না, তুই যেতে পারলেও। তুই যা। তুই যাওয়ার পর এই বাসায় তোর যা যা আছে সবকিছু আমার।”",
+    ],
+    genre: "উপন্যাস",
+    year: "২০২৫",
+    publisher: "বইটই",
+    pages: "৪৬",
+    cover: "brishti-tomake-dilam.jpg",
+    link: "https://link.boitoi.com.bd/KhHXZ",
+  },
+];
+
+
 /* ---------- ৪ক. সম্পূর্ণ গ্রন্থতালিকা ----------
    ebook: true লিখলে বইটি "ইবুক" হিসেবে দেখাবে।
    নতুন বই যোগ করতে একটি লাইন কপি করে নাম ও ধরন বদলান। */
@@ -1090,6 +1111,45 @@ function renderBooks() {
 }
 
 
+/* ---------- ইবুক শেলফ ---------- */
+const EBOOK_BUY = (e, label = "ইবুক কিনুন") =>
+  `<a class="btn btn-gold" href="${esc(e.link)}" target="_blank" rel="noopener" data-ebook-buy="${esc(e.slug)}">${label} ↗</a>`;
+function renderEbooks() {
+  const box = $("#ebook-shelf");
+  if (!box) return;
+  const list = EBOOKS.filter((e) => e.link);
+  if (!list.length) { box.hidden = true; return; }
+  box.innerHTML = `
+    <div class="ebook-head">
+      <p class="section-eyebrow">ইবুক</p>
+      <h3>ইবুক পড়ুন, এখনই</h3>
+      <p>ডেলিভারির অপেক্ষা নেই। ইবুক কেনা হয় প্রকাশনীর অ্যাপ/সাইট (বইটই) থেকে। নিচের বোতামে চাপলে সেখানে চলে যাবেন।</p>
+    </div>
+    <div class="ebook-list">
+      ${list.map((e, i) => `
+        <article class="ebook-card">
+          <button class="book-cover" data-open="ebook" data-index="${i}" aria-label="${esc(e.title)} — ইবুক, বিস্তারিত">
+            ${coverMarkup(e)}<span class="cover-badge">ইবুক</span>
+          </button>
+          <div class="ebook-info">
+            <p class="book-genre">${esc(e.genre)} · ইবুক</p>
+            <h4 class="book-title">${esc(e.title)}</h4>
+            <p class="book-meta">${[e.publisher, e.year, e.pages ? e.pages + " পৃষ্ঠা" : ""].filter(isFilled).map(esc).join(" · ")}</p>
+            <div class="book-actions">
+              ${EBOOK_BUY(e)}
+              <button class="btn btn-outline-gold" data-open="ebook" data-index="${i}">সারসংক্ষেপ</button>
+            </div>
+          </div>
+        </article>`).join("")}
+    </div>`;
+  box.hidden = false;
+}
+document.addEventListener("click", (ev) => {
+  const a = ev.target.closest && ev.target.closest("[data-ebook-buy]");
+  if (a && window.akTrack) akTrack("ebook_click", { item_id: a.dataset.ebookBuy });
+});
+
+
 /* ---------- বই খোঁজা ও বাছাই ---------- */
 function initBookFilter() {
   const box = $("#book-tools");
@@ -1318,6 +1378,17 @@ function openItem(type, index) {
       actionsHtml: (cartButton(index) ? cartButton(index) + waOutline(index) : orderButton(index, "WhatsApp-এ অর্ডার করুন")) + sampleButton(index) + copyLinkButton(b) + synopsisButton(index),
     });
     setBookHash(b);
+  } else if (type === "ebook") {
+    const e = EBOOKS.filter((x) => x.link)[index];
+    if (!e) return;
+    openModal({
+      kicker: "ইবুক · সারসংক্ষেপ",
+      paper: true,
+      title: e.title,
+      meta: SITE.authorName,
+      bodyHtml: `<div class="sample-text">${e.synopsis.filter(isFilled).map((t) => `<p>${esc(t).replace(/\n/g, "<br>")}</p>`).join("")}</div>`,
+      actionsHtml: EBOOK_BUY(e),
+    });
   } else if (type === "synopsis") {
     const b = BOOKS[index];
     if (!b || !hasSynopsis(b)) return;
@@ -1503,6 +1574,16 @@ function cartOrderMessage() {
   ].join("\n");
 }
 
+function cartEbooksBlock() {
+  const list = EBOOKS.filter((e) => e.link);
+  if (!list.length) return "";
+  return `<div class="cart-ebooks">
+    <h4>ইবুক — আলাদাভাবে কিনুন</h4>
+    <p>ইবুকের দাম কার্টের হিসাবে যুক্ত হয় না। প্রকাশনীর পাতা থেকে আলাদা কিনতে হয়।</p>
+    ${list.map((e) => `<div class="cart-ebook-row"><span class="cart-thumb">${e.cover ? `<img src="${esc(e.cover)}" alt="">` : ""}</span><span class="cart-info"><strong>${esc(e.title)}</strong><em>ইবুক</em></span>${EBOOK_BUY(e, "কিনুন")}</div>`).join("")}
+  </div>`;
+}
+
 function renderCart() {
   const body = $("#modal-body");
   const actions = $("#modal-actions");
@@ -1515,7 +1596,7 @@ function renderCart() {
     kicker.textContent = "আপনার কার্ট";
     title.textContent = "কার্ট খালি";
     meta.textContent = "";
-    body.innerHTML = `<p>পছন্দের বইয়ের <strong>কার্টে যোগ করুন</strong> বোতামে চাপুন।</p>`;
+    body.innerHTML = `<p>পছন্দের বইয়ের <strong>কার্টে যোগ করুন</strong> বোতামে চাপুন।</p>` + cartEbooksBlock();
     actions.innerHTML = `<button class="btn btn-gold" data-close>বই দেখুন</button>`;
     return;
   }
@@ -1542,7 +1623,7 @@ function renderCart() {
       </ul>
       <p class="cart-signed-banner">${SIGNED_PEN}<span>প্রতিটি বই আসবে <strong>লেখকের নিজ হাতের স্বাক্ষরসহ</strong> — আপনার নামে, আপনার জন্য।</span></p>
       <p class="cart-total"><span>বইয়ের মোট দাম</span><strong>${taka(total)}</strong></p>
-      <p class="cart-note">ডেলিভারি খরচ আলাদা। ঠিকানা অনুযায়ী অর্ডারের পর WhatsApp-এ জানানো হবে।</p>`;
+      <p class="cart-note">ডেলিভারি খরচ আলাদা। ঠিকানা অনুযায়ী অর্ডারের পর WhatsApp-এ জানানো হবে।</p>` + cartEbooksBlock();
     actions.innerHTML =
       `<button class="btn btn-gold" data-cart-act="to-info">অর্ডারের তথ্য দিন →</button>` +
       `<button class="btn btn-outline-gold" data-close>আরও বই দেখুন</button>`;
@@ -1882,6 +1963,7 @@ renderPortrait();
 renderContact();
 renderTimeline();
 renderBooks();
+  renderEbooks();
 initBookFilter();
 renderCatalog();
 renderWritings();
