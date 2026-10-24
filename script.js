@@ -819,14 +819,13 @@ const BOOK_LIST = [
   { title: "জনমভর", genre: "উপন্যাস", ebook: false },
   { title: "আকাশ দেখার নিমন্ত্রণে", genre: "উপন্যাস", ebook: false },
   { title: "রাজেশ্বরী", genre: "উপন্যাস", ebook: false },
-  { title: "চামেলী কটেজ", genre: "উপন্যাস", ebook: false },
+  { title: "চামেলি কটেজ", genre: "উপন্যাস", ebook: false },
   { title: "বনলতা এক্সপ্রেস", genre: "উপন্যাস", ebook: false },
   { title: "ষোলো আনা", genre: "উপন্যাস", ebook: false },
   { title: "কৃষ্ণচূড়া তোমাকে দিলাম", genre: "উপন্যাস", ebook: false },
   { title: "তুমি এসেছিলে পূর্ণিমা সন্ধ্যায়", genre: "উপন্যাস", ebook: false },
   { title: "একদিন", genre: "থ্রিলার উপন্যাস", ebook: false },
   { title: "অরু এখন কারাগারে", genre: "উপন্যাস", ebook: false },
-  { title: "নীল মানুষ", genre: "উপন্যাস", ebook: false },
   { title: "অশ্বারোহী", genre: "উপন্যাস", ebook: false },
   { title: "নাগরদোলা", genre: "উপন্যাস", ebook: false },
   { title: "নগরে নরক", genre: "উপন্যাস", ebook: false },
@@ -1402,10 +1401,9 @@ function applyFilter(type) {
 
 /* ---------- রেন্ডার: সম্পূর্ণ গ্রন্থতালিকা ---------- */
 /* গ্রন্থতালিকার পাশের বোতাম: সাইটে কেনা যায় এমন বই → কার্টে যোগ; ইবুক → ইবুক কিনুন; বাকিগুলো → WhatsApp */
-const CATALOG_ALIAS = { "চামেলী কটেজ": "চামেলি কটেজ" };
 function catalogAction(b) {
   const nf = (t) => String(t).normalize("NFC");
-  const name = nf(CATALOG_ALIAS[b.title] || b.title);
+  const name = nf(b.title);
   if (b.ebook) {
     const e = EBOOKS.find((x) => x.link && nf(x.title) === name);
     if (e) return `<a class="catalog-order catalog-buy" href="${esc(e.link)}" target="_blank" rel="noopener" data-ebook-buy="${esc(e.slug)}">ইবুক কিনুন ↗</a>`;
