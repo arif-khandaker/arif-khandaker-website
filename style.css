@@ -1802,3 +1802,9 @@ html.ak-intro-on, html.ak-intro-on body{overflow:hidden}
 .subscribe-form .btn{flex:0 0 auto}
 .subscribe-note{margin:16px auto 0;font-size:13px;color:var(--muted-dark);max-width:52ch;line-height:1.7}
 .subscribe-ok{margin:0;color:var(--gold-soft);font-size:18px}
+
+/* ফুটারের QR কোড */
+.footer-qr{display:flex;flex-direction:column;align-items:center;gap:10px;margin:22px auto 6px}
+.footer-qr img{display:block;width:132px;height:132px;background:#fff;padding:8px;border-radius:10px}
+.footer-qr p{margin:0;font-size:13px;line-height:1.7;color:var(--ivory-2);opacity:.85;text-align:center}
+.footer-qr p a{color:var(--gold)}
