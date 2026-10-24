@@ -58,7 +58,9 @@
     (function () {
       var l = location, on = true;
       try { if (sessionStorage.getItem("ak-intro-seen")) on = false; } catch (e) {}
-      if (l.hash && l.hash.length > 1 && l.hash !== "#books") on = false; /* #books (বই জংশন) থেকে এলে ইন্ট্রো দেখাবে; নির্দিষ্ট বইয়ের লিংকে দেখাবে না */
+      if (l.hash && l.hash.length > 1 && l.hash !== "#books") on = false;
+      /* বই জংশন (boijunction ডোমেইন, ?from=books, #books) দিয়ে ঢুকলে ইন্ট্রো ছাড়াই সরাসরি বইয়ের পাতা */
+      if (/boijunction/i.test(l.hostname) || /[?&]from=(books|boijunction)\b/.test(l.search) || l.hash === "#books") on = false;
       if (/[?&]intro=0\b/.test(l.search)) on = false;
       if (on) {
         document.documentElement.classList.add("ak-intro-on");
@@ -66,7 +68,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=20261025zm">
+  <link rel="stylesheet" href="style.css?v=20261025zo">
   <style>
     @font-face{font-family:"AK Sans";src:url("ak-sans.woff?v=3") format("woff");font-weight:300 600;font-style:normal;font-display:swap}
     @font-face{font-family:"AK Serif";src:url("ak-serif.woff?v=3") format("woff");font-weight:400 500;font-style:normal;font-display:swap}
@@ -343,6 +345,13 @@
     <!-- ================= প্রকাশিত বই ================= -->
     <section id="books" class="section section-dark">
       <div class="container">
+        <div class="bj-brand" id="bj-brand">
+          <div class="bj-board" role="img" aria-label="বই জংশন — Boi Junction">
+            <div class="bj-title"><span class="bj-r">বই</span> <span class="bj-g">জংশন</span></div>
+            <div class="bj-row"><i aria-hidden="true">←</i><span>BOI JUNCTION</span><i aria-hidden="true">→</i></div>
+          </div>
+          <div class="bj-legs" aria-hidden="true"><b></b><b></b></div>
+        </div>
         <header class="section-head reveal">
           <p class="section-eyebrow">০৩ — প্রকাশিত বই</p>
           <h2>বইসমূহ</h2>
@@ -617,7 +626,7 @@
       stage(".hero-actions", 0.2);
     })();
   </script>
-  <script src="script.js?v=20261025zm"></script>
-  <script src="intro.js?v=20261025zm"></script>
+  <script src="script.js?v=20261025zo"></script>
+  <script src="intro.js?v=20261025zo"></script>
 </body>
 </html>

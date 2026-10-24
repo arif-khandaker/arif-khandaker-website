@@ -1836,3 +1836,14 @@ button.catalog-order{font-family:inherit;background:none;border:0;border-bottom:
 .catalog-buy{font-weight:600;white-space:nowrap}
 
 .catalog-out{color:var(--ivory-2);opacity:.55;border-bottom:0;white-space:nowrap}
+
+/* বই জংশন: স্টেশনের নামফলক। শুধু বই-প্রথম প্রবেশে দেখায় */
+.bj-brand{display:none}
+html.books-first .bj-brand{display:flex;flex-direction:column;align-items:center;margin:0 auto 38px}
+.bj-board{border:3px solid var(--gold);border-radius:14px;padding:16px 34px 10px;text-align:center;background:#171511;box-shadow:inset 0 0 0 3px #171511,inset 0 0 0 5px rgba(201,164,92,.5)}
+.bj-title{font-family:var(--font-display);font-size:clamp(46px,13vw,76px);line-height:1.15}
+.bj-r{color:#e5484d}.bj-g{color:#3dbb72}
+.bj-row{display:flex;justify-content:space-between;align-items:center;gap:18px;color:var(--gold);font-size:12px;letter-spacing:.34em;margin-top:2px}
+.bj-row i{font-style:normal;font-size:22px;letter-spacing:0}
+.bj-legs{display:flex;gap:min(46vw,190px)}
+.bj-legs b{display:block;width:7px;height:30px;background:#6b5420}
