@@ -2702,6 +2702,15 @@ if (yearEl) yearEl.textContent = toBn(new Date().getFullYear());
       deferred = null; close(true);
     });
   }
-  window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); deferred = e; setTimeout(show, 6000); });
+  const dbg = /[?&]installdebug=1/.test(location.search);
+  const log = (t) => { if (!dbg) return; let d = document.getElementById("install-debug"); if (!d) { d = document.createElement("pre"); d.id = "install-debug"; d.style.cssText = "position:fixed;left:8px;right:8px;bottom:8px;z-index:99999;background:#000c;color:#9f9;font:12px/1.5 monospace;padding:8px;border-radius:8px;white-space:pre-wrap"; document.body.appendChild(d); } d.textContent += t + "\n"; };
+  if (dbg) {
+    log("অ্যাপ হিসেবে খোলা (standalone): " + standalone());
+    log("৭ দিনের মধ্যে বন্ধ করা হয়েছে: " + recently());
+    if ("serviceWorker" in navigator) navigator.serviceWorker.getRegistration().then((r) => log("সার্ভিস ওয়ার্কার: " + (r && r.active ? "চালু" : "নেই")));
+    fetch("/manifest.webmanifest").then((r) => log("manifest: " + r.status)).catch(() => log("manifest: ত্রুটি"));
+    setTimeout(() => log(deferred ? "ইনস্টল ইভেন্ট: এসেছে" : "ইনস্টল ইভেন্ট: ১০ সেকেন্ডেও আসেনি (Chrome এখন অনুমতি দিচ্ছে না)"), 10000);
+  }
+  window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); deferred = e; log("ইনস্টল ইভেন্ট: এসেছে"); setTimeout(show, 6000); });
   window.addEventListener("appinstalled", () => { deferred = null; const b = $(".install-bar"); if (b) b.remove(); });
 })();
