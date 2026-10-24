@@ -1103,11 +1103,11 @@ function initBookFilter() {
   const norm = (t) => String(t || "").toLowerCase().replace(/[\s\-_.,]+/g, " ").trim();
   const GROUPS = [
     { label: "সব", test: () => true },
-    { label: "নতুন", test: isNewBook },
-    { label: "থ্রিলার", test: (b) => /থ্রিলার/.test(b.genre) },
-    { label: "রোমান্টিক", test: (b) => /রোমান্টিক/.test(b.genre) },
+    { label: "নতুন বই", test: isNewBook },
+    { label: "থ্রিলার উপন্যাস", test: (b) => /থ্রিলার/.test(b.genre) },
+    { label: "রোমান্টিক উপন্যাস", test: (b) => /রোমান্টিক/.test(b.genre) },
     { label: "কাব্যগ্রন্থ", test: (b) => /কাব্য|কবিতা/.test(b.genre) },
-    { label: "অন্যান্য উপন্যাস", test: (b) => b.genre === "উপন্যাস" },
+    { label: "সমকালীন উপন্যাস", test: (b) => b.genre === "উপন্যাস" },
   ];
   let group = 0;
 
