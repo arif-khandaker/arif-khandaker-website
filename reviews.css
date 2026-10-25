@@ -97,3 +97,7 @@
 .bd-price strong{font-size:28px;color:#f0d78f}
 .bd-save{display:table;margin:0 auto 10px;background:linear-gradient(135deg,#e53935,#a51212);color:#fff;font-size:13.5px;font-weight:600;padding:4px 14px;border-radius:99px}
 .bd ul{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:4px;font-size:13.5px;color:#e2c98f;text-align:center}
+
+.rv-clamp{display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
+.rv-clamp.rv-open{display:block;-webkit-line-clamp:unset;overflow:visible}
+.rv-rm{font:inherit;font-size:14px;background:none;border:0;color:#e2c98f;cursor:pointer;padding:0 0 12px;text-decoration:underline}
