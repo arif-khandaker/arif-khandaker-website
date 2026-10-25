@@ -227,7 +227,7 @@
       $("#rv-google", root).addEventListener("click", function () { be.google().catch(function () {}); });
       return;
     }
-    if (!S.isAdmin) { root.innerHTML = '<p class="rv-none">এই অ্যাকাউন্টের অ্যাডমিন অনুমতি নেই।</p>' + authHtml(); var o = $("#rv-out", root); if (o) o.addEventListener("click", function () { be.signOut(); }); return; }
+    if (!S.isAdmin) { root.innerHTML = '<p class="rv-none">এই অ্যাকাউন্টের অ্যাডমিন অনুমতি নেই।</p><div class="rv-form"><h3>আপনার UID</h3><p class="rv-hint">অ্যাডমিন বানাতে Firestore-এর admins ডকুমেন্ট আইডিতে এই কোডটা বসাতে হবে।</p><input id="rv-uid" readonly value="' + esc(S.user.uid) + '"><button class="btn gold" id="rv-cp">কপি করুন</button></div>' + authHtml(); var cp = $("#rv-cp", root); if (cp) cp.addEventListener("click", function () { var i = $("#rv-uid", root); i.select(); i.setSelectionRange(0, 999); try { navigator.clipboard.writeText(i.value); } catch (e) { document.execCommand("copy"); } cp.textContent = "কপি হয়েছে ✓"; }); var o = $("#rv-out", root); if (o) o.addEventListener("click", function () { be.signOut(); }); return; }
     root.innerHTML = '<h3>যাচাইয়ের অপেক্ষায় (' + toBn(S.pend.length) + ")</h3>" + (S.pend.length ? S.pend.map(function (x) {
       return '<div class="rv-pend"><div>' + stars(x.rating) + " <b>" + esc(x.name) + '</b> · <a href="/b/' + esc(x.slug) + '/#reviews">' + esc(x.slug) + "</a></div><p>" + esc(x.text) + '</p><div class="rv-pa"><button class="btn gold" data-ok="' + esc(x.id) + '">প্রকাশ করুন</button><button class="btn" data-no="' + esc(x.id) + '">বাতিল</button></div></div>';
     }).join("") : '<p class="rv-hint">অপেক্ষায় কোনো রিভিউ নেই 🎉</p>') + authHtml();
