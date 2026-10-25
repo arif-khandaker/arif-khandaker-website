@@ -105,6 +105,15 @@
     }).join("");
     return '<div class="rv-sum"><div class="rv-avg"><strong>' + toBn(st.avg.toFixed(1)) + "</strong><span>/ ৫</span>" + stars(st.avg, "big") + "<small>" + toBn(st.n) + "টি রিভিউ</small></div><div class=\"rv-bars\">" + bars + "</div></div>";
   }
+  function shareHtml(x) { return x.id ? '<div class="rv-sh-row"><button type="button" class="rv-sh" data-sh="' + esc(x.id) + '">↗ শেয়ার করুন</button></div>' : ""; }
+  function shareReview(id) {
+    var x = S.list.filter(function (r) { return r.id === id; })[0]; if (!x) return;
+    var title = root.dataset.title || document.title, url = location.origin + location.pathname + "#reviews";
+    var t = String(x.text || "").replace(/\s+/g, " ").trim(); if (t.length > 220) t = t.slice(0, 217).replace(/\s+\S*$/, "") + "…";
+    var text = x.kind === "author" ? "“" + t + "” — লেখকের কথা, " + title : "“" + t + "” — " + x.name + ", " + title + " বইয়ের পাঠক-রিভিউ";
+    if (navigator.share) { navigator.share({ title: title, text: text, url: url }).catch(function () {}); return; }
+    window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url) + "&quote=" + encodeURIComponent(text), "_blank", "noopener");
+  }
   function textHtml(x) {
     var long = String(x.text || "").length > 380;
     return '<p class="rv-text' + (long ? " rv-clamp" : "") + '">' + esc(x.text).replace(/\n/g, "<br>") + "</p>" + (long ? '<button type="button" class="rv-rm">আরও পড়ুন ▾</button>' : "");
@@ -112,9 +121,9 @@
   function cardHtml(x) {
     var initial = esc(String(x.name || "প").trim().charAt(0) || "প");
     if (x.kind === "author") {
-      return '<article class="rv-card author"><div class="rv-badge">✎ লেখকের কথা</div>' + textHtml(x) + '<div class="rv-by"><span class="rv-av">আ</span><b>আরিফ খন্দকার</b><time>' + fmtDate(x.createdAt) + "</time></div></article>";
+      return '<article class="rv-card author"><div class="rv-badge">✎ লেখকের কথা</div>' + textHtml(x) + '<div class="rv-by"><span class="rv-av">আ</span><b>আরিফ খন্দকার</b><time>' + fmtDate(x.createdAt) + '</time></div>' + shareHtml(x) + "</article>";
     }
-    return '<article class="rv-card"><header>' + stars(x.rating) + '<span class="rv-lab">' + LABELS[x.rating] + '</span></header>' + textHtml(x) + '<div class="rv-by"><span class="rv-av">' + initial + "</span><b>" + esc(x.name) + "</b><time>" + fmtDate(x.createdAt) + "</time></div></article>";
+    return '<article class="rv-card"><header>' + stars(x.rating) + '<span class="rv-lab">' + LABELS[x.rating] + '</span></header>' + textHtml(x) + '<div class="rv-by"><span class="rv-av">' + initial + "</span><b>" + esc(x.name) + "</b><time>" + fmtDate(x.createdAt) + "</time></div>" + shareHtml(x) + "</article>";
   }
   function listHtml(st) {
     var authors = S.list.filter(function (x) { return x.kind === "author"; }).sort(function (a, b) { return b.createdAt - a.createdAt; });
@@ -176,6 +185,7 @@
     on("#rv-write", "click", function () { S.form = !S.form; S.error = ""; render(); if (S.form) { var f = $("#rv-formbox", root); if (f) f.scrollIntoView({ behavior: "smooth", block: "center" }); } });
     [].forEach.call(root.querySelectorAll("[data-filter]"), function (b) { b.addEventListener("click", function () { var k = +b.dataset.filter; S.filter = S.filter === k ? 0 : k; render(); }); });
     on("#rv-more", "click", function () { S.more = true; render(); });
+    [].forEach.call(root.querySelectorAll("[data-sh]"), function (b) { b.addEventListener("click", function () { shareReview(b.dataset.sh); }); });
     [].forEach.call(root.querySelectorAll(".rv-rm"), function (b) { b.addEventListener("click", function () { var t = b.previousElementSibling; var o = t.classList.toggle("rv-open"); b.textContent = o ? "কম দেখুন ▴" : "আরও পড়ুন ▾"; }); });
     on("#rv-clear", "click", function () { S.filter = 0; render(); });
     on("#rv-sort", "change", function (e) { S.sort = e.target.value; render(); });
