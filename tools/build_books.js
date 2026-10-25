@@ -154,6 +154,7 @@ h2{font-family:"AK Tiro","AK Serif",serif;font-weight:400;font-size:26px;margin:
 .syn p{font-family:"AK Serif","Noto Serif Bengali",serif;font-size:19px;line-height:2;margin:0 0 1em}
 .rel{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .rel a{text-decoration:none;color:#ece6d8;font-size:14px;line-height:1.5}
+.rel b{display:block;font-weight:500}.rel small{display:block;color:#c9a45c;font-size:12.5px;margin-top:2px}
 .rel img{width:100%;height:auto;display:block;border-radius:3px;margin-bottom:8px;box-shadow:0 14px 30px -18px rgba(0,0,0,.9)}
 footer{margin-top:50px;padding:26px 22px;text-align:center;color:#a59c8b;font-size:13px;border-top:1px solid rgba(201,164,92,.22)}
 @media (max-width:640px){.book{grid-template-columns:1fr;text-align:center}.book img{max-width:220px;margin:0 auto}dl{text-align:left;max-width:320px;margin-left:auto;margin-right:auto}.actions{justify-content:center}.rel{grid-template-columns:repeat(2,1fr)}.syn p{text-align:left}}
@@ -175,8 +176,8 @@ ${!b.ebook && priceN > 0 ? '<p class="signed">✎ লেখকের স্ব�
 </div>
 ${syn.length ? `<h2>সারসংক্ষেপ</h2><div class="syn">${syn.map((p) => `<p>${esc(p).replace(/\n/g, "<br>")}</p>`).join("")}</div>` : ""}
 ${reviewSection(b)}
-<h2>আরও বই</h2>
-<div class="rel">${rel.map((x) => `<a href="/b/${x.slug}/"><img src="/${esc(x.cover)}" alt="${esc(x.title)}" loading="lazy">${esc(x.title)}</a>`).join("")}</div>
+<h2>${rel.length && rel.every((x) => x.genre === b.genre) ? "একই ধরনের আরও বই" : "আরও বই"}</h2>
+<div class="rel">${rel.map((x) => `<a href="/b/${x.slug}/"><img src="/${esc(x.cover)}" alt="${esc(x.title)}" loading="lazy"><b>${esc(x.title)}</b><small>${esc(x.genre)}${buyable(x) ? " · " + taka(num(x.price)) : ""}</small></a>`).join("")}</div>
 </main>
 <footer>© ${AUTHOR}। সর্বস্বত্ব সংরক্ষিত। · <a href="/">authorarifkhandaker.com</a> · <a href="/?from=books#books">বই জংশন (Boi Junction)</a></footer>
 <script src="/firebase-config.js?v=20261026b"></script>
