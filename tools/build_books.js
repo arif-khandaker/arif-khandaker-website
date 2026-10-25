@@ -14,6 +14,7 @@ function grab(name) {
 }
 const BOOKS = grab("BOOKS");
 const EBOOKS = grab("EBOOKS");
+const SETS = grab("SETS");
 const AUTHOR = "আরিফ খন্দকার";
 const SITE = "https://authorarifkhandaker.com";
 const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -43,6 +44,38 @@ function related(b) {
   const idx = all.findIndex((x) => x.slug === b.slug);
   const rot = (arr) => arr.slice(idx % Math.max(arr.length, 1)).concat(arr.slice(0, idx % Math.max(arr.length, 1)));
   return [...rot(same), ...rot(rest)].slice(0, 4);
+}
+
+const bnum = (t) => String(t).replace(/\d/g, (d) => "০১২৩৪৫৬৭৮৯"[d]);
+const taka = (n) => bnum(Number(n).toLocaleString("en-US")) + " টাকা";
+const buyable = (x) => x && x.slug && num(x.price) > 0;
+const physical = BOOKS.filter(buyable);
+const bySlug = (sl) => physical.find((x) => x.slug === sl);
+
+/* রিভিউর পাশের "একসাথে কিনুন" বাক্স: এই বই + একই ধরনের আরও ২টি (ছাড় ছাড়া, যোগফল) এবং বিশেষ সেট (SETS থেকে) */
+function sideBoxes(b) {
+  let out = "";
+  if (!b.ebook && buyable(b)) {
+    const pool = physical.filter((x) => x.slug !== b.slug && x.cover);
+    const same = pool.filter((x) => x.genre === b.genre);
+    const rest = pool.filter((x) => x.genre !== b.genre);
+    const idx = physical.findIndex((x) => x.slug === b.slug);
+    const rot = (arr) => { const k = idx % Math.max(arr.length, 1); return arr.slice(k).concat(arr.slice(0, k)); };
+    const two = [...rot(same), ...rot(rest)].slice(0, 2);
+    const trio = [b, ...two];
+    out += `<div class="bd" id="bd-box"><p class="bd-eye">একসাথে কিনুন</p><h3>এই বই + আরও ${bnum(two.length)}টি</h3>${trio.map((x, i) => `<label class="bd-row"><input type="checkbox" checked data-slug="${esc(x.slug)}" data-price="${num(x.price)}"><img src="/${esc(x.cover)}" alt="" loading="lazy"><span class="bd-t">${esc(x.title)}<small>${taka(num(x.price))}</small></span></label>`).join("")}<div class="bd-total"><span>মোট</span><b id="bd-sum">${taka(trio.reduce((n, x) => n + num(x.price), 0))}</b></div><button type="button" class="btn gold" id="bd-add">এই ${bnum(trio.length)}টি বই কার্টে নিন</button><small class="bd-note">কার্টে গিয়ে বিকাশ, নগদ বা রকেটে পেমেন্ট করে অর্ডার নিশ্চিত করুন।</small></div>`;
+  }
+  SETS.forEach((st) => {
+    const bs = st.slugs.map(bySlug).filter(Boolean);
+    if (bs.length !== st.slugs.length) return;
+    const sum = bs.reduce((n, x) => n + num(x.price), 0);
+    out += `<div class="bd set"><p class="bd-eye">✦ বিশেষ সেট</p><h3>${esc(st.title)}</h3><div class="bd-covers">${bs.map((x) => `<img src="/${esc(x.cover)}" alt="${esc(x.title)}" loading="lazy">`).join("")}</div><p class="bd-names">${bs.map((x) => esc(x.title)).join(" · ")}</p><div class="bd-price"><s>${taka(sum)}</s><strong>${taka(st.price)}</strong></div><span class="bd-save">🎉 ছাড় ${taka(sum - st.price)}</span><ul>${st.perks.map((x) => `<li>${esc(x)}</li>`).join("")}</ul><button type="button" class="btn gold" data-set-add="${st.slugs.join(",")}">সেটটি কার্টে নিন</button><small class="bd-note">কার্টে গিয়ে বিকাশ, নগদ বা রকেটে পেমেন্ট করুন।</small></div>`;
+  });
+  return out;
+}
+
+function reviewSection(b) {
+  return `<section class="rv" id="reviews"><h2>রেটিং ও রিভিউ</h2><div class="rv-grid"><div class="rv-main"><div id="rv-app" data-slug="${esc(b.slug)}" data-title="${esc(b.title)}"><p style="color:#a59c8b">রিভিউ আনা হচ্ছে…</p></div></div><aside class="rv-side">${sideBoxes(b)}</aside></div></section>`;
 }
 
 function page(b) {
@@ -92,6 +125,7 @@ function page(b) {
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-H027R58T1E"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-H027R58T1E');</script>
+<link rel="stylesheet" href="/reviews.css?v=20261026a">
 <style>
 @font-face{font-family:"AK Serif";src:url("/ak-serif.woff?v=3") format("woff");font-weight:400 500;font-display:swap}
 @font-face{font-family:"AK Tiro";src:url("/ak-tiro.woff?v=3") format("woff");font-weight:400;font-display:swap}
@@ -104,7 +138,7 @@ a{color:#e2c98f}
 .brand{text-decoration:none;color:#f7f3ea;font-family:"AK Tiro","AK Serif",serif;font-size:20px}
 .brand small{display:block;font-family:"AK Sans",sans-serif;color:#c9a45c;font-size:11px;letter-spacing:.22em}
 .top a.back{font-size:14px;text-decoration:none;border:1px solid rgba(201,164,92,.5);padding:8px 14px;border-radius:999px}
-main{max-width:860px;margin:0 auto;padding:40px 22px 16px}
+main{max-width:1020px;margin:0 auto;padding:40px 22px 16px}
 .book{display:grid;grid-template-columns:240px 1fr;gap:34px;align-items:start}
 .book img{width:100%;height:auto;display:block;border-radius:4px;box-shadow:0 30px 60px -28px rgba(0,0,0,.9),0 0 0 1px rgba(201,164,92,.2)}
 .kicker{color:#c9a45c;letter-spacing:.12em;font-size:14px;margin:0 0 8px}
@@ -140,10 +174,13 @@ ${!b.ebook && priceN > 0 ? '<p class="signed">✎ লেখকের স্ব�
 </div>
 </div>
 ${syn.length ? `<h2>সারসংক্ষেপ</h2><div class="syn">${syn.map((p) => `<p>${esc(p).replace(/\n/g, "<br>")}</p>`).join("")}</div>` : ""}
+${reviewSection(b)}
 <h2>আরও বই</h2>
 <div class="rel">${rel.map((x) => `<a href="/b/${x.slug}/"><img src="/${esc(x.cover)}" alt="${esc(x.title)}" loading="lazy">${esc(x.title)}</a>`).join("")}</div>
 </main>
 <footer>© ${AUTHOR}। সর্বস্বত্ব সংরক্ষিত। · <a href="/">authorarifkhandaker.com</a> · <a href="/?from=books#books">বই জংশন (Boi Junction)</a></footer>
+<script src="/firebase-config.js?v=20261026a"></script>
+<script src="/reviews.js?v=20261026a"></script>
 <script>
 document.getElementById("copy").addEventListener("click",function(){var b=this,u=location.href;function ok(){b.textContent="লিংক কপি হয়েছে ✓";setTimeout(function(){b.textContent="লিংক কপি করুন"},2200)}
 if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(ok,function(){prompt("লিংক:",u)})}else{prompt("লিংক:",u)}});

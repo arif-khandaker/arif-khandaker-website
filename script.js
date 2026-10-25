@@ -1610,6 +1610,8 @@ function clearBookHash() {
 }
 const copyLinkButton = (b) => b && b.slug
   ? `<button class="btn btn-outline-gold" data-copy-link="${esc(b.slug)}">লিংক কপি করুন</button>` : "";
+const reviewsButton = (b) => b && b.slug
+  ? `<a class="btn btn-outline-gold" href="/b/${esc(b.slug)}/#reviews">⭐ রেটিং ও রিভিউ</a>` : "";
 function openFromHash() {
   const m = location.hash.match(/^#book-(.+)$/);
   if (!m) return;
@@ -1631,7 +1633,7 @@ function openItem(type, index) {
       title: b.title,
       meta: [b.publisher, b.year, b.pages && `${b.pages} পৃষ্ঠা`, b.price].filter(Boolean).join(" · "),
       bodyHtml: isFilled(b.summary) ? `<p>${esc(b.summary)}</p>` : "",
-      actionsHtml: (cartButton(index) ? cartButton(index) + waOutline(index) : orderButton(index, "WhatsApp-এ অর্ডার করুন")) + sampleButton(index) + copyLinkButton(b) + synopsisButton(index),
+      actionsHtml: (cartButton(index) ? cartButton(index) + waOutline(index) : orderButton(index, "WhatsApp-এ অর্ডার করুন")) + sampleButton(index) + reviewsButton(b) + copyLinkButton(b) + synopsisButton(index),
     });
     setBookHash(b);
   } else if (type === "ebook") {
@@ -2284,6 +2286,8 @@ window.addEventListener("hashchange", openFromHash);
 })();
 
 setTimeout(openFromHash, 400);
+/* বইয়ের পাতা থেকে "কার্টে নিন" চাপলে /?cart=1 এ এসে কার্ট খোলে */
+if (/[?&]cart=1/.test(location.search)) setTimeout(() => { if (cartCount() > 0) { cartStep = "cart"; openCart(); } }, 700);
 
 const yearEl = $("#year");
 if (yearEl) yearEl.textContent = toBn(new Date().getFullYear());
