@@ -101,3 +101,7 @@
 .rv-clamp{display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
 .rv-clamp.rv-open{display:block;-webkit-line-clamp:unset;overflow:visible}
 .rv-rm{font:inherit;font-size:14px;background:none;border:0;color:#e2c98f;cursor:pointer;padding:0 0 12px;text-decoration:underline}
+
+.rv-sh-row{margin-top:10px;padding-top:10px;border-top:1px solid rgba(201,164,92,.14)}
+.rv-sh{font:inherit;font-size:13.5px;background:none;border:1px solid rgba(201,164,92,.4);color:#e2c98f;border-radius:99px;padding:5px 14px;cursor:pointer}
+.rv-sh:hover{background:rgba(201,164,92,.14)}
