@@ -238,8 +238,19 @@
   function renderAdminPage() {
     if (!S.loaded) { root.innerHTML = '<p class="rv-none">লোড হচ্ছে…</p>'; return; }
     if (!S.user) {
-      root.innerHTML = '<div class="rv-form"><h3>লগইন করুন</h3><button class="btn gold" id="rv-google"><span class="g">G</span> Google দিয়ে চালিয়ে যান</button></div>';
-      $("#rv-google", root).addEventListener("click", function () { be.google().catch(function () {}); });
+      root.innerHTML = '<div class="rv-form"><h3>লগইন করুন</h3><button class="btn gold" id="rv-google"><span class="g">G</span> Google দিয়ে চালিয়ে যান</button>' +
+        '<p class="rv-hint" style="margin-top:16px">Google কাজ না করলে আপনার অ্যাডমিন ইমেইলে লগইন লিংক নিন:</p>' +
+        '<input type="email" id="rv-aemail" placeholder="আপনার ইমেইল" autocomplete="email"><button class="btn gold" id="rv-asend" style="margin-top:8px">লগইন লিংক পাঠান</button>' +
+        '<p class="rv-hint" id="rv-amsg"></p></div>';
+      var amsg = function (t) { var m = $("#rv-amsg", root); if (m) m.textContent = t; };
+      $("#rv-google", root).addEventListener("click", function () { be.google().catch(function () { amsg("Google দিয়ে ঢোকা যায়নি। নিচে ইমেইলে লিংক নিন।"); }); });
+      $("#rv-asend", root).addEventListener("click", async function () {
+        var em = ($("#rv-aemail", root).value || "").trim();
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { amsg("সঠিক ইমেইল লিখুন।"); return; }
+        try { localStorage.setItem("ak-rev-email", em); } catch (e) {}
+        try { await be.sendLink(em); amsg("✉️ " + em + " ঠিকানায় লিংক পাঠানো হয়েছে। ইমেইল খুলে লিংকে চাপ দিন (স্প্যাম ফোল্ডারও দেখুন)।"); }
+        catch (e) { amsg("লিংক পাঠানো যায়নি। একটু পরে আবার চেষ্টা করুন।"); }
+      });
       return;
     }
     if (!S.isAdmin) { root.innerHTML = '<p class="rv-none">এই অ্যাকাউন্টের অ্যাডমিন অনুমতি নেই।</p><div class="rv-form"><h3>আপনার UID</h3><p class="rv-hint">অ্যাডমিন বানাতে Firestore-এর admins ডকুমেন্ট আইডিতে এই কোডটা বসাতে হবে।</p><input id="rv-uid" readonly value="' + esc(S.user.uid) + '"><button class="btn gold" id="rv-cp">কপি করুন</button></div>' + authHtml(); var cp = $("#rv-cp", root); if (cp) cp.addEventListener("click", function () { var i = $("#rv-uid", root); i.select(); i.setSelectionRange(0, 999); try { navigator.clipboard.writeText(i.value); } catch (e) { document.execCommand("copy"); } cp.textContent = "কপি হয়েছে ✓"; }); var o = $("#rv-out", root); if (o) o.addEventListener("click", function () { be.signOut(); }); return; }
