@@ -1818,6 +1818,15 @@ function addToCart(slug) {
   if (!modal.hidden && modal.classList.contains("is-cart") && cartStep === "cart") renderCart();
 }
 
+const newOrderRef = () => "AK-" + new Date().toISOString().slice(2, 10).replace(/-/g, "") + "-" + (Math.random().toString(36).slice(2) + "0000").slice(0, 4).toUpperCase();
+function cartSnap(ref) {
+  return {
+    ref, name: cartForm.name.trim(), phone: cartForm.phone.trim(), address: cartForm.address.trim(), area: cartForm.area,
+    total: cartTotal(),
+    items: cart.map((x) => { const b = bookBySlug(x.slug); return { slug: x.slug, title: b ? b.title : x.slug, qty: x.qty, price: b ? priceOf(b) : 0 }; })
+  };
+}
+
 function cartOrderMessage() {
   const lines = cart.map((x, n) => {
     const b = bookBySlug(x.slug);
@@ -1996,8 +2005,9 @@ function cartAction(act, slug) {
   } else if (act === "send-site") {
     if (!cart.length || orderSending || !SITE.orderFormKey) return;
     orderSending = true; renderCart();
-    const ref = "AK-" + new Date().toISOString().slice(2, 10).replace(/-/g, "") + "-" + Math.random().toString(36).slice(2, 6).toUpperCase();
+    const ref = newOrderRef();
     const total = cartTotal();
+    const snap = cartSnap(ref);
     const items = cart.map((x) => ({ item_id: x.slug, quantity: x.qty }));
     fetch("https://api.web3forms.com/submit", {
       method: "POST",
@@ -2014,6 +2024,7 @@ function cartAction(act, slug) {
     }).then((r) => r.json()).then((j) => {
       orderSending = false;
       if (!j || !j.success) throw new Error("fail");
+      if (window.akSaveOrder) akSaveOrder(snap, "site");
       if (window.akTrack) akTrack("order_sent", { currency: "BDT", value: total, method: "site", items });
       cart = []; saveCart(); updateFab(); cartStep = "cart"; cartForm.signName = ""; cartForm.signMsg = ""; cartForm.gift = false; cartForm.giftTo = ""; cartForm.giftCard = "";
       closeModal();
@@ -2026,6 +2037,7 @@ function cartAction(act, slug) {
   } else if (act === "send") {
     if (!cart.length) return;
     if (openWhatsApp(cartOrderMessage())) {
+      if (window.akSaveOrder) akSaveOrder(cartSnap(newOrderRef()), "whatsapp");
       if (window.akTrack) akTrack("order_sent", { currency: "BDT", value: cartTotal(), items: cart.map((x) => ({ item_id: x.slug, quantity: x.qty })) });
       cart = []; saveCart(); updateFab(); cartStep = "cart"; cartForm.signName = ""; cartForm.signMsg = ""; cartForm.gift = false; cartForm.giftTo = ""; cartForm.giftCard = "";
       closeModal();
