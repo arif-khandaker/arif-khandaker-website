@@ -34,5 +34,55 @@ service cloud.firestore {
       allow delete: if isAdmin()
                     || (request.auth != null && resource.data.uid == request.auth.uid && resource.data.status == 'pending');
     }
+
+    // ---- অর্ডার (শুধু অ্যাডমিন পড়তে পারে; ক্রেতা শুধু নতুন অর্ডার জমা দিতে পারে)। BJ-... = বই জংশন, AK-... = আরিফ খন্দকার সাইট ----
+    match /orders/{ref} {
+      allow read: if isAdmin();
+      allow create: if ref.matches('^(BJ|AK)-[0-9]{6}-[0-9A-Z]{4}$')
+                    && request.resource.data.keys().hasOnly(['ref','name','phone','address','area','items','total','method','status','createdAt'])
+                    && request.resource.data.ref == ref
+                    && request.resource.data.status == 'new'
+                    && request.resource.data.method in ['site','whatsapp']
+                    && request.resource.data.name is string && request.resource.data.name.size() <= 80
+                    && request.resource.data.phone is string && request.resource.data.phone.size() <= 20
+                    && request.resource.data.address is string && request.resource.data.address.size() <= 400
+                    && request.resource.data.area is string && request.resource.data.area.size() <= 30
+                    && request.resource.data.items is list && request.resource.data.items.size() >= 1 && request.resource.data.items.size() <= 30
+                    && request.resource.data.total is int && request.resource.data.total >= 0 && request.resource.data.total <= 1000000
+                    && request.resource.data.createdAt == request.time;
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ---- অর্ডারের অবস্থা (শুধু নম্বর জানা থাকলে একটি করে দেখা যায়; তালিকা দেখা যায় না; কোনো ব্যক্তিগত তথ্য নেই) ----
+    match /orderStatus/{ref} {
+      allow get: if true;
+      allow list: if false;
+      allow create: if (ref.matches('^(BJ|AK)-[0-9]{6}-[0-9A-Z]{4}$')
+                        && request.resource.data.keys().hasOnly(['status','updatedAt'])
+                        && request.resource.data.status == 'new'
+                        && request.resource.data.updatedAt == request.time)
+                    || isAdmin();
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+    // ---- যাত্রী নম্বর (শুধু একটি সংখ্যা; প্রতিবার ঠিক ১ করে বাড়ানো যায়, আর বাড়াতে হলে সত্যিই একটি অর্ডার থাকতে হবে) ----
+    match /meta/passengers {
+      function validBump() {
+        return request.resource.data.keys().hasOnly(['n','last','updatedAt'])
+            && request.resource.data.n is int
+            && request.resource.data.last is string
+            && request.resource.data.last.matches('^BJ-[0-9]{6}-[0-9A-Z]{4}$')
+            && exists(/databases/$(database)/documents/orders/$(request.resource.data.last))
+            && request.resource.data.updatedAt == request.time;
+      }
+      allow get: if true;
+      allow list: if false;
+      allow create: if (validBump() && request.resource.data.n == 1) || isAdmin();
+      allow update: if (validBump()
+                        && request.resource.data.n == resource.data.n + 1
+                        && request.resource.data.last != resource.data.last) || isAdmin();
+      allow delete: if false;
+    }
   }
 }
