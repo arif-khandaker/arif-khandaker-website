@@ -82,7 +82,7 @@
       sendLink: function (email) { return auth.sendSignInLinkToEmail(au, email, { url: location.origin + location.pathname + "?rvlogin=1#reviews", handleCodeInApp: true }); },
       isLink: function () { return auth.isSignInWithEmailLink(au, location.href); },
       finishLink: function (email) { return auth.signInWithEmailLink(au, email, location.href); },
-      signOut: function () { return auth.signOut(au); },
+      signOut: function () { try { localStorage.removeItem("ak_admin"); } catch (e) {} return auth.signOut(au); },
       list: async function (s) { var q = fs.query(fs.collection(db, "reviews"), fs.where("slug", "==", s), fs.where("status", "==", "approved"), fs.limit(200)); return (await fs.getDocs(q)).docs.map(ser); },
       mine: async function (s, uid) { var d = await fs.getDoc(fs.doc(db, "reviews", s + "_" + uid)); return d.exists() ? ser(d) : null; },
       submit: function (s, uid, v) { return fs.setDoc(fs.doc(db, "reviews", s + "_" + uid), { slug: s, uid: uid, name: v.name, rating: v.rating, text: v.text, kind: "reader", status: "pending", createdAt: fs.serverTimestamp() }); },
@@ -251,7 +251,7 @@
     var o2 = $("#rv-out", root); if (o2) o2.addEventListener("click", function () { be.signOut(); });
   }
   async function reloadAdmin() {
-    if (S.user) { S.isAdmin = await be.isAdmin(S.user.uid); S.pend = S.isAdmin ? await be.pending(null) : []; }
+    if (S.user) { S.isAdmin = await be.isAdmin(S.user.uid); if (S.isAdmin) { try { localStorage.setItem("ak_admin", "1"); } catch (e) {} } S.pend = S.isAdmin ? await be.pending(null) : []; }
     S.loaded = true; renderAdminPage();
   }
 
