@@ -125,7 +125,7 @@ function page(b) {
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-H027R58T1E"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-H027R58T1E');</script>
-<link rel="stylesheet" href="/reviews.css?v=20261026c">
+<link rel="stylesheet" href="/reviews.css?v=20261031a">
 <style>
 @font-face{font-family:"AK Serif";src:url("/ak-serif.woff?v=3") format("woff");font-weight:400 500;font-display:swap}
 @font-face{font-family:"AK Tiro";src:url("/ak-tiro.woff?v=3") format("woff");font-weight:400;font-display:swap}
@@ -180,8 +180,8 @@ ${reviewSection(b)}
 <div class="rel">${rel.map((x) => `<a href="/b/${x.slug}/"><img src="/${esc(x.cover)}" alt="${esc(x.title)}" loading="lazy"><b>${esc(x.title)}</b><small>${esc(x.genre)}${buyable(x) ? " · " + taka(num(x.price)) : ""}</small></a>`).join("")}</div>
 </main>
 <footer>© ${AUTHOR}। সর্বস্বত্ব সংরক্ষিত। · <a href="/">authorarifkhandaker.com</a> · <a href="/?from=books#books">বই জংশন (Boi Junction)</a></footer>
-<script src="/firebase-config.js?v=20261026c"></script>
-<script src="/reviews.js?v=20261026c"></script>
+<script src="/firebase-config.js?v=20261031a"></script>
+<script src="/reviews.js?v=20261031a"></script>
 <script>
 document.getElementById("copy").addEventListener("click",function(){var b=this,u=location.href;function ok(){b.textContent="লিংক কপি হয়েছে ✓";setTimeout(function(){b.textContent="লিংক কপি করুন"},2200)}
 if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(ok,function(){prompt("লিংক:",u)})}else{prompt("লিংক:",u)}});
