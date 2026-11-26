@@ -58,7 +58,7 @@
   <script>
     /* শুরুর ভাসমান পোস্টার: প্রতি সেশনে একবার। বইয়ের সরাসরি লিংক (#...) বা ?intro=0 হলে দেখাবে না */
     (function () {
-      var l = location, on = true;
+      var l = location, on = false; /* নতুন ডিজাইনে ইন্ট্রো পপআপ বন্ধ */
       try { if (sessionStorage.getItem("ak-intro-seen")) on = false; } catch (e) {}
       if (l.hash && l.hash.length > 1 && l.hash !== "#books") on = false;
       /* বই জংশন (boijunction ডোমেইন, ?from=books, #books) দিয়ে ঢুকলে ইন্ট্রো ছাড়াই সরাসরি বইয়ের পাতা */
@@ -162,31 +162,14 @@
     #biography .timeline-now .timeline-year{color:#2e1f12}
     @media (max-width:540px){#intro .intro-text p:not(.lead):not(.section-eyebrow){font-size:16.5px;padding-left:14px}#intro::after,#biography::after{top:22px}}
   </style>
+  <link rel="stylesheet" href="modern.css?v=20261127a">
 </head>
 <body>
-
-  <!-- প্রবেশের পর্দা -->
-  <div class="preloader" id="preloader" aria-hidden="true">
-    <div class="pl-inner">
-      <svg class="pl-ring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54"/></svg>
-      <span class="pl-mark">আ</span>
-    </div>
-    <p class="pl-name">আরিফ খন্দকার</p>
-    <p class="pl-tag">গল্প মানুষের কথা বলে</p>
-  </div>
 
   <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
   <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
 
 
-    <!-- ঝরে পড়া বাহারি পাতা -->
-  <div class="leaves" aria-hidden="true">
-    <span class="leaf" style="--x:6%;--s:30px;--t:17s;--d:-3s;--w:3.6s"><i><svg viewBox="0 0 24 24"><path d="M12 1.5C5.5 6 3.6 12.4 6 18c1.6 3.3 4.4 4.5 6 4.5s4.4-1.2 6-4.5C20.4 12.4 18.5 6 12 1.5z" fill="#e0a33a"/><path d="M12 3.5v18M12 9l-3.2-2.4M12 12.5l-4-2.8M12 16l-3.4-2.3M12 9l3.2-2.4M12 12.5l4-2.8M12 16l3.4-2.3" stroke="#a8741f" stroke-width=".9" fill="none" stroke-linecap="round"/></svg></i></span>
-    <span class="leaf" style="--x:27%;--s:26px;--t:21s;--d:-11s;--w:4.2s"><i><svg viewBox="0 0 24 24"><path d="M12 1l1.6 4.2 3-1.6-.6 4 4.6-.8-2 3.4 3.4 1.6-4 1.8 1 3.2-3.8-1.2-.6 3.6-2.6-2.6-2.6 2.6-.6-3.6-3.8 1.2 1-3.2-4-1.8 3.4-1.6-2-3.4 4.6.8-.6-4 3 1.6z" fill="#c9452e"/><path d="M12 6v17" stroke="#8e2b1c" stroke-width=".9" stroke-linecap="round"/></svg></i></span>
-    <span class="leaf" style="--x:52%;--s:32px;--t:19s;--d:-7s;--w:3.9s"><i><svg viewBox="0 0 24 24"><path d="M12 1.5C5.5 6 3.6 12.4 6 18c1.6 3.3 4.4 4.5 6 4.5s4.4-1.2 6-4.5C20.4 12.4 18.5 6 12 1.5z" fill="#d9692b"/><path d="M12 3.5v18M12 9l-3.2-2.4M12 12.5l-4-2.8M12 16l-3.4-2.3M12 9l3.2-2.4M12 12.5l4-2.8M12 16l3.4-2.3" stroke="#9a4517" stroke-width=".9" fill="none" stroke-linecap="round"/></svg></i></span>
-    <span class="leaf" style="--x:74%;--s:28px;--t:23s;--d:-15s;--w:4.6s"><i><svg viewBox="0 0 24 24"><path d="M12 1l1.6 4.2 3-1.6-.6 4 4.6-.8-2 3.4 3.4 1.6-4 1.8 1 3.2-3.8-1.2-.6 3.6-2.6-2.6-2.6 2.6-.6-3.6-3.8 1.2 1-3.2-4-1.8 3.4-1.6-2-3.4 4.6.8-.6-4 3 1.6z" fill="#e8b84a"/><path d="M12 6v17" stroke="#a9822a" stroke-width=".9" stroke-linecap="round"/></svg></i></span>
-    <span class="leaf" style="--x:91%;--s:25px;--t:18s;--d:-1s;--w:3.4s"><i><svg viewBox="0 0 24 24"><path d="M12 1.5C5.5 6 3.6 12.4 6 18c1.6 3.3 4.4 4.5 6 4.5s4.4-1.2 6-4.5C20.4 12.4 18.5 6 12 1.5z" fill="#b8362a"/><path d="M12 3.5v18M12 9l-3.2-2.4M12 12.5l-4-2.8M12 16l-3.4-2.3M12 9l3.2-2.4M12 12.5l4-2.8M12 16l3.4-2.3" stroke="#7d2219" stroke-width=".9" fill="none" stroke-linecap="round"/></svg></i></span>
-  </div>
 
   <a class="skip-link" href="#main">মূল লেখায় যান</a>
 
@@ -200,6 +183,13 @@
           <span class="brand-en">Arif Khandaker</span>
         </span>
       </a>
+
+      <div class="hdr-tools">
+        <div class="lang" role="group" aria-label="ভাষা / Language">
+          <button type="button" data-lang="bn" class="on">বাং</button><button type="button" data-lang="en">EN</button>
+        </div>
+        <a class="hdr-cta" href="#books" data-i="cta_buy">বই কিনুন</a>
+      </div>
 
       <button class="menu-toggle" id="menu-toggle" aria-label="মেনু খুলুন" aria-expanded="false" aria-controls="site-nav">
         <span></span><span></span>
@@ -223,35 +213,31 @@
   <main id="main">
 
     <!-- ================= হোম ================= -->
-    <section id="home" class="hero">
-      <div class="hero-frame" aria-hidden="true"></div>
-      <span class="hero-glyph" aria-hidden="true">আ</span>
-
-      <div class="container hero-inner">
-        <p class="hero-eyebrow"><span class="ornament">◆</span> কবি ও কথাসাহিত্যিক</p>
-        <h1 class="hero-name">আরিফ <em>খন্দকার</em></h1>
-        <p class="hero-en">Arif Khandaker &nbsp;·&nbsp; Author</p>
-
-        <div class="hero-rule" aria-hidden="true"></div>
-
-        <p class="hero-tagline">কবিতার নরম আলো থেকে থ্রিলারের অন্ধকার গলি, <br>উপন্যাসের দীর্ঘ পথ থেকে সায়েন্স ফিকশনের অজানা আকাশ। <br><span class="tagline-end">ধারা বদলায়, গল্পের মানুষ বদলায় না।</span></p>
-
-        <blockquote class="hero-quote">
-          <p>“মানুষ গল্প বলে না, গল্প মানুষের কথা বলে।”</p>
-          <cite>— আরিফ খন্দকার</cite>
-        </blockquote>
-
-        <div class="hero-actions">
-          <a class="btn btn-gold" href="#books">প্রকাশিত বই</a>
-          <a class="btn btn-ghost" href="#contact">যোগাযোগ করুন</a>
+    <section id="home" class="hero hero-modern">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-inner">
+          <p class="hero-eyebrow"><span class="ornament">◆</span> <span data-i="eyebrow">কবি ও কথাসাহিত্যিক</span></p>
+          <h1 class="hero-name">আরিফ <em>খন্দকার</em></h1>
+          <p class="hero-en">Arif Khandaker &nbsp;·&nbsp; Author</p>
+          <p class="hero-tagline" data-i="tagline">কবিতার নরম আলো থেকে থ্রিলারের অন্ধকার গলি, উপন্যাসের দীর্ঘ পথ থেকে সায়েন্স ফিকশনের অজানা আকাশ—গল্প মানুষের কথা বলে।</p>
+          <div class="hero-actions">
+            <a class="btn btn-gold" href="#books" data-i="btn_books">প্রকাশিত বই</a>
+            <a class="btn btn-ghost" href="#contact" data-i="btn_contact">যোগাযোগ করুন</a>
+          </div>
+        </div>
+        <div class="hero-books" aria-label="নতুন বই">
+          <a class="hb hb-l" href="#books" tabindex="-1"><img src="8448.jpg" alt="এখানে তাবিজ বিক্রি হয়" width="300" height="440" loading="eager"></a>
+          <a class="hb hb-r" href="#books" tabindex="-1"><img src="3818.jpg" alt="বড়ো ভাই" width="300" height="440" loading="eager"></a>
+          <a class="hb hb-c" href="#books"><img src="3797-4.jpg" alt="অকূলপাথার" width="300" height="440" loading="eager"><span class="hb-badge" data-i="badge_new">নতুন</span></a>
+          <div class="hb-card">
+            <div><b>অকূলপাথার</b><small data-i="card_sub">থ্রিলার উপন্যাস · ১,৪০০ টাকা</small></div>
+            <a href="#books" data-i="card_order">অর্ডার</a>
+          </div>
         </div>
       </div>
-
-      <a href="#intro" class="scroll-cue" aria-label="নিচে যান">
-        <span>স্ক্রল</span>
-        <i aria-hidden="true"></i>
-      </a>
-        </section>
+      <a href="#intro" class="scroll-cue" aria-label="নিচে যান"><i aria-hidden="true"></i></a>
+    </section>
 
     <!-- সংখ্যায় সাহিত্যযাত্রা -->
     <section class="stats" aria-label="সংখ্যায় সাহিত্যযাত্রা">
@@ -633,6 +619,7 @@
     })();
   </script>
   <script src="script.js?v=20261031a"></script>
+  <script src="i18n.js?v=20261127a"></script>
   <script src="intro.js?v=20261031a"></script>
   <script src="firebase-config.js?v=20261031a"></script>
   <script src="orders.js?v=20261031a"></script>

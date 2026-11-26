@@ -1,0 +1,87 @@
+/* ===== আধুনিক ডার্ক-গোল্ড ডিজাইন (modern.css) ===== */
+:root{--m-bg:#0b0b0d;--m-bg2:#111114;--m-card:#16161a;--m-line:rgba(255,255,255,.09);--m-text:#ece7dc;--m-muted:#a39d90;--m-gold:#c9a45c}
+html,body{background:var(--m-bg);color:var(--m-text)}
+.preloader,.leaves,.cursor-glow{display:none!important}
+
+/* হেডার */
+.site-header.scrolled{background:rgba(11,11,13,.82);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.hdr-tools{display:flex;align-items:center;gap:10px;margin-left:auto;margin-right:8px;position:relative;z-index:102}
+.lang{display:flex;border:1px solid rgba(201,164,92,.45);border-radius:999px;overflow:hidden}
+.lang button{font:inherit;font-size:13px;padding:6px 12px;background:none;border:0;color:var(--m-muted);cursor:pointer;min-height:32px}
+.lang button.on{background:var(--m-gold);color:#14110a;font-weight:600}
+.hdr-cta{background:var(--m-gold);color:#14110a;font-size:14px;font-weight:600;padding:8px 18px;border-radius:999px;text-decoration:none;white-space:nowrap;transition:transform .2s,box-shadow .2s}
+.hdr-cta:hover{transform:translateY(-1px);box-shadow:0 8px 24px -8px rgba(201,164,92,.7)}
+@media(max-width:900px){.hdr-cta{display:none}}
+@media(min-width:901px){.header-inner{gap:18px}.hdr-tools{margin-right:0;order:3}}
+
+/* হিরো */
+.hero.hero-modern{min-height:100svh;display:flex;align-items:center;padding:120px 0 80px;position:relative;overflow:hidden;
+  background:radial-gradient(900px 600px at 78% 40%,#2a1f10,#0b0b0d 70%)}
+.hero-modern .hero-glow{position:absolute;inset:0;background:radial-gradient(500px 400px at 20% 90%,rgba(201,164,92,.08),transparent 70%);pointer-events:none}
+.hero-modern .hero-dust{opacity:.5}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;position:relative;z-index:2}
+.hero-modern .hero-inner{max-width:none}
+.hero-modern .hero-eyebrow{color:var(--m-gold);letter-spacing:.04em}
+.hero-modern .hero-name{font-size:clamp(52px,8.2vw,112px);line-height:1.05;margin:.15em 0 .1em;color:#f4efe4}
+.hero-modern .hero-name em{color:var(--m-gold);font-style:normal}
+.hero-modern .hero-en{color:var(--m-muted);letter-spacing:.12em;text-transform:uppercase;font-size:14px}
+.hero-modern .hero-tagline{max-width:34em;color:#cfc8ba;font-size:clamp(16px,1.6vw,19px);line-height:1.9;margin:22px 0 30px}
+.hero-modern .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.hero-books{position:relative;height:min(560px,62vw);min-height:340px}
+.hb{position:absolute;display:block;border-radius:6px;overflow:hidden;box-shadow:0 40px 70px -25px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.07);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.hb img{display:block;width:100%;height:100%;object-fit:cover}
+.hb-c{width:46%;aspect-ratio:300/440;left:27%;top:6%;z-index:3;animation:hbf 7s ease-in-out infinite}
+.hb-l{width:38%;aspect-ratio:300/440;left:0;top:20%;z-index:1;transform:rotate(-8deg);opacity:.95}
+.hb-r{width:38%;aspect-ratio:300/440;right:0;top:20%;z-index:2;transform:rotate(8deg);opacity:.95}
+.hero-books:hover .hb-l{transform:rotate(-11deg) translateX(-8px)}
+.hero-books:hover .hb-r{transform:rotate(11deg) translateX(8px)}
+@keyframes hbf{50%{transform:translateY(-12px)}}
+.hb-badge{position:absolute;top:10px;right:10px;background:var(--m-gold);color:#14110a;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px}
+.hb-card{position:absolute;z-index:4;left:50%;bottom:0;transform:translateX(-50%);width:min(78%,360px);display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:12px 14px 12px 18px;border-radius:16px;background:rgba(22,22,26,.82);border:1px solid var(--m-line);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.hb-card b{display:block;font-size:17px;color:#f4efe4}.hb-card small{color:var(--m-muted);font-size:13px}
+.hb-card a{background:var(--m-gold);color:#14110a;font-weight:600;font-size:14px;padding:8px 18px;border-radius:999px;text-decoration:none}
+@media(prefers-reduced-motion:reduce){.hb-c{animation:none}}
+@media(max-width:860px){
+  .hero.hero-modern{padding:96px 0 60px;min-height:auto;align-items:flex-start}
+  .hero-grid{grid-template-columns:1fr;gap:34px}
+  .hero-books{height:auto;aspect-ratio:1/1.08;min-height:0;width:min(100%,420px);margin:0 auto}
+}
+
+/* সেকশন: ডার্ক */
+.section,.section-tint,#intro,#biography,#writings,#gallery,#contact{background:var(--m-bg)!important;color:var(--m-text)}
+.section-tint,#biography,#gallery{background:var(--m-bg2)!important}
+#intro::before,#biography::before,#intro::after,#biography::after{display:none}
+.stats{background:var(--m-bg2);border-block:1px solid var(--m-line)}
+.stat-num{color:var(--m-gold)}.stat-label{color:var(--m-muted)}
+.marquee{background:var(--m-bg);border-color:var(--m-line)}
+h1,h2,h3,h4,#intro h2,#biography h2,.section-head h2{color:#f4efe4}
+.section-eyebrow,#intro .section-eyebrow,#biography .section-eyebrow{color:var(--m-gold)}
+#intro .section-head h2::after,#biography .section-head h2::after,.section-head h2::after{background:var(--m-gold)}
+#intro .lead,#intro .lead::first-letter,#intro .facts dd,#biography .bio-text,#biography .timeline-text,#biography .timeline-now .timeline-year{color:#e6e0d3}
+#intro .lead::first-letter,#biography .dropcap::first-letter,#biography .timeline-year,#biography .bio-quote,#intro .facts dt,#intro .portrait figcaption{color:var(--m-gold)}
+#intro .intro-text p:not(.lead):not(.section-eyebrow){color:#cfc8ba;border-left-color:rgba(201,164,92,.3)}
+#intro .intro-text p:not(.lead):not(.section-eyebrow):hover{border-left-color:var(--m-gold)}
+.ink{color:#f4efe4;background-image:linear-gradient(transparent 58%,rgba(201,164,92,.35) 58%)}
+#intro .facts{background:var(--m-card);border-top-color:var(--m-line);box-shadow:none;border-radius:14px}
+#intro .facts div{border-bottom-color:var(--m-line)}
+#intro .portrait-frame{border-color:rgba(201,164,92,.5);box-shadow:0 30px 60px -30px #000;border-radius:10px}
+#intro .portrait-frame::before{border-color:rgba(201,164,92,.25)}
+#intro .social a{background:var(--m-card);border-color:var(--m-line);color:var(--m-text)}
+#intro .social a:hover{background:var(--m-gold);color:#14110a;border-color:var(--m-gold)}
+#biography .timeline::before{background:linear-gradient(var(--m-gold),rgba(201,164,92,.1))}
+#biography .timeline li::before{background:var(--m-bg2);border-color:var(--m-gold)}
+.lead,p,li,dd,label,.contact-list,.field label{color:inherit}
+.muted,small{color:var(--m-muted)}
+.contact-form,.field input,.field textarea,.field select,input,textarea,select{background:var(--m-card);color:var(--m-text);border-color:var(--m-line)}
+.contact-form{border:1px solid var(--m-line);border-radius:16px}
+a{color:inherit}
+.btn{border-radius:999px}
+.btn-gold{background:var(--m-gold);color:#14110a}
+.btn-ghost,.btn-outline{border:1px solid rgba(201,164,92,.5);color:var(--m-text);background:transparent}
+.subscribe{background:var(--m-card)!important;color:var(--m-text)}
+.site-footer{background:#08080a;border-top:1px solid var(--m-line)}
+.card,.book-card,.writing-card,.search-box,.chip{border-radius:14px}
+.contact-list a{color:var(--m-text)}
+.contact-list a:hover{border-color:var(--m-gold)}
+.contact-list li{border-color:var(--m-line)}
