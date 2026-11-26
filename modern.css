@@ -85,3 +85,6 @@ a{color:inherit}
 .contact-list a{color:var(--m-text)}
 .contact-list a:hover{border-color:var(--m-gold)}
 .contact-list li{border-color:var(--m-line)}
+.cover-out{position:absolute;left:0;right:0;bottom:0;padding:6px 0;text-align:center;background:rgba(11,11,13,.85);color:#fff;font-size:13px;font-weight:700}
+.book:has(.cover-out) .book-cover img{filter:grayscale(.55) opacity(.8)}
+.btn-out{background:#1a1a1e!important;border:1px solid var(--m-line)!important;color:#7d776c!important;cursor:default;pointer-events:none}
