@@ -16,7 +16,7 @@ const BOOKS = grab("BOOKS");
 const EBOOKS = grab("EBOOKS");
 const SETS = grab("SETS");
 const AUTHOR = "আরিফ খন্দকার";
-const SITE = "https://authorarifkhandaker.com";
+const SITE = "https://arifkhandaker.com";
 const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const en = (t) => String(t || "").replace(/[০-৯]/g, (d) => "০১২৩৪৫৬৭৮৯".indexOf(d));
 const num = (t) => { const n = parseInt(en(t).replace(/[^0-9]/g, ""), 10); return Number.isFinite(n) ? n : 0; };
@@ -179,7 +179,7 @@ ${reviewSection(b)}
 <h2>${rel.length && rel.every((x) => x.genre === b.genre) ? "একই ধরনের আরও বই" : "আরও বই"}</h2>
 <div class="rel">${rel.map((x) => `<a href="/b/${x.slug}/"><img src="/${esc(x.cover)}" alt="${esc(x.title)}" loading="lazy"><b>${esc(x.title)}</b><small>${esc(x.genre)}${buyable(x) ? " · " + taka(num(x.price)) : ""}</small></a>`).join("")}</div>
 </main>
-<footer>© ${AUTHOR}। সর্বস্বত্ব সংরক্ষিত। · <a href="/">authorarifkhandaker.com</a> · <a href="/?from=books#books">বই জংশন (Boi Junction)</a></footer>
+<footer>© ${AUTHOR}। সর্বস্বত্ব সংরক্ষিত। · <a href="/">arifkhandaker.com</a> · <a href="/?from=books#books">বই জংশন (Boi Junction)</a></footer>
 <script src="/firebase-config.js?v=20261031a"></script>
 <script src="/reviews.js?v=20261031a"></script>
 <script>
