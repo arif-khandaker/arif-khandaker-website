@@ -91,3 +91,5 @@ a{color:inherit}
 .bj-brand{display:flex;justify-content:center;margin:0 0 28px}
 .bj-logo{display:block;background:#fff;border-radius:18px;padding:8px 18px;box-shadow:0 20px 50px -25px rgba(0,0,0,.8),0 0 0 1px rgba(201,164,92,.35)}
 .bj-logo img{display:block;width:min(320px,70vw);height:auto}
+/* লেখার নিচের হাইলাইট বন্ধ */
+mark,.ink,.is-visible .ink,.ink.is-visible{background:none!important;box-shadow:none!important;color:inherit;font-weight:inherit;padding:0}
