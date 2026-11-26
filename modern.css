@@ -88,3 +88,6 @@ a{color:inherit}
 .cover-out{position:absolute;left:0;right:0;bottom:0;padding:6px 0;text-align:center;background:rgba(11,11,13,.85);color:#fff;font-size:13px;font-weight:700}
 .book:has(.cover-out) .book-cover img{filter:grayscale(.55) opacity(.8)}
 .btn-out{background:#1a1a1e!important;border:1px solid var(--m-line)!important;color:#7d776c!important;cursor:default;pointer-events:none}
+.bj-brand{display:flex;justify-content:center;margin:0 0 28px}
+.bj-logo{display:block;background:#fff;border-radius:18px;padding:8px 18px;box-shadow:0 20px 50px -25px rgba(0,0,0,.8),0 0 0 1px rgba(201,164,92,.35)}
+.bj-logo img{display:block;width:min(320px,70vw);height:auto}
