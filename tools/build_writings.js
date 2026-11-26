@@ -13,7 +13,7 @@ const POEM_TYPES = (src.match(/const POEM_TYPES = (\[[^\]]*\])/) || [])[1];
 const poemTypes = POEM_TYPES ? new Function("return " + POEM_TYPES)() : ["কবিতা"];
 const isPoem = (w) => poemTypes.includes(w.type);
 const AUTHOR = "আরিফ খন্দকার";
-const SITE = "https://authorarifkhandaker.com";
+const SITE = "https://arifkhandaker.com";
 const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const items = WRITINGS.filter((w) => w.slug);
 
@@ -102,7 +102,7 @@ ${body(w)}
 </div>
 </main>
 ${others.length ? `<section class="more"><h2>আরও পড়ুন</h2>${others.map((x) => `<a class="card" href="/lekha/${x.slug}/"><span>${esc(x.type)}</span>${esc(x.title)}</a>`).join("")}</section>` : ""}
-<footer>© ${AUTHOR}। সর্বস্বত্ব সংরক্ষিত। · <a href="/">authorarifkhandaker.com</a></footer>
+<footer>© ${AUTHOR}। সর্বস্বত্ব সংরক্ষিত। · <a href="/">arifkhandaker.com</a></footer>
 <script>
 document.getElementById("copy").addEventListener("click",function(){var b=this,u=location.href;function ok(){b.textContent="লিংক কপি হয়েছে ✓";setTimeout(function(){b.textContent="লিংক কপি করুন"},2200)}
 if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(ok,function(){prompt("লিংক:",u)})}else{prompt("লিংক:",u)}});

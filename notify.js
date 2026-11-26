@@ -5,7 +5,7 @@
   try { on = localStorage.getItem("ak_admin") === "1"; } catch (e) {}
   if (!on || !window.AK_FIREBASE) return;
   var BN = "০১২৩৪৫৬৭৮৯", bn = function (s) { return String(s).replace(/\d/g, function (d) { return BN[d]; }); };
-  var ORDERS_ADMIN = "https://wwwboijunction.com/admin/";
+  var ORDERS_ADMIN = "https://boijunction.com/admin/";
   (async function () {
     try {
       var B = "https://www.gstatic.com/firebasejs/10.12.2/";
